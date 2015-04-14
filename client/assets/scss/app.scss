@@ -2,11 +2,19 @@
 @import "foundation";
 
 
+.content-area {
+    @include breakpoint(small only) {
+        @include grid-block(
+            $wrap: true
+        );
+    }
+}
+
 .front-map {
     @include breakpoint(small) {
         height: 400px;
     }
     @include breakpoint(medium) {
-        height: 100%;
+        height: inherit;
     }
 }

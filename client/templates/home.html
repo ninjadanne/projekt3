@@ -1,14 +1,15 @@
 ---
 name: listings
 url: /
-animationIn: hingeInFromMiddleY bounceInOut
-animationOut:  zoomOut bounceInOut
+animationIn: fadeIn easeInOut
+animationOut: fadeOut easeInOut
 ---
 
 <section  class="vertical grid-block"
 ng-init="skatespots = [
 {name: 'Stapelbäddsparken', images: ['/assets/img/spot_placeholder.jpg'], tags: ['halfpipe'], rating: '4', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''} ,
-{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
+{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '1', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
+{name: 'Orkanen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
 ]">
 
     <div class="grid-content">
@@ -62,7 +63,7 @@ ng-init="skatespots = [
                     </h3>
                 </div>
                 <div class="vertical">
-                    <p class="" ng-repeat="tag in spot.tags">
+                    <p class="label" ng-repeat="tag in spot.tags">
                         {{tag}}
                     </p>
                 </div>
