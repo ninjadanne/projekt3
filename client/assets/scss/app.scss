@@ -1,2 +1,12 @@
 @import "settings";
 @import "foundation";
+
+
+.front-map {
+    @include breakpoint(small) {
+        height: 200px;
+    }
+    @include breakpoint(medium) {
+        height: 100%;
+    }
+}
