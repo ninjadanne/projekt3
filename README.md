@@ -4,7 +4,7 @@ Det här är vårt projektarbete.
 
 ## Utvecklingsmiljö
 
-För att köra de lokala utvecklingsverktygen behöver Git, NodeJS, Bower och Ruby vara installerat.
+För att köra de lokala utvecklingsverktygen behöver Git, [NodeJS](https://nodejs.org/download/), [Bower](http://bower.io/#install-bower) och [Ruby](https://www.ruby-lang.org/en/downloads/) vara installerat.
 
 Paket som behövs för utvecklingsmiljön installeras från package.json och bower.json.
 
