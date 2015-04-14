@@ -44,3 +44,17 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+# NPM
+npm-debug.log
+node_modules/
+
+# Bower
+bower_components/
+
+# Gem
+Gemlock.file
+
+# Bygg-mappen
+build/
