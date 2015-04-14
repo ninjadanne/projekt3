@@ -7,26 +7,71 @@ animationOut:  zoomOut bounceInOut
 
 <section  class="vertical grid-block"
 ng-init="skatespots = [
-{name: 'Stapelbäddsparken', images: [], tags: ['halfpipe'], rating: '4', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''} ,
-{name: 'Centralen', images: [], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
+{name: 'Stapelbäddsparken', images: ['/assets/img/spot_placeholder.jpg'], tags: ['halfpipe'], rating: '4', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''} ,
+{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
 ]">
 
     <div class="grid-content">
-        <h2 class="text-center">Skatespots</h2>
-        <p class="subheader">A list of skatespots</p>
-    </div>
+        <h2>Skatespots</h2>
+        <p>A list of skatespots</p>
+
+    <form>
+
+        <div class="grid-block">
+
+        <div class="small-12 medium-6 grid-content">
+            <label>Sortera efter</label>
+            <select name="sortingType" id="sortingType">
+                <option value="name">Namn</option>
+                <option value="distance">Avstånd</option>
+                <option value="category">Kategori</option>
+                <option value="rating">Betyg</option>
+            </select>
+        </div>
+
+        <div class="small-12 medium-6 grid-content">
+            <label>Filtrera</label>
+            <select name="filterCategory" id="filterCategory">
+                <option value="grinds">Grinds</option>
+                <option value="halfpipes">Halfpipes</option>
+                <option value="skatepark">Skatepark</option>
+            </select>
+        </div>
+
+        <div class="small-12 medium-6 grid-content">
+            <input id="sortAscending" type="radio" name="sortingOrder"><label for="sortAscending">Stigande</label>
+            <input id="sortDescending" type="radio" name="sortingOrder"><label for="sortDescending">Fallande</label>
+        </div>
+
+        <div class="small-12 medium-6 grid-content">
+            <button class="button float-right">Skicka</button>
+        </div>
+
+        </div>
+    </form>
 
     <div class="grid-content" ng-repeat="spot in skatespots">
-        <div>
-            <img src="">
-        <div>
-        <h3>
-            {{spot.name}}
-            <span clas="badge align-right">{{spot.rating}}</span>
-        </h3>
-    </div>
+        <div class="grid-block">
+            <div class="medium-4">
+                <img src="{{spot.images[0]}}">
+            </div>
+            <div class="medium-offset-1 medium-6">
+                <div class="vertical">
+                    <h3>
+                        {{spot.name}} <span class="badge float-right">{{spot.rating}}</span>
+                    </h3>
+                </div>
+                <div class="vertical">
+                    <p class="" ng-repeat="tag in spot.tags">
+                        {{tag}}
+                    </p>
+                </div>
+            </div>
+        </div>
 
-    <div class="card-section">
-        <p>{{spot.description}}</p>
-    </div>
+        <div class="grid-block">
+            <p>{{spot.description}}</p>
+        </div>
+    <div>
+
 </div>
