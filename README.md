@@ -1,36 +1,19 @@
 # Projekt 3
 
-Det här är vårt examensprojekt
+Det här är vårt projektarbete.
 
-## Utvecklingsmiljö
+För att köra de lokala utvecklingsverktygen behöver Git, NodeJS, Bower och Ruby vara installerat.
 
-Utvecklingsmiljön kräver Git, NodeJS, Bower och Ruby. Om dessa är installerade så behöver du först installera dependencies och hämta hem paket som applikationen använder.
+Paket som behövs för utvecklingsmiljön installeras från package.json och bower.json.
 
-1. Installera Node-komponenter
+För att installera Node-moduler kör nedanstående kommando
 
 ```
 npm install
 ```
 
-Ett antal Node-komponenter kommer att installeras
-
-2. Installera Bower-paket
+För att installera Bower-komponenter kör nedanstående kommando
 
 ```
 bower install
 ```
-
-Ett antal Bower-paket kommer att laddas ner
-
-## Starta applikationen
-
-För att starta applikationen behöver du köra kommandot nedan
-
-```
-npm start
-```
-
-Detta kommer att bygga applikationen (i build-mappen) och öppna ett webbläsarfönster som automatiskt uppdateras vid ändringar
-
-
-
