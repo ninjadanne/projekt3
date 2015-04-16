@@ -1,34 +1,37 @@
 (function() {
-  'use strict';
+    'use strict';
 
-  angular.module('application', [
-    'ui.router',
-    'ngAnimate',
+    angular
+    .module('application', [
+        'ui.router',
+        'ngAnimate',
+        'ngResource',
 
-    //foundation
-    'foundation',
-    'foundation.dynamicRouting',
-    'foundation.dynamicRouting.animations'
-  ])
+        //foundation
+        'foundation',
+        'foundation.dynamicRouting',
+        'foundation.dynamicRouting.animations',
+
+        // Skate
+        'googleMaps'
+      ])
     .config(config)
-    .run(run)
-  ;
+    .run(run);
 
-  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+    config.$inject = ['$urlRouterProvider', '$locationProvider'];
 
-  function config($urlProvider, $locationProvider) {
+    function config($urlProvider, $locationProvider) {
     $urlProvider.otherwise('/');
 
     $locationProvider.html5Mode({
-      enabled:false,
-      requireBase: false
+        enabled: false,
+        requireBase: false
     });
 
     $locationProvider.hashPrefix('!');
-  }
+    }
 
-  function run() {
-    FastClick.attach(document.body);
-  }
-
+    function run() {
+        FastClick.attach(document.body);
+    }
 })();

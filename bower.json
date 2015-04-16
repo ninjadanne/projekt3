@@ -1,19 +1,27 @@
 {
-  "name": "foundation-apps-template",
-  "version": "1.1.0",
+  "name": "projekt3",
+  "version": "0",
   "authors": [
-    "ZURB"
+    "Patrik Hellstrand",
+    "Daniel Swenson",
+    "Emma Gillberg",
+    "Fredrik Hall"
   ],
-  "description": "Template project for Foundation for Apps by ZURB.",
+  "description": "Vårt examensprojekt",
   "main": "gulpfile.js",
   "keywords": [
-    "framework",
+    "examen",
+    "projekt",
+    "examensprojekt",
     "angular",
-    "web",
-    "apps"
+    "foundation",
+    "foundation-apps",
+    "skate",
+    "skaterbrain",
+    "skatespots"
   ],
   "license": "MIT",
-  "homepage": "http://foundation.zurb.com",
+  "homepage": "",
   "private": true,
   "ignore": [
     "**/.*",
@@ -23,6 +31,7 @@
     "tests"
   ],
   "dependencies": {
-    "foundation-apps": "~1.1.0"
+    "foundation-apps": "~1.1.0",
+    "angular-google-maps": "~2.1.0"
   }
 }
