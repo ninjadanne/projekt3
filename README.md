@@ -27,3 +27,7 @@ För att starta utvecklingsmiljön körs nedanstående kommando
 ```
 npm start
 ```
+
+## Bygget
+
+När applikationen byggs så lägger sig bygget i mappen som heter build. Om utvecklingsmiljön används så startar node en webbserver där applikationen kan visas.
