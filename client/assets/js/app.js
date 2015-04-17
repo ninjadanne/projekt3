@@ -13,7 +13,8 @@
         'foundation.dynamicRouting.animations',
 
         // Skate
-        'googleMaps'
+        'googleMaps',
+        'placeService'
       ])
     .config(config)
     .run(run);
