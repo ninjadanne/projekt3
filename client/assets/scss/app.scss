@@ -1,9 +1,41 @@
 @import "settings";
 @import "foundation";
+@import "place";
 
 /* Ugly haxx. The map is never removed. The content gets a background color so that the map is not revealed */
 .main-content > .grid-block > * {
     background: #fff;
+}
+
+.title-bar {
+
+    a {
+        color: #fff;
+    }
+
+}
+
+.circle {
+    border-radius: 50%;
+    background-color: $purple;
+    cursor: pointer;
+    height:50px;
+    width:50px;
+    display:table-cell;
+    vertical-align:middle;
+
+    img {
+        display:table-cell;
+        vertical-align:middle;
+        margin:0 auto;
+    }
+
+    &:hover {
+
+        background-color: scale-color($purple, $lightness: -15%);
+
+    }
+
 }
 
 .angular-google-map {
