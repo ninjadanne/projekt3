@@ -48,8 +48,8 @@ $include-css: (
 //   forms: true,
 //   grid: true,
 //   iconic: true,
-  label: true,
-  badge: true,
+//   label: true,
+//   badge: true,
 //   list: true,
 //   menu-bar: true,
 //   modal: true,
@@ -90,7 +90,7 @@ $include-css: (
 // $font-weight-bold: bold;
 
 // We use these to control various global styles
-// $body-background: #fff;
+$body-background: #e9e6e1;
 // $body-font-color: #222;
 // $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
@@ -98,7 +98,7 @@ $include-css: (
 // $body-antialiased: true;
 
 // Application Colors
-// $primary-color: #00558b;
+$primary-color: #a02971;
 // $secondary-color: #f1f1f1;
 // $alert-color: #F04124;
 // $info-color: #A0D3E8;
@@ -108,6 +108,9 @@ $include-css: (
 // $gray: #dfdfdf;
 // $gray-dark: darken($gray, 8);
 // $gray-light: lighten($gray, 8);
+$red: #eb1f07;
+$dark-red: #d31c06;
+$purple: #9f2870;
 
 // We use these to make sure border radius matches unless we want it different.
 // $global-radius: 4px;
@@ -424,7 +427,7 @@ $include-css: (
 // - - - - - - - - - - - - - - -
 
 // $menubar-fontsize: 1rem;
-// $menubar-background: #fff;
+$menubar-background: #eb1f07;
 // $menubar-background-hover: smartscale($menubar-background, 7%);
 // $menubar-background-active: $menubar-background-hover;
 // $menubar-color: isitlight($menubar-background);
@@ -602,9 +605,9 @@ $include-css: (
 
 // $titlebar-center-width: 50%;
 // $titlebar-side-width: (100% - $titlebar-center-width) / 2;
-// $titlebar-background: #eee;
+$titlebar-background: $red;
 // $titlebar-color: #000;
-// $titlebar-border: 1px solid #ccc;
+$titlebar-border: 1px solid $dark-red;
 // $titlebar-padding: $global-padding;
 // $titlebar-item-classes: (
 //   center: 'center',
