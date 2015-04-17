@@ -1,0 +1,39 @@
+@include breakpoint(small only) {
+    div.angular-google-map-container {
+        height: 100%;
+        width: 100%;
+        display: block;
+        clear: both;
+    }
+    div.map-holder {
+        height: 50%;
+        width: 100%;
+        position: absolute;
+    }
+    div.front-tiles {
+        position: absolute;
+        height: 50%;
+        bottom: 0;
+    }
+}
+
+.tile > h4 {
+    margin: auto;
+    text-align: center;
+}
+
+.tile-1 {
+    background: $primary-color;
+}
+
+.tile-2 {
+    background: $secondary-color;
+}
+
+.tile-3 {
+    background: $secondary-color;
+}
+
+.tile-4 {
+    background: $primary-color;
+}

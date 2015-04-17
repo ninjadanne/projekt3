@@ -1,88 +1,29 @@
 ---
-name: listings
+name: start
 url: /
-animationIn: fadeIn easeInOut
-animationOut: fadeOut easeInOut
+<!-- animationIn: fadeIn easeInOut
+animationOut: fadeOut easeInOut -->
 ---
 
-<section  class="vertical grid-block">
+<section  class="grid-block" ng-init="">
 
-    <div class="grid-content">
-        <h2>Skatespots</h2>
-        <p>A list of skatespots</p>
+    <div class="grid block show-for-medium">
+        <span class="label">1</span>
+    </div>
 
-    <form>
-
-        <div class="grid-block">
-
-        <div class="small-12 medium-6 grid-content">
-            <label>Sortera efter</label>
-            <select name="sortingType" id="sortingType">
-                <option value="name">Namn</option>
-                <option value="distance">Avstånd</option>
-                <option value="category">Kategori</option>
-                <option value="rating">Betyg</option>
-            </select>
+    <div class="grid-block show-for-small-only small-up-2 front-tiles">
+        <div class="front-tile tile tile-1 grid-block">
+            <h4>Topp 10</h4>
         </div>
-
-        <div class="small-12 medium-6 grid-content">
-            <label>Filtrera</label>
-            <select name="filterCategory" id="filterCategory">
-                <option value="grinds">Grinds</option>
-                <option value="halfpipes">Halfpipes</option>
-                <option value="skatepark">Skatepark</option>
-            </select>
+        <div class="front-tile tile tile-2 grid-block">
+            <h4>Mest kommenterat</h4>
         </div>
-
-        <div class="small-12 medium-6 grid-content">
-            <input id="sortAscending" type="radio" name="sortingOrder"><label for="sortAscending">Stigande</label>
-            <input id="sortDescending" type="radio" name="sortingOrder"><label for="sortDescending">Fallande</label>
+        <div class="front-tile tile tile-3 grid-block">
+            <h4>Flest incheckningar</h4>
         </div>
-
-        <div class="small-12 medium-6 grid-content">
-            <button class="button float-right">Skicka</button>
+        <div class="front-tile tile tile-4 grid-block">
+            <h4>Bäst Grinds</h4>
         </div>
-
-        <div class="small-12 medium-6 grid-content">
-            <div class="circle">
-                <img src="/assets/img/icons/bubble.png">
-            </div>
-            <div class="circle">
-                <img src="/assets/img/icons/bubble-plus.png">
-            </div>
-            <div class="circle">
-                <img src="/assets/img/icons/fix-position.png">
-            </div>            
-            <div class="circle">
-                <img src="/assets/img/icons/pin-check.png">
-            </div>
-        </div>
-
-        </div>
-    </form>
-
-    <div class="grid-content" ng-repeat="spot in skatespots">
-        <div class="grid-block">
-            <div class="medium-4">
-                <img src="{{spot.images[0]}}">
-            </div>
-            <div class="medium-offset-1 medium-6">
-                <div class="vertical">
-                    <h3>
-                        {{spot.name}} <span class="badge float-right">{{spot.rating}}</span>
-                    </h3>
-                </div>
-                <div class="vertical">
-                    <p class="label tag" ng-repeat="tag in spot.tags">
-                        {{tag}}
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid-block">
-            <p>{{spot.description}}</p>
-        </div>
-    <div>
+    </div>
 
 </div>
