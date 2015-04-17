@@ -1,7 +1,6 @@
 @import "settings";
 @import "foundation";
 
-
 .content-area {
     @include breakpoint(small only) {
         @include grid-block(
@@ -18,9 +17,11 @@
 .angular-google-map-container {
     width: 100%;
     min-height: 400px;
+
     img {
         max-width: none;
     }
+
 }
 
 .tag {
