@@ -1,6 +1,7 @@
 @import "settings";
 @import "foundation";
 @import "place";
+@import "home";
 
 /* Ugly haxx. The map is never removed. The content gets a background color so that the map is not revealed */
 .main-content > .grid-block > * {
