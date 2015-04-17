@@ -44,8 +44,10 @@ var paths = {
   ],
   // These files are for your app's JavaScript
   appJS: [
+    'bower_components/angular-resource/angular-resource.min.js',
     'bower_components/lodash/dist/lodash.min.js',
     'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
+    'client/assets/js/place.js',
     'client/assets/js/map.js',
     'client/assets/js/app.js'
   ]
