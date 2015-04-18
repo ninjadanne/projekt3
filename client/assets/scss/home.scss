@@ -22,18 +22,10 @@
     text-align: center;
 }
 
-.tile-1 {
+.tile-1, .tile-4 {
     background: $primary-color;
 }
 
-.tile-2 {
+.tile-2, .tile-3 {
     background: $secondary-color;
-}
-
-.tile-3 {
-    background: $secondary-color;
-}
-
-.tile-4 {
-    background: $primary-color;
 }
