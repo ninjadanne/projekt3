@@ -14,7 +14,7 @@
 
         // Skate
         'googleMaps',
-        'placeService'
+        // 'placeService'
       ])
     .config(config)
     .run(run);
