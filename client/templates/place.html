@@ -4,37 +4,69 @@ url: /place
 animationIn: hingeInFromMiddleY bounceInOut
 animationOut:  zoomOut bounceInOut
 ---
-<div class=" grid-block small-12">
-  <!-- Add search bar -->
-</div>
-	
 
-<div id="slider">
-    <img src="/assets/img/spot_placeholder.jpg" alt="Platshållare för bildspel">
-</div>
-<div class="grid-block">
-<div id="sidebar" class="small-10 grid-block"></div>
-<div id="main" class="small-2 grid-block">BETYG</div>
-</div>
-<div>
-	<h1>Stapelbäddsparken</h1>
-	<h3>RAMP</h3>
-	<p>Beskrivning på plats kommer här. Stapelbäddsparken ligger i Malmö och är jätterolig att åka skateboard på. Det finns väldigt många trevliga människor i alla olika åldrar. Vill du köpa knark är det också ett bra ställe. Ner med patriarket!</p>
-</div>
-<div>
-	<p>X incheckningar just nu (14.534 totalt)
-</div>
+<section class="grid-block">
 
-<div>
-	<h3>Kommentarer</h3>
-	<div>Lorem ipsum</div>
-	<div>Lorem ipsum</div>
-	<div>Lorem ipsum</div>
-	<div>Lorem ipsum</div>
-	<div>Lorem ipsum</div>
-	<div>Lorem ipsum</div>
-	<div>Lorem ipsum</div>
-</div>
+    <!-- <div class="grid-content small-12" ng-repeat="place in places"> -->
+    <div class="grid-content small-12">
+        <div class="grid-block">
+            <div class="small-12">
+                <!-- <img src="image" ng-repeat="image in place.images"> -->
+                <img src="assets/img/spot_placeholder.jpg">
+                <img src="assets/img/spot_placeholder.jpg">
+            </div>
+        </div>
+        <div class="small-12">
+            <h2 class="small-12">
+                <!-- {{place.name}} <span class="badge float-right">{{place.rating}}</span> -->
+                Stapelbäddsparken <small><span class="badge float-right">4</span></small>
+            </h2>
+        </div>
+        <div class="small-12">
+            <p class="label tag" ng-repeat="tag in place.tags">
+                <!-- {{tag}} -->
+                Ramp
+            </p>
+        </div>
 
+        <div class="small-12">
+            <!-- <p>{{place.description}}</p> -->
+            <p>
+                Beskrivning på plats kommer här. Stapelbäddsparken ligger i Malmö och är jätterolig att åka skateboard på. Det finns väldigt många trevliga människor i alla olika åldrar. Vill du köpa knark är det också ett bra ställe. Ner med patriarket!
+            </p>
+        </div>
 
+        <div class="small-12">
+            <p>X incheckningar just nu (Y totalt)</p>
+            <!-- <p>{{place.checkinsNow}} incheckningar just nu ({{place.checkinsTotal totalt}})</p> -->
+        </div>
 
+        <div class="small-12">
+            <div class="small-12">
+                <h3>Kommentarer</h3>
+            </div>
+<!--             <div class="small 12" ng-repeat="comment in place.comments">
+                <p>{{comment.body}}</p>
+            </div> -->
+            <div class="small-12">
+                <p>Lorem Ipsum</p>
+            </div>
+            <div class="small-12">
+                <p>Ipsum Lorem</p>
+            </div>
+            <div class="small-12">
+                <p>Schnorem lorem</p>
+            </div>
+            <div class="small-12">
+                <p>Ipsum schnipsum</p>
+            </div>
+            <div class="small-12">
+                <p>P-Diddy</p>
+            </div>
+            <div class="small-12">
+                <p>Jabbadabbadoo</p>
+            </div>
+        </div>
+    </div>
+
+</section>

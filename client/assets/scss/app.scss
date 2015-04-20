@@ -1,4 +1,5 @@
 @import "settings";
+@import "map";
 @import "foundation";
 @import "place";
 @import "home";
@@ -35,27 +36,6 @@
 
         background-color: scale-color($purple, $lightness: -15%);
 
-    }
-
-}
-
-.map-holder {
-    z-index: 10000;
-}
-
-.angular-google-map {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-}
-
-.angular-google-map-container {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-
-    img {
-        max-width: none;
     }
 
 }
