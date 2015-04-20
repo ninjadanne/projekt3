@@ -12,7 +12,12 @@
 <script src="/assets/js/app.js"></script>
 </head>
 
-<body>
+<body ng-init="places = [
+            {name: 'Stapelbäddsparken', images: ['/assets/img/spot_placeholder.jpg'], tags: ['halfpipe'], rating: '4', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''} ,
+            -{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
+            +{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '1', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
+            +{name: 'Orkanen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
+            ]">
     <div class="grid-frame vertical">
         <div class="grid-block shrink wrap">
             <div class="grid-content collapse small-12 medium-7">
@@ -29,12 +34,7 @@
         </div>
 
         <div class="content-area grid-block">
-            <div class="map-holder grid-block medium-7 small-12" ng-controller="mapController" ng-init="skatespots = [
-            {name: 'Stapelbäddsparken', images: ['/assets/img/spot_placeholder.jpg'], tags: ['halfpipe'], rating: '4', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''} ,
-            -{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
-            +{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '1', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
-            +{name: 'Orkanen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
-            ]">
+            <div class="map-holder grid-block medium-7 small-12" ng-controller="mapController">
                 <ui-gmap-google-map center='map.center' zoom='map.zoom' class="front-map"></ui-gmap-google-map>
             </div>
 

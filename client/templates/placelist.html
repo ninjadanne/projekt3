@@ -8,8 +8,8 @@ animationOut: fadeOut easeInOut
 <section  class="vertical grid-block">
 
     <div class="grid-content">
-        <h2>Skatespots</h2>
-        <p>A list of skatespots</p>
+        <h2>Skateplaces</h2>
+        <p>A list of skateplaces</p>
 
     <form>
 
@@ -46,19 +46,19 @@ animationOut: fadeOut easeInOut
         </div>
     </form>
 
-    <div class="grid-content" ng-repeat="spot in skatespots">
+    <div class="grid-content" ng-repeat="place in places">
         <div class="grid-block">
             <div class="medium-4">
-                <img src="{{spot.images[0]}}">
+                <img src="{{place.images[0]}}">
             </div>
             <div class="medium-offset-1 medium-6">
                 <div class="vertical">
                     <h3>
-                        {{spot.name}} <span class="badge float-right">{{spot.rating}}</span>
+                        {{place.name}} <span class="badge float-right">{{place.rating}}</span>
                     </h3>
                 </div>
                 <div class="vertical">
-                    <p class="label tag" ng-repeat="tag in spot.tags">
+                    <p class="label tag" ng-repeat="tag in place.tags">
                         {{tag}}
                     </p>
                 </div>
@@ -66,7 +66,7 @@ animationOut: fadeOut easeInOut
         </div>
 
         <div class="grid-block">
-            <p>{{spot.description}}</p>
+            <p>{{place.description}}</p>
         </div>
     <div>
 
