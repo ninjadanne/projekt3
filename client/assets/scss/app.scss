@@ -39,6 +39,10 @@
 
 }
 
+.map-holder {
+    z-index: 10000;
+}
+
 .angular-google-map {
     height: 100%;
     width: 100%;
