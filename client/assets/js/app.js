@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular
+    var app = angular
     .module('application', [
         'ui.router',
         'ngAnimate',
@@ -14,7 +14,7 @@
 
         // Skate
         'googleMaps',
-        // 'placeService'
+        'placeService'
       ])
     .config(config)
     .run(run);
