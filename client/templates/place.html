@@ -7,6 +7,14 @@ animationOut:  zoomOut bounceInOut
 
 <section class="grid-block" ng-init="place = {
         name: 'Stapelbäddsparken',
+        images: [
+            {
+                src: 'assets/img/spot_placeholder.jpg'
+            },
+            {
+                src: 'assets/img/spot_placeholder.jpg'
+            }
+        ],
         rating: '4',
         tags: ['Ramp'],
         description: 'Beskrivning på plats kommer här. Stapelbäddsparken ligger i Malmö och är jätterolig att åka skateboard på. Det finns väldigt många trevliga människor i alla olika åldrar. Vill du köpa knark är det också ett bra ställe. Ner med patriarket!',
@@ -31,13 +39,10 @@ animationOut:  zoomOut bounceInOut
         ]
     }" ng-app="application">
 
-    <!-- <div class="grid-content small-12" ng-repeat="place in places"> -->
     <div class="grid-content small-12">
         <div class="grid-block">
             <div class="small-12">
-                <!-- <img src="image" ng-repeat="image in place.images"> -->
-                <img src="assets/img/spot_placeholder.jpg">
-                <img src="assets/img/spot_placeholder.jpg">
+                <img src="{{image.src}}" ng-repeat="image in place.images">
             </div>
         </div>
         <div class="small-12">
