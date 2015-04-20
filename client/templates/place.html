@@ -5,7 +5,31 @@ animationIn: hingeInFromMiddleY bounceInOut
 animationOut:  zoomOut bounceInOut
 ---
 
-<section class="grid-block">
+<section class="grid-block" ng-init="place = {
+        name: 'Stapelbäddsparken',
+        rating: '4',
+        tags: ['Ramp'],
+        description: 'Beskrivning på plats kommer här. Stapelbäddsparken ligger i Malmö och är jätterolig att åka skateboard på. Det finns väldigt många trevliga människor i alla olika åldrar. Vill du köpa knark är det också ett bra ställe. Ner med patriarket!',
+        checkinsNow: '4',
+        checkinsTotal: '434',
+        comments: [
+            {
+                user: 'A user',
+                dateTime: '2015-04-01 12:00:00',
+                comment: 'April, april!'
+            },
+            {
+                user: 'Another user',
+                dateTime: '2015-04-01 13:00:00',
+                comment: 'Sluta luras!'
+            },
+            {
+                user: 'John Doe',
+                dateTime: '2015-04-01 13:37:00',
+                comment: 'Grymt ställe!'
+            }
+        ]
+    }" ng-app="application">
 
     <!-- <div class="grid-content small-12" ng-repeat="place in places"> -->
     <div class="grid-content small-12">
@@ -18,53 +42,35 @@ animationOut:  zoomOut bounceInOut
         </div>
         <div class="small-12">
             <h2 class="small-12">
-                <!-- {{place.name}} <span class="badge float-right">{{place.rating}}</span> -->
-                Stapelbäddsparken <small><span class="badge float-right">4</span></small>
+                {{place.name}}
+                <small><span class="badge float-right">{{place.rating}}</span></small>
             </h2>
         </div>
         <div class="small-12">
             <p class="label tag" ng-repeat="tag in place.tags">
-                <!-- {{tag}} -->
-                Ramp
+                {{tag}}
             </p>
         </div>
 
         <div class="small-12">
-            <!-- <p>{{place.description}}</p> -->
-            <p>
-                Beskrivning på plats kommer här. Stapelbäddsparken ligger i Malmö och är jätterolig att åka skateboard på. Det finns väldigt många trevliga människor i alla olika åldrar. Vill du köpa knark är det också ett bra ställe. Ner med patriarket!
-            </p>
+            <p>{{place.description}}</p>
         </div>
 
         <div class="small-12">
-            <p>X incheckningar just nu (Y totalt)</p>
-            <!-- <p>{{place.checkinsNow}} incheckningar just nu ({{place.checkinsTotal totalt}})</p> -->
+            <p>{{place.checkinsNow}} incheckningar just nu ({{place.checkinsTotal}} totalt)</p>
         </div>
 
         <div class="small-12">
             <div class="small-12">
                 <h3>Kommentarer</h3>
             </div>
-<!--             <div class="small 12" ng-repeat="comment in place.comments">
-                <p>{{comment.body}}</p>
-            </div> -->
-            <div class="small-12">
-                <p>Lorem Ipsum</p>
-            </div>
-            <div class="small-12">
-                <p>Ipsum Lorem</p>
-            </div>
-            <div class="small-12">
-                <p>Schnorem lorem</p>
-            </div>
-            <div class="small-12">
-                <p>Ipsum schnipsum</p>
-            </div>
-            <div class="small-12">
-                <p>P-Diddy</p>
-            </div>
-            <div class="small-12">
-                <p>Jabbadabbadoo</p>
+            <div class="card small-12" ng-repeat="comment in place.comments">
+                <div class="card-divider">
+                    {{comment.user}} <span class="float-right"><small>{{comment.dateTime}}</small></span>
+                </div>
+                <div class="card-section">
+                    {{comment.comment}}
+                </div>
             </div>
         </div>
     </div>
