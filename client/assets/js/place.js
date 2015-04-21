@@ -1,11 +1,20 @@
 (function() {
-    var placeService = angular.module('placeService', []);
-    placeService.controller('getPlaces', function($scope, $http) {
-        $http.get('http://manu.fhall.se/p3/place')
-        .success(function(data, status, headers, config) {
-            $scope.places = data;
-        })
-        .error(function(data, status, headers, config) {
-        });
+    var placeApp = angular.module('placeApp', []);
+    placeApp.factory('placeService', function($http, $q) {
+        return {
+            getPlaces: function() {
+                var dfr = $q.defer();
+                var places;
+                $http.get('http://manu.fhall.se/p3/place').success(function(data) {
+                    dfr.resolve(data);
+                });
+                return dfr.promise; // Return a promise
+            }
+        };
     });
+    placeApp.controller('getPlaces', ['$scope', '$http', 'placeService', function($scope, $http, placeService) {
+        placeService.getPlaces().then(function(data) {
+            $scope.places = data;
+        });
+    }]);
 })();

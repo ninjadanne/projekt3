@@ -15,7 +15,7 @@
         // Skate
         'angular-carousel',
         'googleMaps',
-        'placeService'
+        'placeApp'
       ])
     .config(config)
     .run(run);

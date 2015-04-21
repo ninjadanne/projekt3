@@ -5,46 +5,14 @@ animationIn: fadeIn easeInOut
 animationOut: fadeOut easeInOut
 ---
 
-<section  class="vertical grid-block" ng-app="placeService" ng-controller="getPlaces">
+<section class="vertical grid-block" ng-app="placeApp" ng-controller="getPlaces">
 
     <div class="grid-content">
+
+        <ng-include src="'templates/sortfilter.html'"></ng-include>
+
         <h2>Skateplaces</h2>
         <p>A list of skateplaces</p>
-
-    <form>
-
-        <div class="grid-block">
-
-        <div class="small-12 medium-6 grid-content">
-            <label>Sortera efter</label>
-            <select name="sortingType" id="sortingType">
-                <option value="name">Namn</option>
-                <option value="distance">Avstånd</option>
-                <option value="category">Kategori</option>
-                <option value="rating">Betyg</option>
-            </select>
-        </div>
-
-        <div class="small-12 medium-6 grid-content">
-            <label>Filtrera</label>
-            <select name="filterCategory" id="filterCategory">
-                <option value="grinds">Grinds</option>
-                <option value="halfpipes">Halfpipes</option>
-                <option value="skatepark">Skatepark</option>
-            </select>
-        </div>
-
-        <div class="small-12 medium-6 grid-content">
-            <input id="sortAscending" type="radio" name="sortingOrder"><label for="sortAscending">Stigande</label>
-            <input id="sortDescending" type="radio" name="sortingOrder"><label for="sortDescending">Fallande</label>
-        </div>
-
-        <div class="small-12 medium-6 grid-content">
-            <button class="button float-right">Skicka</button>
-        </div>
-
-        </div>
-    </form>
 
     <div class="grid-content" ng-repeat="place in places">
         <div class="grid-block">
