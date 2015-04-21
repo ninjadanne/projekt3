@@ -12,7 +12,7 @@ animationOut:  zoomOut bounceInOut
                 src: 'assets/img/spot_placeholder.jpg'
             },
             {
-                src: 'assets/img/spot_placeholder.jpg'
+                src: 'assets/img/spot_placeholder2.jpg'
             }
         ],
         rating: '4',
@@ -42,7 +42,13 @@ animationOut:  zoomOut bounceInOut
     <div class="grid-content small-12">
         <div class="grid-block">
             <div class="small-12">
-                <img src="{{image.src}}" ng-repeat="image in place.images">
+
+                <ul rn-carousel class="rn-carousel">
+                  <li>slide #1</li>
+                  <li>slide #2</li>
+                  <li>slide #3</li>
+                </ul>
+
             </div>
         </div>
         <div class="small-12">
