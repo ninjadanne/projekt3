@@ -13,6 +13,7 @@
         'foundation.dynamicRouting.animations',
 
         // Skate
+        'angular-carousel',
         'googleMaps',
         'placeService'
       ])
