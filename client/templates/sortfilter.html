@@ -1,0 +1,50 @@
+---
+name: sortfilter
+url: /sortfilter
+animationIn: fadeIn easeInOut
+animationOut: fadeOut easeInOut
+---
+
+<section  class="grid-block">
+
+    <div class="grid-content small-12">
+        <h2>Sortera &amp; filtrera</h2>
+
+        <!-- INNEHÅLL -->
+    <form>
+
+        <div class="grid-block">
+
+        <div class="small-12 medium-6 grid-content">
+            <label>Sortera efter</label>
+            <select name="sortingType" id="sortingType">
+                <option value="name">Namn</option>
+                <option value="distance">Avstånd</option>
+                <option value="category">Kategori</option>
+                <option value="rating">Betyg</option>
+            </select>
+        </div>
+
+        <div class="small-12 medium-6 grid-content">
+            <label>Filtrera</label>
+            <select name="filterCategory" id="filterCategory">
+                <option value="grinds">Grinds</option>
+                <option value="halfpipes">Halfpipes</option>
+                <option value="skatepark">Skatepark</option>
+            </select>
+        </div>
+
+        <div class="small-12 medium-6 grid-content">
+            <input id="sortAscending" type="radio" name="sortingOrder"><label for="sortAscending">Stigande</label>
+            <input id="sortDescending" type="radio" name="sortingOrder"><label for="sortDescending">Fallande</label>
+        </div>
+
+        <div class="small-12 medium-6 grid-content">
+            <button class="button float-right">Skicka</button>
+        </div>
+
+        </div>
+    </form>
+    <div>
+
+</section>
