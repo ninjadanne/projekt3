@@ -29,11 +29,13 @@
     div.map-holder {
         height: 50%;
         width: 100%;
+        display: none;
         position: absolute;
     }
     div.front-tiles {
         position: absolute;
         height: 50%;
         bottom: 0;
+        display: none;
     }
 }
