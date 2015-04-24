@@ -16,12 +16,19 @@
 </head>
 
 <body>
+
+
+<div zf-offcanvas="" id="menu" position="right">
+<a zf-close="" class="close-button">×</a>
+<div ng-include="'/templates/menu.html'"></div>
+</div>
+
     <div class="grid-frame vertical">
         <div class="grid-block shrink wrap">
             <div class="grid-content collapse small-12 medium-7">
                 <div class="title-bar">
                     <span class="left title"><a href="#">GrindFind</a></span>
-                    <span class="right hide-for-medium"><a href="#">≡</a></span>
+                    <span class="right hide-for-medium"><a href="#" zf-open="menu"><img src="assets/img/icons/menu.png"></a></span>
                 </div>
             </div>
             <div class="grid-content collapse medium-5 hide-for-small-only">
