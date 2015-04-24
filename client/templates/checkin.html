@@ -11,21 +11,21 @@ animationOut: fadeOut easeInOut
 
         <ng-include src="'templates/sortfilter.html'"></ng-include>
 
-        <h2>Skateplaces</h2>
-        <p>A list of skateplaces</p>
+        <h2>Checka in!</h2>
+        <p>Berätta för dina vänner var du är!</p>
 
     <div class="grid-content" ng-repeat="place in places">
         <div class="grid-block">
             <div class="medium-4">
-                <img src="{{place.images[0]}}">
+                <img src="{{place.images[0].uri}}">
             </div>
             <div class="medium-offset-1 medium-6">
                 <div>
                     <h3>
-                        {{place.name}} <small><span class="badge float-right">{{place.rating}}</span></small>
+                        {{place.title}} <small><span class="badge float-right">{{place.rating}}</span></small>
                     </h3>
                 </div>
-                <div class="horizontal">
+                <div class="vertical">
                     <p class="label tag" ng-repeat="tag in place.tags">
                         {{tag}}
                     </p>
