@@ -34,6 +34,25 @@
                     }
                 });
                 return dfr.promise; // Return a promise
+            },
+            getCurrentPosition: function() {
+                var dfr = $q.defer();
+                // Standard startposition (Stapelbäddsparken, Malmö)
+                var userPosition = { latitude: 55.613565, longitude: 12.983973 };
+
+                // Om enheten och klienten stöder geolocation
+                if (navigator.geolocation) {
+                    // Hämta användarens position
+                    navigator.geolocation.getCurrentPosition(function(location) {
+                        userPosition = {
+                            latitude: location.coords.latitude,
+                            longitude: location.coords.longitude,
+                        };
+                        dfr.resolve(userPosition);
+                    });
+                }
+
+                return dfr.promise; // Return a promise
             }
         };
     });

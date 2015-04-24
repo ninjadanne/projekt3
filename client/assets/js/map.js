@@ -9,42 +9,26 @@
         });
     })
     .controller("mapController", function($scope, $http, uiGmapGoogleMapApi, placeService) {
-        // Standard startposition (Stapelbäddsparken, Malmö)
-        var userPosition = { latitude: 55.613565, longitude: 12.983973 };
 
-        // Initiera karta
-        $scope.map = { center: { latitude: userPosition.latitude, longitude: userPosition.longitude }, zoom: 12, bounds: {} };
+        // Hämta användarens nuvarande position
+        placeService.getCurrentPosition().then(function(userPosition) {
+            // Initiera karta
+            $scope.map = { center: { latitude: userPosition.latitude, longitude: userPosition.longitude }, zoom: 12, bounds: {} };
+        });
 
-        // Funktion för att centrera kartan
-        function centerMap(position) {
-            $scope.map.center = position;
-            $scope.map.refresh = true;
-        }
+        // Övervaka användarens position
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.watchPosition(function(location) {
+        //         userPosition = {
+        //             latitude: location.coords.latitude,
+        //             longitude: location.coords.longitude
+        //         };
+        //         $scope.map.center = userPosition;
+        //         $scope.map.refresh = true;
 
-        // Om enheten och klienten stöder geolocation
-        if (navigator.geolocation) {
-            // Hämta användarens position
-            navigator.geolocation.getCurrentPosition(function(location) {
-                userPosition = {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                };
-                centerMap(userPosition);
-            });
-            // Övervaka användarens position
-            navigator.geolocation.watchPosition(function(location) {
-                userPosition = {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude
-                };
-                centerMap(userPosition);
-            });
-        }
-
-        // Övervaka markörerna
-        // $scope.$watch('markers', function() {
-        //     $scope.markers = markers;
-        // });
+        //         console.log(userPosition);
+        //     });
+        // }
 
         // Hämta platser från placeService
         placeService.getPlaces().then(function(data) {
