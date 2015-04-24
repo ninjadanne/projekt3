@@ -43,10 +43,8 @@ animationOut:  zoomOut bounceInOut
         <div class="grid-block">
             <div class="small-12">
 
-                <ul rn-carousel class="rn-carousel">
-                  <li>slide #1</li>
-                  <li>slide #2</li>
-                  <li>slide #3</li>
+                <ul rn-carousel rn-carousel-controls>
+                  <li ng-repeat="image in place.images"><img src="{{image.src}}"</li>
                 </ul>
 
             </div>
