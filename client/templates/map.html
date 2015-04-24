@@ -5,11 +5,11 @@ url: /map
 animationOut: fadeOut easeInOut -->
 ---
 
-<div class="grid-block medium-7 small-12" ng-controller="mapController" ng-init="skatespots = [
- {name: 'Stapelbäddsparken', images: ['/assets/img/spot_placeholder.jpg'], tags: ['halfpipe'], rating: '4', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''} ,
--{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
-+{name: 'Centralen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '1', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
-+{name: 'Orkanen', images: ['/assets/img/spot_placeholder.jpg'], tags: ['grind'], rating: '3', description: 'Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu massa vestibulum malesuada, integer vivamus elit eu mauris eu, cum eros quis aliquam nisl wisi.', lon: '', lat: ''},
- ]">
-    <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
-</div>
+
+    <ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" class="front-map">
+        <ui-gmap-markers models="markers" coords="'self'">
+            <ui-gmap-windows show="show">
+                <div ng-non-bindable>{{title}}</div>
+            </ui-gmap-windows>
+        </ui-gmap-markers>
+    </ui-gmap-google-map>

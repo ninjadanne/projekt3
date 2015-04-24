@@ -38,15 +38,7 @@
         </div>
 
         <div class="content-area grid-block">
-            <div class="map-holder grid-block medium-7 small-12" ng-controller="mapController">
-                <ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" class="front-map">
-                    <ui-gmap-markers models="markers" coords="'self'">
-                        <ui-gmap-windows show="show">
-                            <div ng-non-bindable>{{title}}</div>
-                        </ui-gmap-windows>
-                    </ui-gmap-markers>
-                </ui-gmap-google-map>
-            </div>
+            <div ng-include="'templates/map.html'" class="grid-block map-holder show-for-medium medium-7" ng-controller="mapController"></div>
 
             <div ng-class="['ui-animation']" ui-view class="grid-block small-12 medium-5 main-content">
             </div>
