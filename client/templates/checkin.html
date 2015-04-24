@@ -3,24 +3,41 @@ name: checkin
 url: /checkin
 animationIn: fadeIn easeInOut
 animationOut: fadeOut easeInOut
----    
+---
 
+<section class="vertical grid-block" ng-controller="getPlaces">
 
-<section class="grid-block">
+    <div class="grid-content">
 
-    <div class="grid-content small-12">
+        <ng-include src="'templates/sortfilter.html'"></ng-include>
 
-       <h2>Checka in - Berätta för dina vänner var du är!!</h2>
+        <h2>Skateplaces</h2>
+        <p>A list of skateplaces</p>
 
-        <!-- INNEHÅLL -->
-        <div class="grid-content small-12">
-            <div class="grid-block small-12">
-              
+    <div class="grid-content" ng-repeat="place in places">
+        <div class="grid-block">
+            <div class="medium-4">
+                <img src="{{place.images[0]}}">
+            </div>
+            <div class="medium-offset-1 medium-6">
                 <div>
-                    <img zf-iconic="" icon="circle-check" size="medium" class="iconic-color-primary">
+                    <h3>
+                        {{place.name}} <small><span class="badge float-right">{{place.rating}}</span></small>
+                    </h3>
                 </div>
+                <div class="horizontal">
+                    <p class="label tag" ng-repeat="tag in place.tags">
+                        {{tag}}
+                    </p>
+                </div>
+                <div>
+                 <a href="#!/login" class="large button"><img zf-iconic="" icon="circle-check" size="medium" class="iconic-color-primary">Checka in!</a>
+            </div>
             </div>
         </div>
-    </div>
+
+    <div>
 
 </section>
+
+
