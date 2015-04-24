@@ -1,5 +1,5 @@
 (function() {
-    var placeApp = angular.module('placeApp', []);
+    var placeApp = angular.module('skate.Place', []);
     placeApp.factory('placeService', function($http, $q) {
         return {
             getPlaces: function() {

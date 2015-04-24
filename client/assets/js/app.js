@@ -12,10 +12,12 @@
         'foundation.dynamicRouting',
         'foundation.dynamicRouting.animations',
 
-        // Skate
+        // Other modules
         'angular-carousel',
-        'googleMaps',
-        'placeApp'
+
+        // GrindFind
+        'skate.Map',
+        'skate.Place'
       ])
     .config(config)
     .run(run);

@@ -1,6 +1,6 @@
 (function() {
 
-    angular.module('googleMaps', ['uiGmapgoogle-maps'])
+    angular.module('skate.Map', ['uiGmapgoogle-maps'])
     .config(function(uiGmapGoogleMapApiProvider) {
         uiGmapGoogleMapApiProvider.configure({
             key: 'AIzaSyBovPRmUSEAduOe4SspxqSt-TngHRdRFNA',
@@ -18,7 +18,7 @@
         // Funktion för att centrera kartan
         function centerMap(position) {
             $scope.map.center = position;
-            $scope.map.redraw = true;
+            $scope.map.refresh = true;
         }
 
         // Om enheten och klienten stöder geolocation
@@ -29,8 +29,6 @@
                     latitude: location.coords.latitude,
                     longitude: location.coords.longitude,
                 };
-                console.log('The users position is: ');
-                console.log(userPosition);
                 centerMap(userPosition);
             });
             // Övervaka användarens position
