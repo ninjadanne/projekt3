@@ -40,14 +40,10 @@ animationOut:  zoomOut bounceInOut
     }" ng-app="application">
 
     <div class="grid-content small-12">
-        <div class="grid-block">
-            <div class="small-12">
-
-                <ul rn-carousel rn-carousel-controls>
-                  <li ng-repeat="image in place.images"><img src="{{image.src}}"</li>
-                </ul>
-
-            </div>
+        <div class="small-12">
+            <ul rn-carousel rn-carousel-controls class="grid-block">
+                <li ng-repeat="image in place.images" class=""><img src="{{image.src}}"></li>
+            </ul>
         </div>
         <div class="small-12">
             <h2 class="small-12">
