@@ -41,9 +41,6 @@
             });
         }
 
-        // Skapa en array med markers
-        var markers = [];
-
         // Övervaka markörerna
         // $scope.$watch('markers', function() {
         //     $scope.markers = markers;
@@ -51,18 +48,8 @@
 
         // Hämta platser från placeService
         placeService.getPlaces().then(function(data) {
-            for (var i = 0; i < data.length; i++) { // Loopa igenom alla hämtade markers
-                markers.push({
-                    id: data[i].id,
-                    idKey: data[i].id,
-                    title: data[i].name,
-                    latitude: data[i].lat,
-                    longitude: data[i].lon
-                });
-            }
+            $scope.markers = data; // Sätt hämtad data som markörer
         });
 
-        // Sätt markers till scope
-        $scope.markers = markers;
     });
 })();
