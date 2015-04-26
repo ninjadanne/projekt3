@@ -4,11 +4,10 @@ var skateMap = angular.module('skate.Map', ['uiGmapgoogle-maps']);
 /** Skate map config */
 skateMap.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyBovPRmUSEAduOe4SspxqSt-TngHRdRFNA',
         v: '3.17',
         libraries: 'weather,geometry,visualization'
     });
-})
+});
 
 /** Skate map controllers */
 skateMap.controller("mapController", function($scope, $http, uiGmapGoogleMapApi, placeService) {
