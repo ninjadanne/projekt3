@@ -344,7 +344,7 @@ $closebutton-size: 2.5em;
 $closebutton-color: #fff;
 $closebutton-color-hover: #eee;
 
-// $thumbnail-padding: 1rem;
+$thumbnail-padding: 1rem;
 // $thumbnail-shadow: 0 3px 15px rgba(black, 0.25);
 
 // 13. Forms
@@ -542,10 +542,10 @@ $menubar-background: #eb1f07;
 // $offcanvas-size-horizontal: 250px;
 // $offcanvas-size-vertical: 250px;
 
-// $offcanvas-background: #fff;
+$offcanvas-background: $dark-red;
 // $offcanvas-color: isitlight($offcanvas-background);
 // $offcanvas-padding: 0;
-// $offcanvas-shadow: 3px 0 10px rgba(black, 0.25);
+// $offcanvas-shadow: 0px 0 0px rgba(black, 0.25);
 // $offcanvas-animation-speed: 0.25s;
 
 // $offcanvas-frame-selector: '.grid-frame';
