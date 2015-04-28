@@ -16,9 +16,13 @@ placeApp.factory('placeService', function($http, $q) {
      * @return {[type]}        [description]
      */
     function getPlaces(coords) {
-        var coords = coords ? coords : getCurrentPosition(); // If coords is null get current position
+        var coords = coords ? coords : userPosition; // If coords is null get current position
         endPoint = 'http://manu.fhall.se/p3b/place_by_coor.php';
        // var endPoint = 'http://p3b.dev/place_by_coor.php';
+
+       if (places.length > 0) {
+           return places;
+       }
 
         var dfr = $q.defer();
 
@@ -50,13 +54,15 @@ placeApp.factory('placeService', function($http, $q) {
         } else {
             $http.get(endPoint, {'pid': id}).success(function(data) {
                 place = data;
-                console.log(data);
             });
 
             dfr.resolve(place);
         }
 
         return dfr.promise;
+    }
+
+    function commentPlace(placeId, comment) {
     }
 
     /**
@@ -126,23 +132,38 @@ placeApp.factory('placeService', function($http, $q) {
 });
 
 /** Controllers */
-placeApp.controller('getPlaces', ['$scope', 'placeService', function($scope, placeService) {
+
+/** Get places controller */
+placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
     placeService.getPlaces().then(function(places) {
-        console.log(places);
         $scope.places = places;
     });
+    $scope.sortOrder = true;
+    $scope.orderBy = function() {
+        var orderBy = $filter('orderBy');
+        var property = $scope.selectedItem;
+        $scope.places = orderBy($scope.places, property, $scope.sortOrder.ascending);
+    };
 }]);
 
+/** Get place controller */
 placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, placeService) {
     placeService.getPlace($scope.params.placeId).then(function(place ) {
         $scope.place = place;
     });
 }]);
 
-//stars
+/** Sort and filter the places */
+placeApp.controller('sortFilterPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
+    $scope.orderBy = function() {
+        var orderBy = $filter('orderBy');
+        var property = $scope.selectedItem;
+        $scope.places = orderBy($scope.places, property);
+        console.log($scope.places);
+    };
+}]);
 
-// http://angulartutorial.blogspot.com/2014/03/rating-stars-in-angular-js-using.html
-
+/** Rating controller */
 placeApp.controller("RatingCtrl", function($scope) {
 })
 .directive("starRating", function() {

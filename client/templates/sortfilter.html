@@ -5,7 +5,7 @@ animationIn: fadeIn easeInOut
 animationOut: fadeOut easeInOut
 ---
 
-<section  class="grid-block">
+<section class="grid-block">
 
     <div class="grid-content small-12">
         <h2>Sortera &amp; filtrera</h2>
@@ -17,10 +17,9 @@ animationOut: fadeOut easeInOut
 
         <div class="small-12 medium-6 grid-content">
             <label>Sortera efter</label>
-            <select name="sortingType" id="sortingType">
-                <option value="name">Namn</option>
-                <option value="distance">Avstånd</option>
-                <option value="category">Kategori</option>
+            <select name="sortingType" id="sortingType" ng-model="selectedItem" ng-change="orderBy()">
+                <option value="title">Namn</option>
+                <option value="tags">Kategori</option>
                 <option value="rating">Betyg</option>
             </select>
         </div>
@@ -35,13 +34,13 @@ animationOut: fadeOut easeInOut
         </div>
 
         <div class="small-12 medium-6 grid-content">
-            <input id="sortAscending" type="radio" name="sortingOrder"><label for="sortAscending">Stigande</label>
-            <input id="sortDescending" type="radio" name="sortingOrder"><label for="sortDescending">Fallande</label>
+            <input id="sortAscending" type="radio" name="sortingOrder" ng-model="self" ng-change="sortOrder"><label for="sortAscending">Stigande</label>
+            <input id="sortDescending" type="radio" name="sortingOrder" ng-model="self" ng-change="sortOrder" checked><label for="sortDescending">Fallande</label>
         </div>
 
-        <div class="small-12 medium-6 grid-content">
+        <!-- <div class="small-12 medium-6 grid-content">
             <button class="button float-right">Skicka</button>
-        </div>
+        </div> -->
 
         </div>
     </form>
