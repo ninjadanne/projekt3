@@ -144,6 +144,7 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
 // http://angulartutorial.blogspot.com/2014/03/rating-stars-in-angular-js-using.html
 
 placeApp.controller("RatingCtrl", function($scope) {
+   $scope.isReadonly = true;
 })
 .directive("starRating", function() {
   return {
