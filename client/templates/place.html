@@ -5,7 +5,39 @@ animationIn: hingeInFromMiddleY bounceInOut
 animationOut:  zoomOut bounceInOut
 ---
 
-<section class="grid-block" ng-controller="getPlace">
+<section class="grid-block" ng-init="place = {
+        title: 'Stapelbäddsparken',
+        images: [
+            {
+                uri: 'assets/img/spot_placeholder.jpg'
+            },
+            {
+                uri: 'assets/img/spot_placeholder2.jpg'
+            }
+        ],
+        rating: '4',
+        tags: ['Ramp'],
+        description: 'Beskrivning på plats kommer här. Stapelbäddsparken ligger i Malmö och är jätterolig att åka skateboard på. Det finns väldigt många trevliga människor i alla olika åldrar. Vill du köpa knark är det också ett bra ställe. Ner med patriarket!',
+        checkinsNow: '4',
+        checkinsTotal: '434',
+        comments: [
+            {
+                user: 'A user',
+                dateTime: '2015-04-01 12:00:00',
+                comment: 'April, april!'
+            },
+            {
+                user: 'Another user',
+                dateTime: '2015-04-01 13:00:00',
+                comment: 'Sluta luras!'
+            },
+            {
+                user: 'John Doe',
+                dateTime: '2015-04-01 13:37:00',
+                comment: 'Grymt ställe!'
+            }
+        ]
+    }">
 
     <div class="grid-content small-12">
         <div class="small-12">

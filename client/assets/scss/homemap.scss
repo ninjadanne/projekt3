@@ -1,0 +1,73 @@
+.map-holder {
+    z-index: 10000;
+}
+
+.angular-google-map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.angular-google-map-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    img {
+        max-width: none;
+    }
+
+}
+
+@include breakpoint(small only) {
+    div.angular-google-map-container {
+        height: 100%;
+        width: 100%;
+        display: block;
+        clear: both;
+    }
+    div.map-holder {
+        height: 50%;
+        width: 100%;
+        display: block;
+        position: absolute;
+    }
+    div.front-tiles {
+        position: absolute;
+        height: 50%;
+        bottom: 0;
+        display: block;
+    }
+}
+
+img.bajs1 {
+    background-color: black !important;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+}
+
+img.bajs2 {
+    background-color: black !important;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    border-radius: 25px;
+}
+img.bajs3 {
+    background-color: black !important;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    border-radius: 25px;
+}
+img.bajs4 {
+    background-color: black !important;
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    border-radius: 25px;
+}

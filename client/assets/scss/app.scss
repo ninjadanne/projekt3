@@ -3,6 +3,7 @@
 @import "map";
 @import "place";
 @import "home";
+@import "homemap";
 
 /* Ugly haxx. The map is never removed. The content gets a background color so that the map is not revealed */
 .main-content > .grid-block > * {
