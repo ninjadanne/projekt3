@@ -20,25 +20,28 @@ placeApp.factory('placeService', function($http, $q) {
         endPoint = 'http://manu.fhall.se/p3b/place_by_coor.php';
        // var endPoint = 'http://p3b.dev/place_by_coor.php';
 
+       var dfr = $q.defer();
+
        if (places.length > 0) {
-           return places;
+           dfr.resolve(places);
+       } else {
+            $http.get(endPoint, {'lat': coords.latitude, 'lng': coords.longitude}).success(function(data) {
+                data = data.data;
+
+                for (var i = 0; i < data.length; i++) { // Loopa igenom alla hämtade platser
+                    place = convertPlace(data[i]);
+                    // place.id = place.longitude + ',' + place.latitude;
+                    place.id = data[i].id;
+                    place.keyId = place.id;
+
+                    places.push(place);
+                    addFilterTags(place.tags);
+                }
+
+                dfr.resolve(places); // Return places
+            });
        }
 
-        var dfr = $q.defer();
-
-        $http.get(endPoint, {'lat': coords.latitude, 'lng': coords.longitude}).success(function(data) {
-            data = data.data;
-
-            for (var i = 0; i < data.length; i++) { // Loopa igenom alla hämtade platser
-                place = convertPlace(data[i]);
-                // place.id = place.longitude + ',' + place.latitude;
-                place.id = data[i].id;
-                places.push(place);
-                addFilterTags(place.tags);
-            }
-
-            dfr.resolve(places); // Return places
-        });
         return dfr.promise; // Return a promise
     }
 
@@ -159,7 +162,6 @@ placeApp.controller('sortFilterPlaces', ['$scope', '$filter', 'placeService', fu
         var orderBy = $filter('orderBy');
         var property = $scope.selectedItem;
         $scope.places = orderBy($scope.places, property);
-        console.log($scope.places);
     };
 }]);
 
