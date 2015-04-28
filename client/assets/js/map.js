@@ -16,12 +16,13 @@ skateMap.controller("mapController", function($scope, $http, uiGmapGoogleMapApi,
     placeService.getCurrentPosition().then(function(userPosition) {
         // Initiera karta
         $scope.map = { center: { latitude: userPosition.latitude, longitude: userPosition.longitude }, zoom: 12, bounds: {} };
+
         // Hämta platser från placeService
+        // placeService.getPlaces().then(function(data) {
+            $scope.markers = $scope.places; // Sätt hämtad data som markörer
+        // });
     });
 
-    placeService.getPlaces().then(function(data) {
-        $scope.markers = data; // Sätt hämtad data som markörer
-    });
 
     // Övervaka användarens position
     // if (navigator.geolocation) {

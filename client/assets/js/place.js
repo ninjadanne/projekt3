@@ -3,10 +3,10 @@ var placeApp = angular.module('skate.Place', []);
 /** Service */
 placeApp.factory('placeService', function($http, $q) {
 
+    var places = [];
     var userPosition = getCurrentPosition().then(function(position) {
         return position;
     });
-    var places = [];
 
     /**
      * Get places from backend
@@ -28,6 +28,7 @@ placeApp.factory('placeService', function($http, $q) {
                 // place.id = place.longitude + ',' + place.latitude;
                 place.id = i;
                 places[place.id] = place;
+                addFilterTags(place.tags);
             }
 
             dfr.resolve(places); // Return places
@@ -35,25 +36,35 @@ placeApp.factory('placeService', function($http, $q) {
         return dfr.promise; // Return a promise
     }
 
+    /**
+     * Get a specific place
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
     function getPlace(id) {
         var place = null;
          endPoint = 'http://manu.fhall.se/p3b/get_place.php';
-        //var endPoint = 'http://p3b.dev/get_place.php';
+        // var endPoint = 'http://p3b.dev/get_place.php';
 
         var dfr = $q.defer();
 
         if (places[id]) {
             dfr.resolve(places[id]);
         } else {
-            $http.get(endPoint, {'pid': id}).success(function(data) {
-                place = data;
-                console.log(data);
+            $http.post(endPoint, {'pid': id}).success(function(data) {
+                place = convertPlace(data.place[0]);
+                dfr.resolve(place);
             });
-
-            dfr.resolve(place);
         }
 
         return dfr.promise;
+    }
+
+    /**
+     * Add a place
+     */
+    function addPlace() {
+
     }
 
     /**
@@ -116,15 +127,18 @@ placeApp.factory('placeService', function($http, $q) {
 });
 
 /** Controllers */
+
+/** Get all places and put them in scope */
 placeApp.controller('getPlaces', ['$scope', 'placeService', function($scope, placeService) {
     placeService.getPlaces().then(function(places) {
-        console.log(places);
         $scope.places = places;
     });
 }]);
 
+/** Get a specific place and put it in scope */
 placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, placeService) {
-    placeService.getPlace($scope.params.placeId).then(function(place ) {
+    placeId = $scope.params.placeId;
+    placeService.getPlace(placeId).then(function(place) {
         $scope.place = place;
     });
 }]);
