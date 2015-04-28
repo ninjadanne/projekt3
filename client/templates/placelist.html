@@ -11,8 +11,8 @@ animationOut: fadeOut easeInOut
 
         <ng-include src="'templates/sortfilter.html'"></ng-include>
 
-        <h2>Skateplaces</h2>
-        <p>A list of skateplaces</p>
+        <h2>Skateplatser</h2>
+        <p>En lista på skateplatser</p>
 
     <div class="grid-content" ng-repeat="place in places">
         <div class="grid-block">
@@ -23,8 +23,8 @@ animationOut: fadeOut easeInOut
                 <div>
                     <h3>
                     <a href="#!/place/{{place.id}}">{{place.title}}</a><div ng-app="app" ng-controller="RatingCtrl" class="container rating float-right">
-              <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)"></div>
-                    </h3>
+                      <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)"></div>
+                     </h3>
                 </div>
                 <div class="vertical">
                     <p class="label tag" ng-repeat="tag in place.tags">
