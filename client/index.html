@@ -15,7 +15,7 @@
 </div>
 </head>
 
-<body>
+<body ng-controller="getPlaces">
 
     <div zf-offcanvas="" id="menu" class="off-canvas" position="right">
         <a zf-close="" class="close-button">×</a>
@@ -36,7 +36,7 @@
                     <li><a href="#!/login">Logga in</a></li>
                     <li><a href="#!/checkin">Checka in</a></li>
                     <li><a href="#!/placelist">Lägg till ny plats</a></li>
-                </ul>                 
+                </ul>
                 <div ng-include="'/templates/search.html'" class="hide-for-small-only"></div>
             </div>
             <div class="grid-content collapse medium-5 hide-for-small-only">
