@@ -8,7 +8,7 @@ animationOut: fadeOut easeInOut
 <section class="grid-block">
 
     <div class="grid-content small-12">
-        <h2>Sortera &amp; filtrera</h2>
+        <!-- <h2>Sortera &amp; filtrera</h2> -->
 
         <!-- INNEHÅLL -->
     <form>
@@ -17,7 +17,7 @@ animationOut: fadeOut easeInOut
 
         <div class="small-12 medium-6 grid-content">
             <label>Sortera efter</label>
-            <select name="sortingType" id="sortingType" ng-model="selectedItem" ng-change="orderBy()">
+            <select name="sortingType" id="sortingType" ng-model="selectedItem" ng-change="setOrderByProperty(selectedItem)">
                 <option value="title">Namn</option>
                 <option value="tags">Kategori</option>
                 <option value="rating">Betyg</option>
@@ -26,16 +26,14 @@ animationOut: fadeOut easeInOut
 
         <div class="small-12 medium-6 grid-content">
             <label>Filtrera</label>
-            <select name="filterCategory" id="filterCategory">
-                <option value="grinds">Grinds</option>
-                <option value="halfpipes">Halfpipes</option>
-                <option value="skatepark">Skatepark</option>
+            <select ng-model="selectedItem" ng-options="tag.name for tag in filterTags" ng-change="setFilterByTag(selectedItem)">
+                <option value="">Välj en tagg</option>
             </select>
         </div>
 
-        <div class="small-12 medium-6 grid-content">
-            <input id="sortAscending" type="radio" name="sortingOrder" ng-model="self" ng-change="sortOrder"><label for="sortAscending">Stigande</label>
-            <input id="sortDescending" type="radio" name="sortingOrder" ng-model="self" ng-change="sortOrder" checked><label for="sortDescending">Fallande</label>
+        <div class="small-12 grid-content">
+            <input id="sortAscending" type="radio" name="sortingOrder" n><label for="sortAscending">Stigande</label>
+            <input id="sortDescending" type="radio" name="sortingOrder" selected><label for="sortDescending">Fallande</label>
         </div>
 
         <!-- <div class="small-12 medium-6 grid-content">

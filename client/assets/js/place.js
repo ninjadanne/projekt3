@@ -7,7 +7,6 @@ placeApp.factory('placeService', function($http, $q) {
         return position;
     });
     var places = [];
-
     var filterTags = [];
 
     /**
@@ -78,7 +77,7 @@ placeApp.factory('placeService', function($http, $q) {
             title: place.Name,
             latitude: place.Latitude,
             longitude: place.Longitude,
-            tags: place.Activity.split(' '), // The tags are space separated
+            tags: splitToTags(place.Activity), // The tags are space separated
             description: place.Description,
             rating: Math.round(place.Rating * 10) / 10, // Round the rating to 1 decimal
             images: [
@@ -118,10 +117,56 @@ placeApp.factory('placeService', function($http, $q) {
      * Add filter tags
      * @param {[type]} tags [description]
      */
-    function addFilterTags(tags) {
+    function addFilterTags(tagString) {
+        tags = splitToTags(tagString);
+
+        var i = tags.length;
+
+        while (i--) {
+            tag = tags[i].toLowerCase(); // To lower case
+            tag = tag.charAt(0).toUpperCase() + tag.slice(1); // First letter to upper case
+
+            if (!hasFilterTag(tag)) { // If not already in array
+                filterTags.push({
+                    name: tag,
+                    value: tag.toLowerCase()
+                });
+            }
+        }
+    }
+    function splitToTags(tagString) {
+        var tags = [];
+
+        tagString = tagString + ""; // Fix, force a string
+        var tempTags = tagString.split(" ");
+
+        var i = tempTags.length;
+
+        while (i--) {
+            tempTags2 = tempTags[i] + "";
+            tempTags2 = tempTags2.split(",");
+
+            var x = tempTags2.length;
+            while (x--) {
+                tags.push(tempTags2[x]);
+            }
+        }
+
+        return tags;
+
+    }
+    function hasFilterTag(tag) {
+        var i = filterTags.length;
+        while (i--) {
+            if (filterTags[i].name === tag) {
+                return true;
+            }
+        }
+        return false;
     }
 
     return {
+        filterTags: filterTags,
         getPlaces: function(coords) {
             return getPlaces(coords);
         },
@@ -141,11 +186,22 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
     placeService.getPlaces().then(function(places) {
         $scope.places = places;
     });
-    $scope.sortOrder = true;
-    $scope.orderBy = function() {
+
+    $scope.filterTags = placeService.filterTags;
+
+    $scope.sortOrder = {invert: false};
+    $scope.sortProperty = 'rating';
+    $scope.filterTag = null;
+
+    $scope.setOrderByProperty = function(property) {
+        $scope.sortProperty = property;
         var orderBy = $filter('orderBy');
-        var property = $scope.selectedItem;
-        $scope.places = orderBy($scope.places, property, $scope.sortOrder.ascending);
+        $scope.places = orderBy($scope.places, $scope.sortProperty, $scope.sortOrder.invert);
+    };
+
+    $scope.setFilterByTag = function(filterTag) {
+        $scope.filterTag = filterTag.value;
+        console.log(filterTag);
     };
 }]);
 
@@ -154,15 +210,6 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
     placeService.getPlace($scope.params.placeId).then(function(place ) {
         $scope.place = place;
     });
-}]);
-
-/** Sort and filter the places */
-placeApp.controller('sortFilterPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
-    $scope.orderBy = function() {
-        var orderBy = $filter('orderBy');
-        var property = $scope.selectedItem;
-        $scope.places = orderBy($scope.places, property);
-    };
 }]);
 
 /** Rating controller */
