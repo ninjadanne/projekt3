@@ -46,10 +46,13 @@ animationOut:  zoomOut bounceInOut
             </ul>
         </div>
         <div class="small-12">
-            <h2 class="small-12">
-                {{place.title}}
-                <small><span class="badge float-right">{{place.rating}}</span></small>
-            </h2>
+            <h2 class="small-12">{{place.title}}</h2>
+            <div ng-app="app" ng-controller="RatingCtrl" class="container raiting">
+              <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(rating)"></div>
+
+              <div><strong>Rating:</strong>{{place.rating}}</div>
+            </div>
+
         </div>
         <div class="small-12">
             <p class="label tag" ng-repeat="tag in place.tags">
