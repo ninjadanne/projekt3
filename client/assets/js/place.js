@@ -165,6 +165,7 @@ placeApp.controller('sortFilterPlaces', ['$scope', '$filter', 'placeService', fu
 
 /** Rating controller */
 placeApp.controller("RatingCtrl", function($scope) {
+   $scope.isReadonly = true;
 })
 .directive("starRating", function() {
   return {

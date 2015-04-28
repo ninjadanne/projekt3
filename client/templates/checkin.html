@@ -9,30 +9,31 @@ animationOut: fadeOut easeInOut
 
     <div class="grid-content">
 
-        <ng-include src="'templates/sortfilter.html'"></ng-include>
+        <ng-include class="show-for-medium" src="'templates/sortfilter.html'"></ng-include>
 
         <h2>Checka in!</h2>
         <p>Berätta för dina vänner var du är!</p>
 
     <div class="grid-content" ng-repeat="place in places">
         <div class="grid-block">
-            <div class="medium-4">
+            <div class="medium-offset-1 small-4 medium-4">
                 <img src="{{place.images[0].uri}}">
             </div>
-            <div class="medium-offset-1 medium-6">
+            <div class="small-offset-1 medium-6 small-6">
                 <div>
                     <h3>
                         <a href="#!/place/{{place.id}}">{{place.title}}</a><div ng-app="app" ng-controller="RatingCtrl" class="container rating float-right">
-                      <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)"></div>
+                        <star-rating ng-model="place.rating" readonly="isReadonly"></star-rating>
+                        <!--<div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)"></div>-->
                     </h3>
                 </div>
                 <div class="vertical">
-                    <p class="label tag" ng-repeat="tag in place.tags">
+                    <p class="label tag float-left" ng-repeat="tag in place.tags">
                         {{tag}}
                     </p>
                 </div>
                 <div>
-                 <a href="#!/login" class="large button"><img zf-iconic="" icon="circle-check" size="medium" class="iconic-color-primary">Checka in!</a>
+                 <a href="#!/login" class="button float-right"><img zf-iconic="" icon="circle-check" size="medium" class="iconic-color-primary">Checka in!</a>
             </div>
             </div>
         </div>
