@@ -1,4 +1,4 @@
-var placeApp = angular.module('skate.Place', []);
+﻿var placeApp = angular.module('skate.Place', []);
 
 /** Service */
 placeApp.factory('placeService', function($http, $q) {
@@ -26,8 +26,11 @@ placeApp.factory('placeService', function($http, $q) {
             for (var i = 0; i < data.length; i++) { // Loopa igenom alla hämtade platser
                 place = convertPlace(data[i]);
                 // place.id = place.longitude + ',' + place.latitude;
-                place.id = i;
-                places[place.id] = place;
+
+                place.id = data[i].id;
+                places.push(place);
+                addFilterTags(place.tags);
+
             }
 
             dfr.resolve(places); // Return places
