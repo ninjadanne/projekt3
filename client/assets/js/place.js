@@ -3,13 +3,10 @@ var placeApp = angular.module('skate.Place', []);
 /** Service */
 placeApp.factory('placeService', function($http, $q) {
 
-    var places = [];
     var userPosition = getCurrentPosition().then(function(position) {
         return position;
     });
-
-    var filterTags = [];
-    var orderBy = 'title';
+    var places = [];
 
     /**
      * Get places from backend
@@ -31,7 +28,6 @@ placeApp.factory('placeService', function($http, $q) {
                 // place.id = place.longitude + ',' + place.latitude;
                 place.id = i;
                 places[place.id] = place;
-                addFilterTags(place.tags);
             }
 
             dfr.resolve(places); // Return places
@@ -39,43 +35,26 @@ placeApp.factory('placeService', function($http, $q) {
         return dfr.promise; // Return a promise
     }
 
-    /**
-     * Get a specific place
-     * @param  {[type]} id [description]
-     * @return {[type]}    [description]
-     */
     function getPlace(id) {
         var place = null;
          endPoint = 'http://manu.fhall.se/p3b/get_place.php';
-        // var endPoint = 'http://p3b.dev/get_place.php';
+        //var endPoint = 'http://p3b.dev/get_place.php';
 
         var dfr = $q.defer();
 
         if (places[id]) {
             dfr.resolve(places[id]);
         } else {
-            $http.post(endPoint, {'pid': id}).success(function(data) {
-                place = convertPlace(data.place[0]);
-                dfr.resolve(place);
+            $http.get(endPoint, {'pid': id}).success(function(data) {
+                place = data;
+                console.log(data);
             });
+
+            dfr.resolve(place);
         }
 
         return dfr.promise;
     }
-
-    /**
-     * Add a place
-     */
-    function addPlace() {
-
-    }
-
-    /**
-     * Add filter tag(s)
-     * @param {[type]} tags [description]
-     */
-    function addFilterTags(tags)
-    {}
 
     /**
      * Convert a place response from backend
@@ -137,79 +116,60 @@ placeApp.factory('placeService', function($http, $q) {
 });
 
 /** Controllers */
-
-/** Get all places and put them in scope */
 placeApp.controller('getPlaces', ['$scope', 'placeService', function($scope, placeService) {
     placeService.getPlaces().then(function(places) {
+        console.log(places);
         $scope.places = places;
     });
 }]);
 
-/** Get a specific place and put it in scope */
 placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, placeService) {
-    placeId = $scope.params.placeId;
-    placeService.getPlace(placeId).then(function(place) {
+    placeService.getPlace($scope.params.placeId).then(function(place ) {
         $scope.place = place;
     });
 }]);
 
-/** Order and filter places */
-placeApp.controller('orderFilterPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
-    $scope.filterTags = placeService.filterBy;
+//stars
 
-    $scope.orderBy = function(property, order) {
-        $scope.places = orderBy($scope.places, property);
-    };
-    $scope.sortOrder = function() {
-    };
-    $scope.filterBy = function() {
-    };
-}]);
+// http://angulartutorial.blogspot.com/2014/03/rating-stars-in-angular-js-using.html
 
-/** Rating controller */
 placeApp.controller("RatingCtrl", function($scope) {
-    $scope.rating1 = 5;
-    $scope.rating2 = 2;
-    $scope.isReadonly = true;
-    $scope.rateFunction = function(rating) {
-        console.log("Rating selected: " + rating);
-    };
 })
 .directive("starRating", function() {
-    return {
-        restrict : "EA",
-        template : "<ul class='rating' ng-class='{readonly: readonly}'>" +
+  return {
+    restrict : "EA",
+    template : "<ul class='rating' ng-class='{readonly: readonly}'>" +
                "  <li ng-repeat='star in stars' ng-class='star' ng-click='toggle($index)'>" +
-               "    <img zf-iconic='' icon='star' size='small' class='iconic-color-warning'>" + //&#9733
+               "    <img zf-iconic='' icon='star' size='small' class='iconic-color'>" + //&#9733
                "  </li>" +
                "</ul>",
-        scope : {
-            ratingValue : "=ngModel",
-            max : "=?", //optional: default is 5
-            onRatingSelected : "&?",
-            readonly: "=?"
-        },
-        link : function(scope, elem, attrs) {
-            if (scope.max == undefined) { scope.max = 5; }
-            function updateStars() {
-                scope.stars = [];
-                for (var i = 0; i < scope.max; i++) {
-                    scope.stars.push({
-                        filled : i < scope.ratingValue
-                    });
-            }
-        };
-        scope.toggle = function(index) {
-            if (scope.readonly == undefined || scope.readonly == false){
-                scope.ratingValue = index + 1;
-                scope.onRatingSelected({
-                    rating: index + 1
-                });
-            }
-        };
-        scope.$watch("ratingValue", function(oldVal, newVal) {
-            if (newVal) { updateStars(); }
-        });
+    scope : {
+      ratingValue : "=ngModel",
+      max : "=?", //optional: default is 5
+      onRatingSelected : "&?",
+      readonly: "=?"
+    },
+    link : function(scope, elem, attrs) {
+      if (scope.max == undefined) { scope.max = 5; }
+      function updateStars() {
+        scope.stars = [];
+        for (var i = 0; i < scope.max; i++) {
+          scope.stars.push({
+            filled : i < scope.ratingValue
+          });
         }
-    };
+      };
+      scope.toggle = function(index) {
+        if (scope.readonly == undefined || scope.readonly == false){
+          scope.ratingValue = index + 1;
+          scope.onRatingSelected({
+            rating: index + 1
+          });
+        }
+      };
+      scope.$watch("ratingValue", function(oldVal, newVal) {
+        if (newVal) { updateStars(); }
+      });
+    }
+  };
 });

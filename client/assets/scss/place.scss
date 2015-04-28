@@ -76,12 +76,15 @@ div.rn-carousel-indicator span {
     list-style-type: none;
     display: inline-block;
     cursor: pointer;
-    &.filled {
-      color: #fd0; //#21568b
+    .iconic * {
+    fill: #ccc;
+    }
+    &.filled .iconic * {
+      fill: #EBC959;
     }
   }
+
   &.readonly li.filled {
     color: #666;
   }
-
 }

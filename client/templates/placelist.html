@@ -22,7 +22,8 @@ animationOut: fadeOut easeInOut
             <div class="medium-offset-1 medium-6 small-12">
                 <div>
                     <h3>
-                    <a href="#!/place/{{place.id}}">{{place.title}}</a> <small><span class="badge float-right">{{place.rating}}</span></small>
+                    <a href="#!/place/{{place.id}}">{{place.title}}</a><div ng-app="app" ng-controller="RatingCtrl" class="container rating float-right">
+              <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)"></div>
                     </h3>
                 </div>
                 <div class="vertical">
