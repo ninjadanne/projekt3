@@ -15,8 +15,8 @@ placeApp.factory('placeService', function($http, $q) {
      */
     function getPlaces(coords) {
         var coords = coords ? coords : getCurrentPosition(); // If coords is null get current position
-        // endPoint = 'http://manu.fhall.se/p3b/place_by_coor.php';
-        var endPoint = 'http://p3b.dev/place_by_coor.php';
+        endPoint = 'http://manu.fhall.se/p3b/place_by_coor.php';
+       // var endPoint = 'http://p3b.dev/place_by_coor.php';
 
         var dfr = $q.defer();
 
@@ -37,8 +37,8 @@ placeApp.factory('placeService', function($http, $q) {
 
     function getPlace(id) {
         var place = null;
-        // endPoint = 'http://manu.fhall.se/p3b/get_place.php';
-        var endPoint = 'http://p3b.dev/get_place.php';
+         endPoint = 'http://manu.fhall.se/p3b/get_place.php';
+        //var endPoint = 'http://p3b.dev/get_place.php';
 
         var dfr = $q.defer();
 
