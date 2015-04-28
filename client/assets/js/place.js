@@ -8,6 +8,8 @@ placeApp.factory('placeService', function($http, $q) {
     });
     var places = [];
 
+    var filterTags = [];
+
     /**
      * Get places from backend
      * @param  {[type]} coords [description]
@@ -26,11 +28,9 @@ placeApp.factory('placeService', function($http, $q) {
             for (var i = 0; i < data.length; i++) { // Loopa igenom alla hämtade platser
                 place = convertPlace(data[i]);
                 // place.id = place.longitude + ',' + place.latitude;
-
                 place.id = data[i].id;
                 places.push(place);
                 addFilterTags(place.tags);
-
             }
 
             dfr.resolve(places); // Return places
@@ -103,6 +103,13 @@ placeApp.factory('placeService', function($http, $q) {
         }
 
         return dfr.promise; // Return a promise
+    }
+
+    /**
+     * Add filter tags
+     * @param {[type]} tags [description]
+     */
+    function addFilterTags(tags) {
     }
 
     return {
