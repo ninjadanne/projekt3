@@ -92,14 +92,14 @@ $include-css: (
 // We use these to control various global styles
 $body-background: #e9e6e1;
 // $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 // $body-antialiased: true;
 
 // Application Colors
-$primary-color: #a02971;
-// $secondary-color: #f1f1f1;
+$primary-color: #eb1f07;
+$secondary-color: #f1f1f1;
 // $alert-color: #F04124;
 // $info-color: #A0D3E8;
 // $success-color: #43AC6A;
@@ -139,8 +139,8 @@ $purple: #9f2870;
 // - - - - - - - - - - - - - - -
 
 // We use these to control header font styles
-// $header-font-family: $body-font-family;
-// $header-font-weight: $font-weight-normal;
+$header-font-family: $body-font-family;
+$header-font-weight: $font-weight-normal;
 // $header-font-style: $font-weight-normal;
 // $header-font-color: #222;
 // $header-line-height: 1.4;
@@ -247,7 +247,7 @@ $purple: #9f2870;
 // $button-padding: 0.85em 1em;
 // $button-margin: 0 $global-padding $global-padding 0;
 // $button-style: solid;
-// $button-background: $primary-color;
+$button-background: $primary-color;
 // $button-background-hover: scale-color($button-background, $lightness: -15%);
 // $button-color: auto;
 // $button-radius: 0;
@@ -427,7 +427,7 @@ $thumbnail-padding: 1rem;
 // - - - - - - - - - - - - - - -
 
 // $menubar-fontsize: 1rem;
-$menubar-background: #eb1f07;
+$menubar-background: $primary-color;
 // $menubar-background-hover: smartscale($menubar-background, 7%);
 // $menubar-background-active: $menubar-background-hover;
 // $menubar-color: isitlight($menubar-background);
@@ -605,7 +605,7 @@ $offcanvas-shadow: 0px 0 0px rgba(black, 0.25);
 
 // $titlebar-center-width: 50%;
 // $titlebar-side-width: (100% - $titlebar-center-width) / 2;
-$titlebar-background: $red;
+$titlebar-background: $primary-color;
 // $titlebar-color: #000;
 $titlebar-border: 1px solid $dark-red;
 // $titlebar-padding: $global-padding;

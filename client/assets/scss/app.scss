@@ -48,7 +48,7 @@
     text-align: center;
 
     .close-button {
-        top: 1.5rem;
+        display: none;
     }
 
     ul.menu-bar {
@@ -123,5 +123,13 @@
         border: 0;
 
     }
+
+}
+
+@include breakpoint(small only) {
+
+.sub-menu {
+    display: none !important;
+}
 
 }
