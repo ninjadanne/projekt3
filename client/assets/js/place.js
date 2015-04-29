@@ -189,14 +189,21 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 
     $scope.filterTags = placeService.filterTags;
 
-    $scope.sortOrder = {invert: false};
-    $scope.sortProperty = 'rating';
-    $scope.filterTag = null;
+    $scope.orderPlaces = {
+        property: 'rating',
+        invert: 'false'
+    };
+    $scope.filterTag = {tag: null};
+
+    // Watch the sortOrder property (radio buttons)
+    $scope.$watch('orderPlaces.invert', function(value) {
+       $scope.setOrderByProperty();
+    });
 
     $scope.setOrderByProperty = function(property) {
-        $scope.sortProperty = property;
+        $scope.orderPlaces.property = property ? property : $scope.orderPlaces.property;
         var orderBy = $filter('orderBy');
-        $scope.places = orderBy($scope.places, $scope.sortProperty, $scope.sortOrder.invert);
+        $scope.places = orderBy($scope.places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
     };
 
     $scope.setFilterByTag = function(filterTag) {

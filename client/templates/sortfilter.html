@@ -17,7 +17,7 @@ animationOut: fadeOut easeInOut
 
         <div class="small-12 medium-6 grid-content">
             <label>Sortera efter</label>
-            <select name="sortingType" id="sortingType" ng-model="selectedItem" ng-change="setOrderByProperty(selectedItem)">
+            <select name="sortingType" id="sortingType" ng-model="orderPlaces.property" ng-change="setOrderByProperty(selectedItem)">
                 <option value="title">Namn</option>
                 <option value="tags">Kategori</option>
                 <option value="rating">Betyg</option>
@@ -32,8 +32,8 @@ animationOut: fadeOut easeInOut
         </div>
 
         <div class="small-12 grid-content">
-            <input id="sortAscending" type="radio" name="sortingOrder" n><label for="sortAscending">Stigande</label>
-            <input id="sortDescending" type="radio" name="sortingOrder" selected><label for="sortDescending">Fallande</label>
+            <input type="radio" ng-model="orderPlaces.invert" value="true" id="sortAscending" name="sortAscending"><label for="sortAscending">Stigande</label>
+            <input type="radio" ng-model="orderPlaces.invert" value="false" id="sortDescending" name="sortDescending"><label for="sortDescending">Fallande</label>
         </div>
 
         <!-- <div class="small-12 medium-6 grid-content">
