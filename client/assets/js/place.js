@@ -165,6 +165,25 @@ placeApp.factory('placeService', function($http, $q) {
         return false;
     }
 
+    function getPlacesWithTag(tag) {
+        var placesWithTag = [];
+        var i = places.length;
+
+        while (i--) {
+            place = places[i];
+
+            var x = place.tags.length;
+            while (x--) {
+                var placeTag = (place.tags[x] + '').toLowerCase();
+                if (placeTag == tag) {
+                    placesWithTag.push(place);
+                }
+            }
+        }
+
+        return placesWithTag;
+    }
+
     return {
         filterTags: filterTags,
         getPlaces: function(coords) {
@@ -172,6 +191,9 @@ placeApp.factory('placeService', function($http, $q) {
         },
         getPlace: function(id) {
             return getPlace(id);
+        },
+        getPlacesWithTag: function(tag) {
+            return getPlacesWithTag(tag);
         },
         getCurrentPosition: function() {
             return userPosition;
@@ -183,38 +205,55 @@ placeApp.factory('placeService', function($http, $q) {
 
 /** Get places controller */
 placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
+    var allPlaces = [];
+
     placeService.getPlaces().then(function(places) {
+        allPlaces = places;
         $scope.places = places;
+        sortPlaces();
     });
 
     $scope.filterTags = placeService.filterTags;
-
     $scope.orderPlaces = {
         property: 'rating',
         invert: 'false'
     };
     $scope.filterTag = {tag: null};
 
-    // Watch the sortOrder property (radio buttons)
-    $scope.$watch('orderPlaces.invert', function(value) {
-       $scope.setOrderByProperty();
+    // Watch the sortOrder order (radio buttons)
+    $scope.$watch('orderPlaces.invert', function() {
+       sortPlaces();
     });
 
-    $scope.setOrderByProperty = function(property) {
-        $scope.orderPlaces.property = property ? property : $scope.orderPlaces.property;
+    // Watch the sortOrder property (dropdown)
+    $scope.$watch('orderPlaces.property', function() {
+       sortPlaces();
+    });
+
+    // Wathc the filterTag property (dropdown)
+    $scope.$watch('filterTag.tag', function() {
+        filterPlaces();
+    });
+
+    var sortPlaces = function() {
         var orderBy = $filter('orderBy');
         $scope.places = orderBy($scope.places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
     };
 
-    $scope.setFilterByTag = function(filterTag) {
-        $scope.filterTag = filterTag.value;
-        console.log(filterTag);
+    var filterPlaces = function() {
+        if ($scope.filterTag.tag !== null) {
+            if ('value' in $scope.filterTag.tag) {
+                $scope.places = placeService.getPlacesWithTag($scope.filterTag.tag.value);
+            }
+        } else {
+            $scope.places = allPlaces;
+        }
     };
 }]);
 
 /** Get place controller */
 placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, placeService) {
-    placeService.getPlace($scope.params.placeId).then(function(place ) {
+    placeService.getPlace($scope.params.placeId).then(function(place) {
         $scope.place = place;
     });
 }]);

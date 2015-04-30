@@ -17,7 +17,7 @@ animationOut: fadeOut easeInOut
 
         <div class="small-12 medium-6 grid-content">
             <label>Sortera efter</label>
-            <select name="sortingType" id="sortingType" ng-model="orderPlaces.property" ng-change="setOrderByProperty(selectedItem)">
+            <select name="sortingType" id="sortingType" ng-model="orderPlaces.property">
                 <option value="title">Namn</option>
                 <option value="tags">Kategori</option>
                 <option value="rating">Betyg</option>
@@ -26,8 +26,8 @@ animationOut: fadeOut easeInOut
 
         <div class="small-12 medium-6 grid-content">
             <label>Filtrera</label>
-            <select ng-model="selectedItem" ng-options="tag.name for tag in filterTags" ng-change="setFilterByTag(selectedItem)">
-                <option value="">Välj en tagg</option>
+            <select ng-model="filterTag.tag" ng-options="tag.name for tag in filterTags">
+                <option value="">Alla taggar</option>
             </select>
         </div>
 
