@@ -4,6 +4,9 @@
 @import "place";
 @import "home";
 @import "homemap";
+@import "slick";
+@import "slick-theme";
+
 
 /* Ugly haxx. The map is never removed. The content gets a background color so that the map is not revealed */
 .main-content > .grid-block > * {
@@ -91,7 +94,7 @@
 
 .off-canvas-heading {
     padding: 1em;
-    color: #fff;   
+    color: #fff;
 }
 
 .search-group {
@@ -102,7 +105,7 @@
     background-position: 10px center;
     background-repeat: no-repeat;
     background-color: #fff;
-    
+
     .inline-label {
         height: 60px;
         margin-bottom: 0;

@@ -5,7 +5,6 @@
     .module('application', [
         'ui.router',
         'ngAnimate',
-        'ngResource',
 
         //foundation
         'foundation',
@@ -13,7 +12,6 @@
         'foundation.dynamicRouting.animations',
 
         // Other modules
-        'angular-carousel',
 
         // GrindFind
         'skate.Map',
