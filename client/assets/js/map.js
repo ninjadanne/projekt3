@@ -23,8 +23,13 @@ skateMap.controller("mapController", function($scope, $http, uiGmapGoogleMapApi,
         $scope.map = { center: { latitude: userPosition.latitude, longitude: userPosition.longitude }, zoom: 12, bounds: {} };
 
         // Placera ut markörer
-        $scope.markers = $scope.places;
+        $scope.$watch('places', function() {
+            $scope.markers = $scope.places;
+            $scope.map.refresh = true;
+        });
     });
+
+
 
     // Övervaka användarens position
     // if (navigator.geolocation) {
