@@ -107,7 +107,7 @@ placeApp.factory('placeService', function($http, $q) {
     function getCurrentPosition() {
         var dfr = $q.defer();
         // Standard startposition (Stapelbäddsparken, Malmö)
-        var userPosition = { latitude: 55.613565, longitude: 12.983973 };
+        var userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: 0 };
 
         // Om enheten och klienten stöder geolocation
         if (navigator.geolocation) {
@@ -116,6 +116,7 @@ placeApp.factory('placeService', function($http, $q) {
                 userPosition = {
                     latitude: location.coords.latitude,
                     longitude: location.coords.longitude,
+                    accuracy: location.coords.accuracy
                 };
                 dfr.resolve(userPosition);
             });
@@ -312,6 +313,7 @@ placeApp.controller("RatingCtrl", function($scope) {
   };
 });
 
+/** Slick slider */
 placeApp.directive('slickSlider', function($timeout){
   return{
     restrict:'A',
