@@ -216,7 +216,7 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
     $scope.filterTags = placeService.filterTags;
     $scope.orderPlaces = {
         property: 'rating',
-        invert: 'false'
+        invert: 'true'
     };
     $scope.filterTag = {tag: null};
 
