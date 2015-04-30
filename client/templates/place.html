@@ -11,9 +11,7 @@ animationOut:  zoomOut bounceInOut
         <div class="small-12">
             <div class="grid-block">
                 <div class="slider" slick-slider="{dots:true, arrows:false, draggable:true, slidesToShow:1, infinite:true, autoplay:true, autoplaySpeed:2000}">
-                    <div class="my_slide" ng-repeat="image in place.images"><img src="{{image.uri}}"></div>
-                    <div class="my_slide"><img src="assets/img/spot_placeholder.jpg"></div>
-                    <div class="my_slide"><img src="assets/img/spot_placeholder2.jpg"></div>
+                    <div ng-repeat="image in place.images"><img src="{{image.uri}}"></div>
                 </div>
             </div>
         </div>

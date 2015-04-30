@@ -60,8 +60,10 @@ placeApp.factory('placeService', function($http, $q) {
         });
 
         if (! cached) {
-            $http.get(endPoint, {'pid': id}).success(function(data) {
-                dfr.resolve(data);
+            $http.post(endPoint, {'pid': id}).success(function(data) {
+                place = convertPlace(data.place[0]);
+                console.log(place);
+                dfr.resolve(place);
             });
         }
 
@@ -84,12 +86,17 @@ placeApp.factory('placeService', function($http, $q) {
             tags: splitToTags(place.Activity), // The tags are space separated
             description: place.Description,
             rating: Math.round(place.Rating * 10) / 10, // Round the rating to 1 decimal
-            images: [
-                {
-                    uri: place.Pic_URI
-                }
-            ]
+            images: []
         };
+
+        if (place.Pic_URI) {
+            convertedPlace.images.push({uri: place.Pic_URI});
+        }
+
+        // PLACEHOLDER PICS, REMOVE WHEN GOING LIVE!
+        convertedPlace.images.push({uri: 'assets/img/spot_placeholder.jpg'});
+        convertedPlace.images.push({uri: 'assets/img/spot_placeholder2.jpg'});
+
         return convertedPlace;
     }
 
