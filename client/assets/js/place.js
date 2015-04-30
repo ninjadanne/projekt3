@@ -45,20 +45,24 @@ placeApp.factory('placeService', function($http, $q) {
     }
 
     function getPlace(id) {
-        var place = null;
+        var cached = false;
          endPoint = 'http://manu.fhall.se/p3b/get_place.php';
         //var endPoint = 'http://p3b.dev/get_place.php';
 
         var dfr = $q.defer();
 
-        if (places[id]) {
-            dfr.resolve(places[id]);
-        } else {
-            $http.get(endPoint, {'pid': id}).success(function(data) {
-                place = data;
-            });
+        // Loop through all the cached places to find the one with id
+        $.each(places, function(i, p) {
+            if (p.id == id) {
+                dfr.resolve(p);
+                cached = true;
+            }
+        });
 
-            dfr.resolve(place);
+        if (! cached) {
+            $http.get(endPoint, {'pid': id}).success(function(data) {
+                dfr.resolve(data);
+            });
         }
 
         return dfr.promise;
