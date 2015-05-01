@@ -5,16 +5,15 @@ animationIn: fadeIn easeInOut
 animationOut: fadeOut easeInOut
 ---
 
-<div class="grid-content grid-block show-for-small-only">
+<div class="grid-content grid-block show-for-small-only" ng-controller="mapController">
 
-    <div ng-include="'templates/map.html'" class="grid-block" ng-controller="mapController">
+    <div ng-include="'templates/map.html'" class="grid-block">
 
-        
     </div>
         <a href="#"><img class="bajs1" src="assets/img/icons/map.png"></a>
         <a href="#"><img class="bajs2" src="assets/img/icons/pin.png"></a>
 
-        <a href="#"><img class="bajs3" src="assets/img/icons/fix-position.png"></a>
+        <a ng-click="centerMapToUserPosition()"><img class="bajs3" src="assets/img/icons/fix-position.png"></a>
 
         <a href="#"><img class="bajs4" src="assets/img/icons/pin-check.png"></a>
         <a zf-toggle="sidebar"><img class="bajs5" src="assets/img/icons/arrow.png"></a>
@@ -38,8 +37,8 @@ animationOut: fadeOut easeInOut
 		    </div>
 
 		</zf-panel>
-		 
-		
+
+
 
 </div>
 

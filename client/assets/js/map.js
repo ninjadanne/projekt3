@@ -10,33 +10,53 @@ skateMap.config(function(uiGmapGoogleMapApiProvider) {
 });
 
 /** Skate map controllers */
-skateMap.controller("mapController", function($scope, $http, uiGmapGoogleMapApi, placeService) {
+skateMap.controller("mapController", ['$scope', '$http', 'uiGmapGoogleMapApi', 'placeService', function($scope, $http, uiGmapGoogleMapApi, placeService) {
+
+    /** Markör för användarens position */
+    userPositionMarker = null;
+
     // Hämta användarens nuvarande position
     placeService.getCurrentPosition().then(function(userPosition) {
         // Centrera kartan
-        $scope.map = { center: { latitude: userPosition.latitude, longitude: userPosition.longitude }, zoom: 12, bounds: {} };
-
-        /** Skapa en markör för användarens position */
-        userPositionMarker = {
-            id: 'userPosition',
-            latitude: userPosition.latitude,
-            longitude: userPosition.longitude,
-            accuracy: userPosition.accuracy,
-            options: {
-                icon: '/assets/img/icons/user-position.png'
-            }
-        };
-
-        /** Lägg till markör användarens position till scope */
-        $scope.places.push(userPositionMarker);
+        $scope.map = { center: { latitude: userPosition.latitude, longitude: userPosition.longitude }, zoom: 12, bounds: {}, pan: true };
 
         /** Övervaka användarens position */
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(function(location) {
-                userPositionMarker.latitude = location.coords.latitude;
-                userPositionMarker.longitude = location.coords.longitude;
-                userPositionMarker.accuracy = location.coords.accuracy;
+                setUserPosition(location.coords.latitude, location.coords.longitude, location.coords.accuracy);
             });
         }
     });
-});
+
+    var setUserPosition = function(latitude, longitude, accuracy) {
+        if (!userPositionMarker) {
+            /** Skapa en markör för användarens position */
+            userPositionMarker = {
+                id: 'userPosition',
+                latitude: latitude,
+                longitude: longitude,
+                accuracy: accuracy,
+                options: {
+                    icon: '/assets/img/icons/user-position.png'
+                }
+            };
+
+            /** Lägg till markör användarens position till scope */
+            $scope.places.push(userPositionMarker);
+        } else {
+            userPositionMarker.latitude = latitude;
+            userPositionMarker.longitude = longitude;
+            userPositionMarker.accuracy = accuracy;
+        }
+    };
+
+    $scope.centerMapToUserPosition = function() {
+        if (userPositionMarker) {
+            $scope.map.center = {
+                latitude: userPositionMarker.latitude,
+                longitude: userPositionMarker.longitude
+            };
+            // $scope.map.refresh = true;
+        }
+    };
+}]);

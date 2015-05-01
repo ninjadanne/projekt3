@@ -62,7 +62,6 @@ placeApp.factory('placeService', function($http, $q) {
         if (! cached) {
             $http.post(endPoint, {'pid': id}).success(function(data) {
                 place = convertPlace(data.place[0]);
-                console.log(place);
                 dfr.resolve(place);
             });
         }
