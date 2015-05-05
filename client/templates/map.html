@@ -6,10 +6,10 @@ animationOut: fadeOut easeInOut -->
 ---
 
 
-    <ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" class="front-map" pan="true">
-        <ui-gmap-markers models="places" coords="'self'" options="'options'">
-            <ui-gmap-windows show="show">
-                <div ng-non-bindable>{{title}}</div>
-            </ui-gmap-windows>
-        </ui-gmap-markers>
-    </ui-gmap-google-map>
+<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" class="front-map" pan="true">
+    <ui-gmap-markers models="places" coords="'self'" options="'options'">
+        <ui-gmap-windows show="show">
+            <div ng-non-bindable><a href="#!/place/{{id}}">{{title}}</a></div>
+        </ui-gmap-windows>
+    </ui-gmap-markers>
+</ui-gmap-google-map>
