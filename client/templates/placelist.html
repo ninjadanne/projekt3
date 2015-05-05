@@ -14,7 +14,7 @@ animationOut: fadeOut easeInOut
         <h2>Skateplatser</h2>
         <p>En lista på skateplatser</p>
 
-        <div class="grid-content" ng-repeat="place in places">
+        <div class="grid-content" ng-controller="InstantSearchController" ng-repeat="place in places | searchFor:searchString">
             <div class="grid-block">
 
                 <div class="medium-4 small-4">

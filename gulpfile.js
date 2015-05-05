@@ -51,7 +51,8 @@ var paths = {
     'client/assets/js/user.js',
     'client/assets/js/place.js',
     'client/assets/js/map.js',
-    'client/assets/js/app.js'
+    'client/assets/js/app.js',
+    'client/assets/js/search.js'
   ]
 }
 
