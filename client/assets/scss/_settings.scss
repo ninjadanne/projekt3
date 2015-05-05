@@ -92,7 +92,7 @@ $include-css: (
 // We use these to control various global styles
 $body-background: #e9e6e1;
 // $body-font-color: #222;
-$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 // $body-antialiased: true;
@@ -140,8 +140,8 @@ $purple: #9f2870;
 // - - - - - - - - - - - - - - -
 
 // We use these to control header font styles
-$header-font-family: $body-font-family;
-// $header-font-weight: $font-weight-normal;
+$header-font-family: "Raleway";
+$header-font-weight: 900;
 // $header-font-style: $font-weight-normal;
 // $header-font-color: #222;
 // $header-line-height: 1.4;
