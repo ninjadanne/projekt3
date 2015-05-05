@@ -305,7 +305,7 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
             var places = [];
             while (i--) {
               var title = allPlaces[i].title + '';
-              if (title.startsWith($scope.searchTag.tag)){
+              if (title.includes($scope.searchTag.tag)){
                 places.push(allPlaces[i]);
               }
             }
