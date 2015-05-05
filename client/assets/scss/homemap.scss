@@ -43,38 +43,43 @@
 img.icon1 {
     background-color: black !important;
     position: absolute;
-    top: 5%;
-    right: 5%;
-    width: 30px;
-    height: 30px;
+    top: 25px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
     border-radius: 25px;
+    padding: 5px;
 }
 
 img.icon2 {
     background-color: black !important;
     position: absolute;
-    top: 5%;
-    width: 30px;
-    height: 30px;
-    left: 5%;
+    top: 75px;
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    padding: 5px;
     border-radius: 25px;
+
 }
 img.icon3 {
     background-color: black !important;
     position: absolute;
-    bottom: 5%;
-    width: 30px;
-    height: 30px;
-    right: 5%;
+    bottom: 25px;
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    padding: 5px;
     border-radius: 25px;
 }
 img.icon4 {
     background-color: black !important;
     position: absolute;
-    bottom: 5%;
-    width: 30px;
-    height: 30px;
-    left: 5%;
+    bottom: 25px;
+    width: 40px;
+    height: 40px;
+    left: 10px;
+    padding: 5px;
     border-radius: 25px;
 }
 
@@ -82,18 +87,19 @@ img.icon4 {
 img.menu1 {
     background-color: black !important;
     position: absolute;
-    top: -55px;
-    left: -15px;
-    width: 30px;
-    height: 30px;
+    top: -65px;
+    left: -20px;
+    width: 40px;
+    height: 40px;
     border-radius: 25px;
     margin-left: auto;
     margin-right: auto;
+    padding: 5px;
     display: block;
 }
 a.size1 {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     position: absolute;
 }
 
@@ -127,6 +133,6 @@ div.front-tiles2 {
 }
 
 .action-sheet.is-active img.menu1 {
-    top: -40px;
+    top: -55px;
 
 }
