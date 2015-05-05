@@ -5,7 +5,6 @@ url: /map
 animationOut: fadeOut easeInOut -->
 ---
 
-
 <ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" class="front-map" pan="true">
     <ui-gmap-markers models="places" coords="'self'" options="'options'">
         <ui-gmap-windows show="show">
@@ -13,3 +12,15 @@ animationOut: fadeOut easeInOut -->
         </ui-gmap-windows>
     </ui-gmap-markers>
 </ui-gmap-google-map>
+
+<div class="grid-content collapse small-12 map-menu" style="z-index: 1;">
+    <ul class="sub-menu dark menu-bar">
+        <li><a href="#">Hjälp</a></li>
+        <li><a href="#">Om</a></li>
+        <li><a href="#!/settings">Inställningar</a></li>
+        <li><a href="#!/login">Logga in</a></li>
+        <li><a href="#!/checkin">Checka in</a></li>
+        <li><a href="#!/createnewplace">Lägg till ny plats</a></li>
+    </ul>
+    <div ng-include="'/templates/search.html'" class="hide-for-small-only"></div>
+</div>

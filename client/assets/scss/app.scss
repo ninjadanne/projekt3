@@ -97,9 +97,14 @@
     color: #fff;
 }
 
+ .map-menu {
+    height: 128px;
+
+ }
+
 .search-group {
 
-    margin: 10px;
+    padding: 10px;
     background-size: 36px 36px;
     background-image: url(/assets/img/icons/search-black.png);
     background-position: 10px center;
@@ -134,6 +139,13 @@
 
 .sub-menu {
     display: none !important;
+}
+
+.search-group {
+
+    padding: 0px;
+    margin: 10px;
+
 }
 
 }
