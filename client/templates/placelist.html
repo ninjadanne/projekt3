@@ -15,7 +15,7 @@ animationOut: fadeOut easeInOut
         <p>En lista på skateplatser</p>
 
         <div class="grid-content" ng-repeat="place in places">
-            <div class="grid-block">
+            <div class="grid-block" ng-if="place.title != null">
 
                 <div class="medium-4 small-4">
                     <img src="{{place.images[0].uri}}">
