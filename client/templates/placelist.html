@@ -14,22 +14,22 @@ animationOut: fadeOut easeInOut
 
         <ng-include class="show-for-medium sort-block" src="'templates/sortfilter.html'"></ng-include>
 
-        <div class="grid-content" ng-repeat="place in places">
-            <div class="grid-block">
+        <div class="grid-block" ng-repeat="place in places">
+            <div class="grid-block" ng-if="place.title != null">
 
-                <div class="medium-4 small-4">
+                <div class="medium-4 small-4 small-offset-1">
                     <img src="{{place.images[0].uri}}">
                 </div>
 
                 <div class="small-offset-1 medium-6 small-6">
                     <div class="small-12 clearfix">
-                        <h3 class="float-left">
+                        <h3 class="float-left small-8">
                             <a href="#!/place/{{place.id}}">{{place.title}}</a></h3>
                         <div ng-app="app" ng-controller="RatingCtrl" class="container rating float-right">
                             <!--<star-rating ng-model="place.rating" readonly="isReadonly"></star-rating>-->
                             <!--<div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)"></div>-->
 
-                        <div class="clearfix">
+                        <div class="float-right">
                             <img zf-iconic="" icon="star" size="medium" class="iconic-color-warning"><span class="meanuser_ratinglist">{{place.rating}}</span>
                         </div>
 
