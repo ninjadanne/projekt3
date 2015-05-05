@@ -137,6 +137,13 @@
 
 }
 
+.sort-block {
+    border: 1px #ccc solid;
+    padding: 20px;
+    background-color: #eee;
+    margin-bottom: 30px;
+}
+
 @include breakpoint(small only) {
 
 .sub-menu {
