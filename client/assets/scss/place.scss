@@ -87,24 +87,11 @@ div.rn-carousel-indicator span {
   &.readonly li.filled {
     color: #666;
   }
-
-
-.meanuser_bg .iconic * {
-  fill: #EBC959 !important;
 }
 
-}
-.meanuser_ratingplace{
-  position: relative;
-  left: -27px;
-  top: 10px;
-  font-weight: 700;
-  text-align: center;
-}
-.meanuser_ratinglist{
-  position: relative;
-  left: -27px;
-  top: 5px;
-  font-weight: 700;
-  text-align: center;
+.svg-star-rating {
+    top: -1.35em;
+    position: relative;
+    font-weight: 700;
+    left: -2.85em;
 }
