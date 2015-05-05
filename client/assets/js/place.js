@@ -301,14 +301,13 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 
     var searchPlaces = function() {
          if ($scope.searchTag.tag !== '') {
-            var i = $scope.places.length;
+            var i = allPlaces.length;
             var places = [];
             while (i--) {
-              var title = $scope.places[i].title + '';
+              var title = allPlaces[i].title + '';
               if (title.startsWith($scope.searchTag.tag)){
-                places.push($scope.places[i]);
+                places.push(allPlaces[i]);
               }
-              console.log($scope.places[i]);
             }
 
                 $scope.places = places;
