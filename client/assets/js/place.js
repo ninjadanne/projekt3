@@ -9,7 +9,7 @@ placeApp.factory('placeService', function($http, $q) {
     var places = [];
     var filterTags = [];
 
-    var domain = 'http://manu.fhall.se/p3b/old/';
+    var domain = 'http://manu.fhall.se/p3b/';
     // var domain = 'http://p3b.dev/';
 
     /**
@@ -89,13 +89,12 @@ placeApp.factory('placeService', function($http, $q) {
      * @return {[type]}         [description]
      */
     function ratePlace(placeId, userId, rating) {
-        console.log('User ' + userId + ' rated place ' + placeId + ' with rating ' + rating);
         var endPoint = domain + 'rate.php';
 
         var dfr = $q.defer();
 
         $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating}).success(function(data) {
-            console.log(data);
+            dfr.resolve(data);
         });
 
         return dfr.promise;
@@ -303,7 +302,7 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
 
 /** Rating controller */
 placeApp.controller("RatingCtrl", ['$scope', function($scope) {
-   $scope.isReadonly = false;
+    $scope.isReadonly = false;
 }])
 .directive("starRating", ['placeService', 'userService', function(placeService, userService) {
     function ratePlace(placeId, rating) {
