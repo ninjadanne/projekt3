@@ -9,7 +9,7 @@ placeApp.factory('placeService', function($http, $q) {
     var places = [];
     var filterTags = [];
 
-    var domain = 'http://manu.fhall.se/p3b/old/';
+    var domain = 'http://manu.fhall.se/p3b/';
     // var domain = 'http://p3b.dev/';
 
     /**
@@ -89,13 +89,12 @@ placeApp.factory('placeService', function($http, $q) {
      * @return {[type]}         [description]
      */
     function ratePlace(placeId, userId, rating) {
-        console.log('User ' + userId + ' rated place ' + placeId + ' with rating ' + rating);
         var endPoint = domain + 'rate.php';
 
         var dfr = $q.defer();
 
         $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating}).success(function(data) {
-            console.log(data);
+            dfr.resolve(data);
         });
 
         return dfr.promise;
@@ -263,6 +262,8 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
     };
     $scope.filterTag = {tag: null};
 
+    $scope.searchTag = {tag: null};
+
     // Watch the sortOrder order (radio buttons)
     $scope.$watch('orderPlaces.invert', function() {
        sortPlaces();
@@ -273,9 +274,14 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
        sortPlaces();
     });
 
-    // Wathc the filterTag property (dropdown)
+    // Watch the filterTag property (dropdown)
     $scope.$watch('filterTag.tag', function() {
         filterPlaces();
+    });
+
+    // Watch the searchTag property (dropdown)
+    $scope.$watch('searchTag.tag', function() {
+        searchPlaces();
     });
 
     var sortPlaces = function() {
@@ -292,6 +298,24 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
             $scope.places = allPlaces;
         }
     };
+
+    var searchPlaces = function() {
+         if ($scope.searchTag.tag !== '') {
+            var i = allPlaces.length;
+            var places = [];
+            while (i--) {
+              var title = allPlaces[i].title + '';
+              if (title.startsWith($scope.searchTag.tag)){
+                places.push(allPlaces[i]);
+              }
+            }
+
+                $scope.places = places;
+         } else {
+            $scope.places = allPlaces;
+        }
+    };
+
 }]);
 
 /** Get place controller */
@@ -303,7 +327,7 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
 
 /** Rating controller */
 placeApp.controller("RatingCtrl", ['$scope', function($scope) {
-   $scope.isReadonly = false;
+    $scope.isReadonly = false;
 }])
 .directive("starRating", ['placeService', 'userService', function(placeService, userService) {
     function ratePlace(placeId, rating) {
