@@ -10,35 +10,36 @@ animationOut: fadeOut easeInOut
     <div ng-include="'templates/map.html'" class="grid-block">
 
     </div>
-        <a href="#"><img class="bajs1" src="assets/img/icons/map.png"></a>
-        <a href="#"><img class="bajs2" src="assets/img/icons/pin.png"></a>
 
-        <a ng-click="centerMapToUserPosition()"><img class="bajs3" src="assets/img/icons/fix-position.png"></a>
+        <a href="#"><img class="icon1" src="assets/img/icons/map.png"></a>
+        <a href="#"><img class="icon2" src="assets/img/icons/pin.png"></a>
 
-        <a href="#"><img class="bajs4" src="assets/img/icons/pin-check.png"></a>
-        <a zf-toggle="sidebar"><img class="bajs5" src="assets/img/icons/arrow.png"></a>
+        <a ng-click="centerMapToUserPosition()"><img class="icon3" src="assets/img/icons/fix-position.png"></a>
 
-		<zf-panel id="sidebar" position="bottom" class="medium-grid-block medium-4">
-	<a href="#" zf-close="" class="close-button">×</a>
+        <a href="#"><img class="icon4" src="assets/img/icons/pin-check.png"></a>
 
 
 
-		    <div class="grid-block show-for-small-only small-up-2 front-tiles2">
-		        <div class="front-tile tile tile-1 grid-block">
-		            <a href="#!/placelist"><h4>Topp 10</h4></a>
-		        </div>
-		        <div class="front-tile tile tile-2 grid-block">
-		            <a href="#!/place"><h4>Mest kommenterat</h4></a>
-		        </div>
-		        <div class="front-tile tile tile-3 grid-block">
-		            <a href="#!/checkin"><h4>Flest incheckningar</h4></a>
-		        </div>
-		        <div class="front-tile tile tile-4 grid-block">
-		            <a href="#!/place"><h4>Bäst Grinds</h4></a> 
-		        </div>
-		    </div>
+<zf-action-sheet id="separate-actionsheet">
+<zf-as-content position="top">
+    <div class="grid-block show-for-small-only small-up-2 front-tiles">
+        <div class="front-tile tile tile-1 grid-block">
+            <a href="#!/placelist"><h4>Topp 10</h4></a>
+        </div>
+        <div class="front-tile tile tile-2 grid-block">
+            <a href="#!/place"><h4>Mest kommenterat</h4></a>
+        </div>
+        <div class="front-tile tile tile-3 grid-block">
+            <a href="#!/checkin"><h4>Flest incheckningar</h4></a>
+        </div>
+        <div class="front-tile tile tile-4 grid-block">
+            <a href="#!/place"><h4>Bäst Grinds</h4></a>
+        </div>
+    </div>
+<a class="size1"><img zf-hard-toggle="separate-actionsheet" class="menu1"src="assets/img/icons/tiles.png"</a>
+</zf-as-content>
+</zf-action-sheet>
 
-		</zf-panel>
 
 
 
