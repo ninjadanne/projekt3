@@ -93,7 +93,14 @@ div.rn-carousel-indicator span {
 }
 
 }
-.meanuser_rating{
+.meanuser_ratingplace{
+  position: relative;
+  left: -27px;
+  top: 10px;
+  font-weight: 700;
+  text-align: center;
+}
+.meanuser_ratinglist{
   position: relative;
   left: -27px;
   top: 5px;

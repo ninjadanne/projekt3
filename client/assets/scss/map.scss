@@ -1,5 +1,6 @@
 .map-holder {
     z-index: 10000;
+    overflow: hidden;
 }
 
 .angular-google-map {
@@ -19,7 +20,18 @@
 
 }
 
+ui-gmap-google-map {
+    margin-top: 128px;
+}
+
 @include breakpoint(small only) {
+
+    ui-gmap-google-map {
+
+        margin-top: 0;
+
+    }
+
     div.angular-google-map-container {
         height: 100%;
         width: 100%;

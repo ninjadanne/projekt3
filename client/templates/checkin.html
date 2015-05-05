@@ -25,9 +25,10 @@ animationOut: fadeOut easeInOut
                         <a href="#!/place/{{place.id}}">{{place.title}}</a></h3><div ng-app="app" ng-controller="RatingCtrl" class="container rating float-right"></div>
                         <!--<star-rating ng-model="place.rating" readonly="isReadonly"></star-rating>-->
                         <!--<div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)"></div>-->
-                    <div class="clearfix float-right">
-                        <img zf-iconic="" icon="star" size="medium" class="iconic-color-warning"><span class="meanuser_rating">{{place.rating}}</span>
+                    <div class="float-right">
+                        <img zf-iconic="" icon="star" size="medium" class="iconic-color-warning"><span class="meanuser_ratinglist">{{place.rating}}</span>
 
+                    </div>
                 </div>
                 <div class="vertical">
                     <p class="label tag float-left" ng-repeat="tag in place.tags">
@@ -35,9 +36,9 @@ animationOut: fadeOut easeInOut
                     </p>
                 </div>
                 <div>
-                 <a href="#!/login" class="button float-right"><img zf-iconic="" icon="circle-check" size="small" class="iconic-color-primary">Checka in!</a>
-            </div>
-            </div>
+                    <a href="#!/login" class="button checkin_button float-right"><img zf-iconic="" icon="circle-check" size="small" class="iconic-color-warning">Checka in!</a>
+                </div>
+
         </div>
 
     <div>
