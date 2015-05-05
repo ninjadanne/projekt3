@@ -9,6 +9,9 @@ placeApp.factory('placeService', function($http, $q) {
     var places = [];
     var filterTags = [];
 
+    var domain = 'http://manu.fhall.se/p3b/old/';
+    // var domain = 'http://p3b.dev/';
+
     /**
      * Get places from backend
      * @param  {[type]} coords [description]
@@ -16,8 +19,8 @@ placeApp.factory('placeService', function($http, $q) {
      */
     function getPlaces(coords) {
         var coords = coords ? coords : userPosition; // If coords is null get current position
-        endPoint = 'http://manu.fhall.se/p3b/place_by_coor.php';
-       // var endPoint = 'http://p3b.dev/place_by_coor.php';
+        var endPoint = domain + 'place_by_coor.php';
+        // var endPoint = 'http://p3b.dev/place_by_coor.php';
 
        var dfr = $q.defer();
 
@@ -46,8 +49,8 @@ placeApp.factory('placeService', function($http, $q) {
 
     function getPlace(id) {
         var cached = false;
-         endPoint = 'http://manu.fhall.se/p3b/get_place.php';
-        //var endPoint = 'http://p3b.dev/get_place.php';
+        var endPoint = domain + 'get_place.php';
+        // var endPoint = 'http://p3b.dev/get_place.php';
 
         var dfr = $q.defer();
 
@@ -69,7 +72,33 @@ placeApp.factory('placeService', function($http, $q) {
         return dfr.promise;
     }
 
-    function commentPlace(placeId, comment) {
+    /**
+     * Comment a place
+     * @param  {[type]} placeId [description]
+     * @param  {[type]} comment [description]
+     * @return {[type]}         [description]
+     */
+    function commentPlace(placeId, userId, comment) {
+    }
+
+    /**
+     * Rate a place
+     * @param  {[type]} placeId [description]
+     * @param  {[type]} userId  [description]
+     * @param  {[type]} rating  [description]
+     * @return {[type]}         [description]
+     */
+    function ratePlace(placeId, userId, rating) {
+        console.log('User ' + userId + ' rated place ' + placeId + ' with rating ' + rating);
+        var endPoint = domain + 'rate.php';
+
+        var dfr = $q.defer();
+
+        $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating}).success(function(data) {
+            console.log(data);
+        });
+
+        return dfr.promise;
     }
 
     /**
@@ -203,6 +232,9 @@ placeApp.factory('placeService', function($http, $q) {
         getPlace: function(id) {
             return getPlace(id);
         },
+        ratePlace: function(userId, placeId, rating) {
+            return ratePlace(userId, placeId, rating);
+        },
         getPlacesWithTag: function(tag) {
             return getPlacesWithTag(tag);
         },
@@ -270,10 +302,15 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
 }]);
 
 /** Rating controller */
-placeApp.controller("RatingCtrl", function($scope) {
-   $scope.isReadonly = true;
-})
-.directive("starRating", function() {
+placeApp.controller("RatingCtrl", ['$scope', function($scope) {
+   $scope.isReadonly = false;
+}])
+.directive("starRating", ['placeService', 'userService', function(placeService, userService) {
+    function ratePlace(placeId, rating) {
+        user = userService.getUser();
+        placeService.ratePlace(placeId, user.id, rating);
+    }
+    // console.log(scope);
   return {
     restrict : "EA",
     template : "<ul class='rating' ng-class='{readonly: readonly}'>" +
@@ -291,12 +328,13 @@ placeApp.controller("RatingCtrl", function($scope) {
       if (scope.max == undefined) { scope.max = 5; }
       function updateStars() {
         scope.stars = [];
+
         for (var i = 0; i < scope.max; i++) {
           scope.stars.push({
             filled : i < scope.ratingValue
           });
         }
-      };
+      }
       scope.toggle = function(index) {
         if (scope.readonly == undefined || scope.readonly == false){
           scope.ratingValue = index + 1;
@@ -304,13 +342,15 @@ placeApp.controller("RatingCtrl", function($scope) {
             rating: index + 1
           });
         }
+        var placeId = scope.$parent.place.id;
+        ratePlace(placeId, scope.ratingValue);
       };
       scope.$watch("ratingValue", function(oldVal, newVal) {
         if (newVal) { updateStars(); }
       });
     }
   };
-});
+}]);
 
 /** Slick slider */
 placeApp.directive('slickSlider', function($timeout){
@@ -321,5 +361,5 @@ placeApp.directive('slickSlider', function($timeout){
         $(element).slick(scope.$eval(attrs.slickSlider));
       });
     }
-  }
+  };
 });
