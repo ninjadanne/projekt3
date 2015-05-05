@@ -262,6 +262,8 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
     };
     $scope.filterTag = {tag: null};
 
+    $scope.searchTag = {tag: null};
+
     // Watch the sortOrder order (radio buttons)
     $scope.$watch('orderPlaces.invert', function() {
        sortPlaces();
@@ -272,9 +274,14 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
        sortPlaces();
     });
 
-    // Wathc the filterTag property (dropdown)
+    // Watch the filterTag property (dropdown)
     $scope.$watch('filterTag.tag', function() {
         filterPlaces();
+    });
+
+    // Watch the searchTag property (dropdown)
+    $scope.$watch('searchTag.tag', function() {
+        searchPlaces();
     });
 
     var sortPlaces = function() {
@@ -291,6 +298,25 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
             $scope.places = allPlaces;
         }
     };
+
+    var searchPlaces = function() {
+         if ($scope.searchTag.tag !== '') {
+            var i = $scope.places.length;
+            var places = [];
+            while (i--) {
+              var title = $scope.places[i].title + '';
+              if (title.startsWith($scope.searchTag.tag)){
+                places.push($scope.places[i]);
+              }
+              console.log($scope.places[i]);
+            }
+
+                $scope.places = places;
+         } else {
+            $scope.places = allPlaces;
+        }
+    };
+
 }]);
 
 /** Get place controller */
