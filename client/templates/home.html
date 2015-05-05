@@ -1,5 +1,5 @@
 ---
-name: start 
+name: start
 url: /
 <!-- animationIn: fadeIn easeInOut
 animationOut: fadeOut easeInOut -->
@@ -15,7 +15,7 @@ animationOut: fadeOut easeInOut -->
         <a href="#!/placelist"><img class="icon1" src="assets/img/icons/list.png"></a>
         <a href="#!/sortfilter"><img class="icon2" src="assets/img/icons/filter.png"></a>
         <a href="#!/checkin"><img class="icon3" src="assets/img/icons/pin-check.png"></a>
-        <a ng-click="centerMapToUserPosition()"><img class="icon4" src="assets/img/icons/fix-position.png"></a>
+        <a ng-click="centerMapToUserPosition()" ng-if="userPosition.accuracy >= 0"><img class="icon4" src="assets/img/icons/fix-position.png"></a>
         <zf-action-sheet id="separate-actionsheet">
             <zf-as-content position="top">
                 <div class="grid-block show-for-small-only small-up-2 front-tiles">
@@ -24,7 +24,7 @@ animationOut: fadeOut easeInOut -->
                     </div>
                     <div class="front-tile tile tile-2 grid-block">
                         <a href="#!/place"><h4>Mest kommenterat</h4></a>
-                    </div> 
+                    </div>
                     <div class="front-tile tile tile-3 grid-block">
                         <a href="#!/checkin"><h4>Flest incheckningar</h4></a>
                     </div>

@@ -18,14 +18,20 @@ skateMap.controller("mapController", ['$scope', '$http', 'uiGmapGoogleMapApi', '
     // Hämta användarens nuvarande position
     placeService.getCurrentPosition().then(function(userPosition) {
         // Centrera kartan
+        if (userPosition.latitude == -1) {
+            var userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: -1 };
+        } else {
+            setUserPosition(userPosition.latitude, userPosition.longitude, userPosition.accuracy);
+        }
+
         $scope.map = { center: { latitude: userPosition.latitude, longitude: userPosition.longitude }, zoom: 12, bounds: {}, pan: true };
 
         /** Övervaka användarens position */
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(function(location) {
-                setUserPosition(location.coords.latitude, location.coords.longitude, location.coords.accuracy);
-            });
-        }
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.watchPosition(function(location) {
+        //         setUserPosition(location.coords.latitude, location.coords.longitude, location.coords.accuracy);
+        //     });
+        // }
     });
 
     var setUserPosition = function(latitude, longitude, accuracy) {

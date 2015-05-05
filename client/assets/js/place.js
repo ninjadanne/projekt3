@@ -134,7 +134,7 @@ placeApp.factory('placeService', function($http, $q) {
     function getCurrentPosition() {
         var dfr = $q.defer();
         // Standard startposition (Stapelbäddsparken, Malmö)
-        var userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: 0 };
+        var userPosition = { };
 
         // Om enheten och klienten stöder geolocation
         if (navigator.geolocation) {
@@ -147,6 +147,13 @@ placeApp.factory('placeService', function($http, $q) {
                 };
                 dfr.resolve(userPosition);
             });
+        } else {
+            userPosition = {
+                latitude: -1,
+                longitude: -1,
+                accuracy: -1
+            };
+            dfr.resolve(userPosition);
         }
 
         return dfr.promise; // Return a promise
@@ -249,6 +256,12 @@ placeApp.factory('placeService', function($http, $q) {
 placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
     var allPlaces = [];
 
+    placeService.getCurrentPosition().then(function(position) {
+        $scope.userPosition = position;
+    });
+
+
+
     placeService.getPlaces().then(function(places) {
         allPlaces = places;
         $scope.places = places;
@@ -335,7 +348,6 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
         user = userService.getUser();
         placeService.ratePlace(placeId, user.id, rating);
     }
-    // console.log(scope);
   return {
     restrict : "EA",
     template : "<ul class='rating' ng-class='{readonly: readonly}'>" +
