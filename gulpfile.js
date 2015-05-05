@@ -48,6 +48,7 @@ var paths = {
     'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
     'bower_components/jquery/dist/jquery.js',
     'bower_components/slick.js/slick/slick.js',
+    'client/assets/js/user.js',
     'client/assets/js/place.js',
     'client/assets/js/map.js',
     'client/assets/js/app.js'

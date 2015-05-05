@@ -14,14 +14,14 @@
 </div>
 </head>
 
-<body ng-controller="getPlaces">
+<body ng-controller="userController">
 
     <div zf-offcanvas="" id="menu" class="off-canvas" position="right">
         <a zf-close="" class="close-button">×</a>
         <div ng-include="'/templates/menu.html'"></div>
     </div>
 
-    <div class="grid-frame vertical">
+    <div class="grid-frame vertical" ng-controller="getPlaces">
         <div class="grid-block shrink wrap">
             <div class="grid-content collapse small-12 medium-7">
                 <div class="title-bar">

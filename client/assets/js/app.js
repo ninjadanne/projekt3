@@ -15,7 +15,8 @@
 
         // GrindFind
         'skate.Map',
-        'skate.Place'
+        'skate.Place',
+        'skate.User'
       ])
     .config(config)
     .run(run);
