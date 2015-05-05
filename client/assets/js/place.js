@@ -112,7 +112,7 @@ placeApp.factory('placeService', function($http, $q) {
             longitude: place.Longitude,
             tags: splitToTags(place.Activity), // The tags are space separated
             description: place.Description,
-            rating: Math.round(place.Rating * 10) / 10, // Round the rating to 1 decimal
+            rating: (Math.round(place.Rating * 10) / 10).toFixed(1), // Round the rating to 1 decimal
             images: []
         };
 
