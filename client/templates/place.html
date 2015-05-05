@@ -14,12 +14,17 @@ animationOut:  zoomOut bounceInOut
                     <div ng-repeat="image in place.images"><img src="{{image.uri}}"></div>
                 </div>
             </div>
-        </div>
-        <div class="small-12">
-            <h2 class="small-12">{{place.title}}</h2>
-            <div ng-app="app" ng-controller="RatingCtrl" class="container rating">
-                <!--<star-rating ng-model="place.rating" readonly="isReadonly"></star-rating>-->
-              <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)"></div>
+    <div class="small-12">
+        <div class="small-12 clearfix">
+            <h2 class="float-left">{{place.title}}</h2>
+                <img zf-iconic="" icon="star" size="medium" class="iconic-color-warning float-left">
+
+            <div ng-app="app" ng-controller="RatingCtrl" class="container rating float-right">
+                <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)">
+                </div>
+                <label>Ditt betyg
+                </label>
+            </div>
         </div>
         <div class="small-12">
             <p class="label tag" ng-repeat="tag in place.tags">
@@ -52,5 +57,6 @@ animationOut:  zoomOut bounceInOut
             </div>
         </div>
     </div>
+</div>
 
 </section>
