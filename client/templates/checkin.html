@@ -9,10 +9,10 @@ animationOut: fadeOut easeInOut
 
     <div class="grid-content">
 
-        <ng-include class="show-for-medium" src="'templates/sortfilter.html'"></ng-include>
-
         <h2>Checka in!</h2>
         <p>Berätta för dina vänner var du är!</p>
+
+        <ng-include class="show-for-medium sort-block" src="'templates/sortfilter.html'"></ng-include>
 
     <div class="grid-content" ng-repeat="place in places">
         <div class="grid-block" ng-if="place.title != null">
