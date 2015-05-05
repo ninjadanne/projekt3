@@ -88,10 +88,15 @@ div.rn-carousel-indicator span {
     color: #666;
   }
 
+.meanuser_bg .iconic * {
+  fill: #EBC959 !important;
 }
-.bigstar .iconic *{
-    fill: #EBC959;
-    float: left;
 
-
+}
+.meanuser_rating{
+  position: relative;
+  left: -20px;
+  top: 10px;
+  font-weight: 700;
+  text-align: center;
 }
