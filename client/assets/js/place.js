@@ -390,13 +390,13 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
 }]);
 
 /** Slick slider */
-placeApp.directive('slickSlider', function($timeout){
+placeApp.directive('slickSlider', function($interval){
   return{
     restrict:'A',
     link: function(scope,element,attrs){
-      $timeout(function(){
+      $interval(function(){
         $(element).slick(scope.$eval(attrs.slickSlider));
-      });
+      },1000);
     }
   };
 });
