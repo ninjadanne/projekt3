@@ -260,8 +260,6 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
         $scope.userPosition = position;
     });
 
-
-
     placeService.getPlaces().then(function(places) {
         allPlaces = places;
         $scope.places = places;
@@ -336,6 +334,7 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, placeService) {
     placeService.getPlace($scope.params.placeId).then(function(place) {
         $scope.place = place;
+        $scope.$emit('centerMapToPlace', place);
     });
 }]);
 
