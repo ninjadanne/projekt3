@@ -14,7 +14,7 @@ animationOut: fadeOut easeInOut
         <ng-include class="show-for-medium sort-block" src="'templates/sortfilter.html'"></ng-include>
 
         <a class="show-for-small-only" href="#!/"><img class="icon1" src="assets/img/icons/map.png"></a>
-        <a class="show-for-small-only" href="#!/createnewplace"><img class="icon4" src="assets/img/icons/pin-plus.png"></a>
+        <a zf-open="createModal" class="show-for-small-only" href="#!/createnewplace"><img class="icon4" src="assets/img/icons/pin-plus.png"></a>
         <a class="show-for-small-only" href="#!/checkin"><img class="icon3" src="assets/img/icons/pin-check.png"></a>
         <a class="show-for-small-only" ><img zf-hard-toggle="top_sheet" class="icon2" src="assets/img/icons/filter.png"> </a>
         <zf-panel position="top" id="top_sheet">
@@ -51,7 +51,7 @@ animationOut: fadeOut easeInOut
                     </div>
 
 
-                <div class="small-12">
+                <div class="small-12 hide-for-small">
                     <p>{{place.description}}</p>
                 </div>
 
