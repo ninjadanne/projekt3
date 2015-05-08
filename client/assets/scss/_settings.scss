@@ -68,6 +68,13 @@ $include-css: (
 // 2. Global Styles
 // - - - - - - - - - - - - - - -
 
+// Google Fonts
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,700,900|Open+Sans:100,300,400italic,700italic,400,700);
+
+// Font Variables
+$titillium-web: 'Titillium Web', sans-serif;   
+$open-sans: 'Open Sans', sans-serif;
+
 // This sets 1rem to be 16px
 // $rem-base: 16px;
 
@@ -86,14 +93,14 @@ $include-css: (
 // $headers: "h1,h2,h3,h4,h5,h6";
 
 // We use these to define default font weights
-// $font-weight-normal: normal;
-// $font-weight-bold: bold;
+$font-weight-normal: 400;
+$font-weight-bold: 600;
 
 // We use these to control various global styles
 $body-background: #e9e6e1;
-// $body-font-color: #222;
-$body-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-// $body-font-weight: $font-weight-normal;
+$body-font-color: #333;
+$body-font-family: $open-sans, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: 400;
 // $body-font-style: normal;
 // $body-antialiased: true;
 
@@ -140,8 +147,8 @@ $purple: #9f2870;
 // - - - - - - - - - - - - - - -
 
 // We use these to control header font styles
-$header-font-family: "Raleway";
-$header-font-weight: 900;
+$header-font-family: $titillium-web;
+$header-font-weight: 400;
 // $header-font-style: $font-weight-normal;
 // $header-font-color: #222;
 // $header-line-height: 1.4;
