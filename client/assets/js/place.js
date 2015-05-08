@@ -396,7 +396,8 @@ placeApp.directive('slickSlider', function($interval){
     link: function(scope,element,attrs){
       $interval(function(){
         $(element).slick(scope.$eval(attrs.slickSlider));
-      },1000);
+      },2000);
     }
   };
 });
+
