@@ -15,12 +15,12 @@ animationOut: fadeOut easeInOut -->
 
 <div class="grid-content collapse small-12 map-menu">
     <ul class="sub-menu dark menu-bar">
-        <li><a href="#">Hjälp</a></li>
-        <li><a href="#">Om</a></li>
-        <li><a href="#!/settings">Inställningar</a></li>
+        <li><a zf-open="helpModal">Hjälp</a></li>
+        <li><a zf-open="aboutModal">Om</a></li>
+        <li><a zf-open="settingsModal">Inställningar</a></li>
         <li><a href="#!/login">Logga in</a></li>
         <li><a href="#!/checkin">Checka in</a></li>
-        <li><a href="#!/createnewplace">Lägg till ny plats</a></li>
+        <li><a zf-open="createModal">Lägg till ny plats</a></li>
     </ul>
     <div ng-include="'/templates/search.html'" class="hide-for-small-only"></div>
 </div>

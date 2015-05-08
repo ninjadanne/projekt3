@@ -1,32 +1,27 @@
----
-name: createnewplace
-url: /createnewplace
-animationIn: hingeInFromMiddleY bounceInOut
-animationOut:  zoomOut bounceInOut
----
+
 <section  class="grid-block">
 	<div class="grid-content small-12">
-	        <h2>Skapa ny plats</h2>
+			<h2>Skapa ny plats</h2>
 
+		<a zf-close="" class="close-button">×</a>
+	<div class="grid-content small-12">
 
-    <div class="grid-content small-12">
-
-		<form ng-controller="addPlace">
+		<form>
 
 				<label>
 					Namn på plats
-					<input type="text" ng-model="newPlace.name"placeholder="Text field">
+					<input type="text" placeholder="Text field">
 				</label>
 
 				<label>
 					Beskrivning:
-					<textarea  ng-model="newPlace.description" name="description" cols="30" rows="5"></textarea>
+					<textarea name="description" cols="30" rows="5"></textarea>
 				</label>
-				<div class="small-12">
+
 					<h4>Kategori</h4>
 
-
-				<ul class="checkbox-grid small-8">
+				<div class="small-12 grid-block">
+				<ul class="checkbox-grid small-12">
 					<li><input id="checkbox1" type="checkbox"><label for="checkbox1">Free</label></li>
 					<li><input id="checkbox2" type="checkbox"><label for="checkbox2">Grind</label></li>
 					<li><input id="checkbox3" type="checkbox"><label for="checkbox3">Half-pipe</label></li>
@@ -34,6 +29,7 @@ animationOut:  zoomOut bounceInOut
 					<li><input id="checkbox5" type="checkbox"><label for="checkbox5">Ramps</label></li>
 					<li><input id="checkbox6" type="checkbox"><label for="checkbox6">Skatepark</label></li>
 					<li><input id="checkbox7" type="checkbox"><label for="checkbox7">Stairs</label></li>
+					<li><input id="checkbox8" type="checkbox"><label for="checkbox8">other</label></li>
 				</ul>
 				</div>
 						<!--<select name="" id="" ng-model="newPlace.activity">
@@ -47,17 +43,15 @@ animationOut:  zoomOut bounceInOut
 
 						</select>-->
 				</div>
-<br/>
+
 			<div class="small-12 medium-12">
 				<button class="button photo_button float-left">Lägg till bild</button>
 				<button class="button float-right ">Spara</button>
-				<button class="button float-right" ng-click="reset()">Reset</button>
-
 			</div>
 
 
 		</form>
 
 
-	</div>
+</div>
 </section>
