@@ -140,3 +140,28 @@ div.front-tiles2 {
     top: -55px;
 
 }
+
+.panel-top {
+    height: 250px !important;
+}
+
+.filtersheet {
+
+    .grid-content .grid-block {
+        margin-left: 1px !important;
+        margin-right: 1px !important;
+        overflow: hidden;
+    }
+
+    label {
+        margin-top: 15px;
+    }
+
+}
+#top_sheet {
+    
+    .close-button {
+        top: 0.5rem !important;
+        right: 0.5rem !important;
+    }
+}
