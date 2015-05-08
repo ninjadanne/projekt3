@@ -1,33 +1,25 @@
----
-name: newcomment
-url: /newcomment
-animationIn: hingeInFromMiddleY bounceInOut
-animationOut:  zoomOut bounceInOut
----
 <section  class="grid-block">
 	<div class="grid-content small-12">
-	        <h2>Lägg till kommentar</h2>
+	<h2>Lägg till kommentar</h2>
+	<a zf-close="" class="close-button">×</a>
+	<div class="grid-content small-12">
+		            <div class="grid-block small-12">
+		            	<p>Här kan du lägga in och skapa en ny kommentar till en skateplats!</p>
+		            </div>
 
+			<form>
+				<label>
+					Beskrivning:
+					<textarea name="description" cols="30" rows="5"></textarea>
+				</label>
 
-    <div class="grid-content small-12">
-	            <div class="grid-block small-12">
-	            	<p>Här kan du lägga in och skapa en ny kommentar till en skateplats!</p>
-	            </div>
+			<div class="small-12 medium-12">
+				<button class="button photo_button float-left">Lägg till bild</button>
+				<button class="button float-right ">Spara</button>
+			</div>
 
-		<form>
-			<label>
-				Beskrivning:
-				<textarea class="small-12" name="describe" cols="30"></textarea>
-			</label>
+			</form>
 
-			<p><button>Lägg till bild</button></p>
-        <div class="small-12 medium-6 grid-content">
-            <button class="button float-right">Spara</button>
-        </div>
-
-
-		</form>
-
-
+	</div>
 	</div>
 </section>
