@@ -1,7 +1,7 @@
 ﻿var placeApp = angular.module('skate.Place', []);
 
 /** Service */
-placeApp.factory('placeService', function($http, $q) {
+placeApp.factory('placeService', function($http, $q, Upload) {
 
     var userPosition = getCurrentPosition().then(function(position) {
         return position;
@@ -106,6 +106,24 @@ placeApp.factory('placeService', function($http, $q) {
         var dfr = $q.defer();
 
         $http.post(endPoint, {'uid': uid, 'name': name, 'latitude': latitude, 'longitude': longitude, 'description': description, 'pic': pic, 'cat': cat}).success(function(data) {
+            dfr.resolve(data);
+            console.log(data);
+        });
+
+        return dfr.promise;
+    }
+
+    function uploadImage(image) {
+        var endPoint = domain + 'upload.php';
+
+        var dfr = $q.defer();
+
+        Upload.upload({
+            url: endPoint,
+            data: {fname: image.name},
+            file: image,
+        }).success(function(data, status, headers, config) {
+            // file is uploaded successfully
             dfr.resolve(data);
             console.log(data);
         });
@@ -262,6 +280,9 @@ placeApp.factory('placeService', function($http, $q) {
         },
         addPlace: function(name, description, pic, uid, longitude, latitude, cat) {
             return addPlace(name, description, pic, uid, longitude, latitude, cat);
+        },
+        uploadImage: function(image) {
+            return uploadImage(image);
         }
     };
 });
@@ -407,6 +428,8 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
 /** Add place controller */
 placeApp.controller('addPlace', function($scope, placeService) {
 
+    var file = null;
+
     $scope.newPlace = {
         name: null,
         description: null,
@@ -418,17 +441,32 @@ placeApp.controller('addPlace', function($scope, placeService) {
     };
 
     $scope.addPlace = function(){
-        console.log($scope.newPlace);
-         placeService.addPlace(
-            $scope.newPlace.name,
-            $scope.newPlace.description,
-            $scope.newPlace.pic,
-            $scope.newPlace.uid,
-            $scope.newPlace.longitude,
-            $scope.newPlace.latitude,
-            $scope.newPlace.cat
-        );  
+        if (file) {
+            image = placeService.uploadImage(file).then(function(image) {
+                newPlace.pic = image.name;
+                addPlace($scope.newPlace);
+            });
+        } else {
+            addPlace($scope.newPlace);
+        }
     }
+
+    function addPlace(place) {
+        placeService.addPlace(
+            place.name,
+            place.description,
+            place.pic,
+            place.uid,
+            place.longitude,
+            place.latitude,
+            place.cat
+        );
+    }
+
+    $scope.uploadFile = function(files) {
+        file = files[0];
+
+    };
 });
 
 /** Slick slider */

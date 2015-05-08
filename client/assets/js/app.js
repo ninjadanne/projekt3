@@ -12,6 +12,7 @@
         'foundation.dynamicRouting.animations',
 
         // Other modules
+        'ngFileUpload',
 
         // GrindFind
         'skate.Map',
