@@ -12,33 +12,44 @@ skateMap.config(function(uiGmapGoogleMapApiProvider) {
 /** Skate map controllers */
 skateMap.controller("mapController", ['$scope', '$http', 'uiGmapGoogleMapApi', 'placeService', function($scope, $http, uiGmapGoogleMapApi, placeService) {
 
-    /** Markör för användarens position */
+    /** Init the map */
+    $scope.map = { zoom: 12, bounds: {}, pan: true };
+
+    /** Marker for users position */
     userPositionMarker = null;
 
-    // Hämta användarens nuvarande position
+    /** Array with all markers */
+    $scope.markers = [];
+
+    /** Watch the places in scope and add them as markers */
+    $scope.$watch('places', function() {
+        $scope.markers = $scope.places;
+    });
+
+    // Get the users current position
     placeService.getCurrentPosition().then(function(userPosition) {
         // Centrera kartan
         if (userPosition.latitude == -1) {
-            var userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: -1 };
-        } else {
-            setUserPosition(userPosition.latitude, userPosition.longitude, userPosition.accuracy);
+            userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: -1 };
         }
 
-        $scope.map = { center: { latitude: userPosition.latitude, longitude: userPosition.longitude }, zoom: 12, bounds: {}, pan: true };
+        setUserPosition(userPosition.latitude, userPosition.longitude, userPosition.accuracy, true);
 
-        /** Övervaka användarens position */
-        // if (navigator.geolocation) {
-        //     navigator.geolocation.watchPosition(function(location) {
-        //         setUserPosition(location.coords.latitude, location.coords.longitude, location.coords.accuracy);
-        //     });
-        // }
     });
 
-    var setUserPosition = function(latitude, longitude, accuracy) {
+    /**
+     * Set the user position and create a marker for it
+     * @param {[type]} latitude  [description]
+     * @param {[type]} longitude [description]
+     * @param {[type]} accuracy  [description]
+     * @param {[type]} centerTo  [description]
+     */
+    var setUserPosition = function(latitude, longitude, accuracy, centerTo) {
         if (!userPositionMarker) {
             /** Skapa en markör för användarens position */
             userPositionMarker = {
                 id: 'userPosition',
+                idKey: 'userPosition',
                 latitude: latitude,
                 longitude: longitude,
                 accuracy: accuracy,
@@ -48,21 +59,27 @@ skateMap.controller("mapController", ['$scope', '$http', 'uiGmapGoogleMapApi', '
             };
 
             /** Lägg till markör användarens position till scope */
-            $scope.places.push(userPositionMarker);
+            $scope.markers.push(userPositionMarker);
         } else {
             userPositionMarker.latitude = latitude;
             userPositionMarker.longitude = longitude;
             userPositionMarker.accuracy = accuracy;
         }
+
+        if (centerTo) {
+            $scope.centerMapToUserPosition();
+        }
     };
 
+    /**
+     * Center the map to the users position
+     */
     $scope.centerMapToUserPosition = function() {
         if (userPositionMarker) {
             $scope.map.center = {
                 latitude: userPositionMarker.latitude,
                 longitude: userPositionMarker.longitude
             };
-            // $scope.map.refresh = true;
         }
     };
 }]);
