@@ -100,6 +100,19 @@ placeApp.factory('placeService', function($http, $q) {
         return dfr.promise;
     }
 
+    function addPlace(name, description, pic, uid, longitude, latitude, cat) {
+        var endPoint = domain + 'insert_place.php';
+
+        var dfr = $q.defer();
+
+        $http.post(endPoint, {'uid': uid, 'name': name, 'latitude': latitude, 'longitude': longitude, 'description': description, 'pic': pic, 'cat': cat}).success(function(data) {
+            dfr.resolve(data);
+            console.log(data);
+        });
+
+        return dfr.promise;
+    }
+
     /**
      * Convert a place response from backend
      * @param  {[type]} place [description]
@@ -246,6 +259,9 @@ placeApp.factory('placeService', function($http, $q) {
         },
         getCurrentPosition: function() {
             return userPosition;
+        },
+        addPlace: function(name, description, pic, uid, longitude, latitude, cat) {
+            return addPlace(name, description, pic, uid, longitude, latitude, cat);
         }
     };
 });
@@ -387,6 +403,33 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
     }
   };
 }]);
+
+/** Add place controller */
+placeApp.controller('addPlace', function($scope, placeService) {
+
+    $scope.newPlace = {
+        name: null,
+        description: null,
+        pic: null,
+        uid: null,
+        longitude: null,
+        latitude: null,
+        cat: null
+    };
+
+    $scope.addPlace = function(){
+        console.log($scope.newPlace);
+         placeService.addPlace(
+            $scope.newPlace.name,
+            $scope.newPlace.description,
+            $scope.newPlace.pic,
+            $scope.newPlace.uid,
+            $scope.newPlace.longitude,
+            $scope.newPlace.latitude,
+            $scope.newPlace.cat
+        );  
+    }
+});
 
 /** Slick slider */
 placeApp.directive('slickSlider', function($interval){
