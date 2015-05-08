@@ -38,8 +38,12 @@ animationOut: fadeOut easeInOut -->
 
         <zf-panel position="top" id="top_sheet">
         <a href="#" zf-close="" class="close-button">×</a>
+        <div class="test">
+                <ng-include src="'templates/search.html'">
+                </ng-include>
                 <ng-include src="'templates/sortfilter.html'" class="filtersheet">
                 </ng-include>
+        </div>
         </zf-panel>
 
     </div>

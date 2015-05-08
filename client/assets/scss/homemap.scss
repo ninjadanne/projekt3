@@ -44,12 +44,13 @@ img.icon1 {
     background-color: black !important;
     position: absolute;
     top: 25px;
-    right: 10px;
+    right: 20px;
     width: 40px;
     height: 40px;
     border-radius: 25px;
     padding: 5px;
     z-index: 2;
+    border: 1px white solid;
 }
 
 img.icon2 {
@@ -58,22 +59,24 @@ img.icon2 {
     top: 75px;
     width: 40px;
     height: 40px;
-    right: 10px;
+    right: 20px;
     padding: 5px;
     border-radius: 25px;
     z-index: 2;
-
+    border: 1px white solid;
 }
+
 img.icon3 {
     background-color: black !important;
     position: absolute;
     bottom: 25px;
     width: 40px;
     height: 40px;
-    right: 10px;
+    right: 20px;
     padding: 5px;
     border-radius: 25px;
     z-index: 2;
+    border: 1px white solid;
 }
 img.icon4 {
     background-color: black !important;
@@ -81,10 +84,11 @@ img.icon4 {
     bottom: 25px;
     width: 40px;
     height: 40px;
-    left: 10px;
+    left: 20px;
     padding: 5px;
     border-radius: 25px;
     z-index: 2;
+    border: 1px white solid;
 }
 
 
@@ -100,6 +104,7 @@ img.menu1 {
     margin-right: auto;
     padding: 5px;
     display: block;
+    border: 1px white solid;
 }
 a.size1 {
     width: 40px;
@@ -138,11 +143,17 @@ div.front-tiles2 {
 
 .action-sheet.is-active img.menu1 {
     top: -55px;
-
+}
+.marg-bot {
+    margin-bottom: 15px;
+}
+.panel-top {
+    height: 200px !important;
 }
 
-.panel-top {
-    height: 250px !important;
+.panel {
+    overflow: hidden;
+    padding: 15px;
 }
 
 .filtersheet {
@@ -163,5 +174,13 @@ div.front-tiles2 {
     .close-button {
         top: 0.5rem !important;
         right: 0.5rem !important;
+    }
+}
+
+@include breakpoint(small only) {
+    .test {
+        .hide_stuff {
+            display: none !important;
+        }
     }
 }
