@@ -91,7 +91,6 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
      * @param  {[type]} longitude [description]
      */
     function centerMapToPosition(latitude, longitude) {
-        console.log('Centering map to ' + latitude + ', ' + longitude);
         $scope.map.center = {
             latitude: latitude,
             longitude: longitude
@@ -108,7 +107,6 @@ skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'plac
     };
 
     $scope.$watch('render', function() {
-        console.log($scope.render);
         if($scope.render === true) {
             /** Init the map */
             $scope.map = { zoom: 17, bounds: {}, pan: true };

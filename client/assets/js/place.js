@@ -103,12 +103,9 @@ placeApp.factory('placeService', function($http, $q, Upload) {
     function addPlace(place) {
         var endPoint = domain + 'insert_place.php';
 
-        console.log(place);
-
         var dfr = $q.defer();
 
         $http.post(endPoint, {'uid': place.uid, 'pid': place.id, 'name': place.title, 'latitude': place.latitude, 'longitude': place.longitude, 'description': place.description, 'pic': place.pic, 'cat': place.cat, 'delete': place.delete}).success(function(data) {
-            console.log(data);
             dfr.resolve(data);
         });
 
