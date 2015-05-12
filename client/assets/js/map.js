@@ -79,7 +79,7 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
                 longitude: longitude,
                 accuracy: accuracy,
                 options: {
-                    icon: '/assets/img/icons/user-position.png'
+                    icon: 'assets/img/icons/user-position.png'
                 }
             };
 
