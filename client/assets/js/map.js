@@ -15,15 +15,35 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
     /** Init the map */
     $scope.map = { zoom: 12, bounds: {}, pan: true };
 
+    $scope.map.markersEvents = {
+        click: function(marker, eventName, model, arguments) {
+            var size = model.title.length + 10;
+            $scope.map.window.model = model;
+            $scope.map.window.show = true;
+            $scope.map.window.marker = marker;
+            $scope.map.window.options.content = '<a href="#!/place/' + model.id + '" style="width: ' + size + 'em;">' + model.title + '</a>';
+        }
+    };
+
+    $scope.map.window = {
+        marker: {},
+        model: {},
+        show: false,
+        closeClick: function() {
+            this.show = false;
+        },
+        options: {} // define when map is ready
+    };
+
     /** Marker for users position */
     userPositionMarker = null;
 
     /** Array with all markers */
-    $scope.markers = [];
+    $scope.map.markers = [];
 
     /** Watch the places in scope and add them as markers */
     $scope.$watch('places', function() {
-        $scope.markers = $scope.places;
+        $scope.map.markers = $scope.places;
     });
 
     /** Listen for the centerMapToPosition event */
@@ -64,7 +84,7 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
             };
 
             /** Add the user marker to the markers */
-            $scope.markers.push(userPositionMarker);
+            $scope.map.markers.push(userPositionMarker);
         } else {
             userPositionMarker.latitude = latitude;
             userPositionMarker.longitude = longitude;
