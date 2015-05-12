@@ -473,6 +473,11 @@ placeApp.controller('deletePlace', function($scope, placeService) {
             console.log('nu ska jag ta bort den jäveln');
             $scope.place.delete = true;
             placeService.addPlace($scope.place);
+
+            var placeIndex = $scope.places.indexOf($scope.place);
+            if (placeIndex > -1) {
+                $scope.places.splice(placeIndex, 1);
+            }
         }
     };
 });
