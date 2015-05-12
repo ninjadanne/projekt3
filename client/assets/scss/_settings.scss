@@ -119,6 +119,7 @@ $success-color: #51C870;
 $red: #eb1f07;
 $dark-red: #d31c06;
 $purple: #9f2870;
+$dark-blue: #0690a4;
 
 // We use these to make sure border radius matches unless we want it different.
 // $global-radius: 4px;
@@ -550,7 +551,7 @@ $menubar-background: $primary-color;
 // $offcanvas-size-horizontal: 250px;
 // $offcanvas-size-vertical: 250px;
 
-$offcanvas-background: $dark-red;
+$offcanvas-background: $dark-blue;
 // $offcanvas-color: isitlight($offcanvas-background);
 // $offcanvas-padding: 0;
 $offcanvas-shadow: 0px 0 0px rgba(black, 0.25);

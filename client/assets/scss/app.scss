@@ -14,6 +14,17 @@
 
 
 /* Ugly haxx. The map is never removed. The content gets a background color so that the map is not revealed */
+
+h1,h2,h3,h4,h5,h6 {
+    a {
+        color: #222;
+
+        &:hover {
+            scale-color(#222, $lightness: 35%);
+        }
+    }
+}
+
 .main-content > .grid-block > * {
     background: #fff;
 }
@@ -65,11 +76,11 @@
     ul.menu-bar {
 
         padding: 0 10px 10px;
-        background-color: $dark-red;
+        background-color: $dark-blue;
 
         li {
 
-            background-color: $red;
+            background-color: $primary-color;
             margin-bottom: 10px;
 
             a {
