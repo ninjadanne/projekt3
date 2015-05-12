@@ -107,6 +107,7 @@ placeApp.factory('placeService', function($http, $q, Upload) {
 
         $http.post(endPoint, {'uid': place.uid, 'pid': place.id, 'name': place.title, 'latitude': place.latitude, 'longitude': place.longitude, 'description': place.description, 'pic': place.pic, 'cat': place.cat, 'delete': place.delete}).success(function(data) {
             dfr.resolve(data);
+            console.log(data);
         });
 
         return dfr.promise;
@@ -425,7 +426,7 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
 }]);
 
 /** Add place controller */
-placeApp.controller('addPlace', function($scope, placeService) {
+placeApp.controller('addPlace', function($scope, placeService, userService) {
 
     var file = null;
 
@@ -434,7 +435,7 @@ placeApp.controller('addPlace', function($scope, placeService) {
         name: null,
         description: null,
         pic: null,
-        uid: null,
+        uid: userService.getUser().id,
         longitude: null,
         latitude: null,
         cat: null
@@ -449,7 +450,6 @@ placeApp.controller('addPlace', function($scope, placeService) {
         if (file) {
             image = placeService.uploadImage(file).then(function(image) {
                 $scope.newPlace.pic = image.uri;
-                addPlace($scope.newPlace);
             });
         }
         placeService.addPlace($scope.newPlace);
