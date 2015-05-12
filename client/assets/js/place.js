@@ -441,7 +441,6 @@ placeApp.controller('addPlace', function($scope, placeService) {
     placeService.getCurrentPosition().then(function(up) {
         $scope.newPlace.latitude = up.latitude;
         $scope.newPlace.longitude = up.longitude;
-        console.log(up);
     });
 
     $scope.addPlace = function(){

@@ -13,8 +13,6 @@
 			</label>
 				<input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
 				<input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="newPlace.longitude">
-				<input type="text" placeholder="Fyll i platsens kategori" id="newPlaceCat" ng-model="newPlace.cat">
-
 				<label>
 					Beskrivning:
 					<textarea class="small-12" cols="30" id="newPlaceDescription" ng-model="newPlace.description"></textarea>
@@ -23,9 +21,14 @@
 					<h4>Kategori</h4>
 
 				<div class="small-12 grid-block">
+
+					<label ng-repeat="(color,enabled) in colors">
+					      <input type="checkbox" ng-model="colors[color]" /> {{color}} 
+					  </label>
+
 						<label ng-repeat="tag in filterTags">
-							<input type="checkbox" value="{{tag.value}}"> {{tag.name}}
-						</label>
+							<input type="checkbox" name="newPlaceCategory" ng-model="newPlace.cat" ng-true-value="ofCourse" ng-false-value="iWish"> {{tag.name}}
+						</label>	
 				</div>
 
 			<div class="small-12 medium-12">
