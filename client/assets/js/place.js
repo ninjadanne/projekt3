@@ -107,7 +107,6 @@ placeApp.factory('placeService', function($http, $q, Upload) {
 
         $http.post(endPoint, {'uid': uid, 'name': name, 'latitude': latitude, 'longitude': longitude, 'description': description, 'pic': pic, 'cat': cat}).success(function(data) {
             dfr.resolve(data);
-            console.log(data);
         });
 
         return dfr.promise;
@@ -125,7 +124,6 @@ placeApp.factory('placeService', function($http, $q, Upload) {
         }).success(function(data, status, headers, config) {
             // file is uploaded successfully
             dfr.resolve(data);
-            console.log(data);
         });
 
         return dfr.promise;
@@ -443,7 +441,7 @@ placeApp.controller('addPlace', function($scope, placeService) {
     $scope.addPlace = function(){
         if (file) {
             image = placeService.uploadImage(file).then(function(image) {
-                newPlace.pic = image.name;
+                $scope.newPlace.pic = image.uri;
                 addPlace($scope.newPlace);
             });
         } else {
