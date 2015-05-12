@@ -53,10 +53,10 @@
 
 .tag {
     margin-right: 0.5em;
+    text-transform: uppercase;
 }
 
 .off-canvas {
-    text-align: center;
 
     .close-button {
         display: none;
@@ -64,8 +64,7 @@
 
     ul.menu-bar {
 
-        padding: 10px;
-        padding-top: 0px;
+        padding: 0 10px 10px;
         background-color: $dark-red;
 
         li {
@@ -97,11 +96,6 @@
 
     }
 
-}
-
-.off-canvas-heading {
-    padding: 1em;
-    color: #fff;
 }
 
  .map-menu {

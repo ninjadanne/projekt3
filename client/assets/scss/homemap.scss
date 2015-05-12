@@ -42,8 +42,8 @@
 
 img.icon1 {
     background-color: black !important;
-    position: absolute;
-    top: 25px;
+    position: fixed;
+    top: 105px;
     right: 20px;
     width: 40px;
     height: 40px;
@@ -55,8 +55,8 @@ img.icon1 {
 
 img.icon2 {
     background-color: black !important;
-    position: absolute;
-    top: 75px;
+    position: fixed;
+    top: 150px;
     width: 40px;
     height: 40px;
     right: 20px;
@@ -68,7 +68,7 @@ img.icon2 {
 
 img.icon3 {
     background-color: black !important;
-    position: absolute;
+    position: fixed;
     bottom: 25px;
     width: 40px;
     height: 40px;
@@ -80,7 +80,7 @@ img.icon3 {
 }
 img.icon4 {
     background-color: black !important;
-    position: absolute;
+    position: fixed;
     bottom: 25px;
     width: 40px;
     height: 40px;
@@ -149,6 +149,11 @@ div.front-tiles2 {
 }
 .panel-top {
     height: 200px !important;
+}
+
+.panel-top.is-active {
+    position: fixed !important;
+    margin-top: 81px;
 }
 
 .panel {
