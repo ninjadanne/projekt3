@@ -107,7 +107,6 @@ placeApp.factory('placeService', function($http, $q, Upload) {
 
         $http.post(endPoint, {'uid': place.uid, 'pid': place.id, 'name': place.title, 'latitude': place.latitude, 'longitude': place.longitude, 'description': place.description, 'pic': place.pic, 'cat': place.cat, 'delete': place.delete}).success(function(data) {
             dfr.resolve(data);
-            console.log(data);
         });
 
         return dfr.promise;
@@ -432,10 +431,9 @@ placeApp.controller('addPlace', function($scope, placeService, userService) {
 
     $scope.newPlace = {
         id: null,
-        name: null,
+        title: null,
         description: null,
         pic: null,
-        uid: userService.getUser().id,
         longitude: null,
         latitude: null,
         cat: null
@@ -452,6 +450,7 @@ placeApp.controller('addPlace', function($scope, placeService, userService) {
                 $scope.newPlace.pic = image.uri;
             });
         }
+        $scope.newPlace.uid = userService.getUser().id;
         placeService.addPlace($scope.newPlace);
     };
 
