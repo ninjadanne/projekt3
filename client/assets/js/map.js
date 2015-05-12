@@ -10,7 +10,7 @@ skateMap.config(function(uiGmapGoogleMapApiProvider) {
 });
 
 /** Skate map controllers */
-skateMap.controller("mapController", ['$scope', '$http', 'uiGmapGoogleMapApi', 'placeService', function($scope, $http, uiGmapGoogleMapApi, placeService) {
+skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeService', function($scope, uiGmapGoogleMapApi, placeService) {
 
     /** Init the map */
     $scope.map = { zoom: 12, bounds: {}, pan: true };
@@ -97,4 +97,34 @@ skateMap.controller("mapController", ['$scope', '$http', 'uiGmapGoogleMapApi', '
             longitude: longitude
         };
     }
+}]);
+
+skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'placeService', function($scope, uiGmapGoogleMapApi, placeService){
+
+    $scope.render = false;
+
+    $scope.renderMap = function() {
+        $scope.render = true;
+    };
+
+    $scope.$watch('render', function() {
+        console.log($scope.render);
+        if($scope.render === true) {
+            /** Init the map */
+            $scope.map = { zoom: 17, bounds: {}, pan: true };
+
+            // Get the users current position
+            placeService.getCurrentPosition().then(function(userPosition) {
+                // Center the map
+                if (userPosition.latitude == -1) {
+                    userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: -1 };
+                }
+
+                $scope.map.center = {
+                    latitude: userPosition.latitude,
+                    longitude: userPosition.longitude
+                };
+            });
+        }
+    });
 }]);

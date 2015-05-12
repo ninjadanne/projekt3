@@ -4,10 +4,15 @@ url: /place/:placeId
 animationIn: hingeInFromMiddleY bounceInOut
 animationOut: zoomOut bounceInOut
 ---
-<div zf-modal="about" id="newcommentModal" class="grid-content small-12">
-<div ng-include="'templates/newcomment.html'"></div>
 
+<div zf-modal="about" id="newcommentModal" class="grid-content small-12">
+    <div ng-include="'templates/newcomment.html'"></div>
 </div>
+
+<div zf-modal="editPlace" id="editPlaceModal" class="grid-content small-12">
+    <div ng-include="'templates/editPlace.html'"></div>
+</div>
+
 <section class="grid-block" ng-controller="getPlace">
     <div class="grid-block">
         <div>
@@ -62,10 +67,15 @@ animationOut: zoomOut bounceInOut
                         <div class="card-section">
                             {{comment.comment}}
                         </div>
-
                     </div>
+                </div>
+                <div class="small-12 clearfix">
                     <a zf-open="newcommentModal" class="button float-left">Lägg till kommentar</a>
                     <button class="button photo_button float-left">Lägg till bild</button>
+                </div>
+                <div class="small-12 clearfix">
+                    <a zf-open="editPlaceModal">Redigera plats</a>
+                    <a ng-controller="deletePlace" ng-click="delete()" class="float-right">Ta bort plats</a>
                 </div>
             </div>
         </div>

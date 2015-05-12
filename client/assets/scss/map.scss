@@ -27,9 +27,7 @@ ui-gmap-google-map {
 @include breakpoint(small only) {
 
     ui-gmap-google-map {
-
         margin-top: 0;
-
     }
 
     div.angular-google-map-container {
@@ -50,4 +48,17 @@ ui-gmap-google-map {
         bottom: 0;
         display: block;
     }
+}
+
+.placeMapController {
+    position: relative;
+    height: 200px;
+    margin-bottom: 1em;
+}
+
+.placeMapController ui-gmap-google-map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    margin: 0;
 }
