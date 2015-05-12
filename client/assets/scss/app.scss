@@ -9,6 +9,7 @@
 @import "checkin";
 @import "createnewplace";
 @import "modal";
+@import "menu";
 
 
 
@@ -21,9 +22,16 @@
 
     a {
         color: #fff;
+
+        &:hover {
+
+        background: scale-color(#fff, $lightness: -15%);
+
+        }
     }
 
 }
+
 
 .circle {
     border-radius: 50%;

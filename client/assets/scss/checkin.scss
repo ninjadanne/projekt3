@@ -4,4 +4,11 @@ fill: #51C870 !important;
 
 .checkin_button{
 background: #055A72;
+
+	&:hover {
+
+	background: scale-color(#055A72, $lightness: -15%);
+
+	}
+
 }
