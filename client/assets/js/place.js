@@ -100,12 +100,15 @@ placeApp.factory('placeService', function($http, $q, Upload) {
         return dfr.promise;
     }
 
-    function addPlace(name, description, pic, uid, longitude, latitude, cat) {
+    function addPlace(place) {
         var endPoint = domain + 'insert_place.php';
+
+        console.log(place);
 
         var dfr = $q.defer();
 
-        $http.post(endPoint, {'uid': uid, 'name': name, 'latitude': latitude, 'longitude': longitude, 'description': description, 'pic': pic, 'cat': cat}).success(function(data) {
+        $http.post(endPoint, {'uid': place.uid, 'pid': place.id, 'name': place.title, 'latitude': place.latitude, 'longitude': place.longitude, 'description': place.description, 'pic': place.pic, 'cat': place.cat, 'delete': place.delete}).success(function(data) {
+            console.log(data);
             dfr.resolve(data);
         });
 
@@ -136,6 +139,7 @@ placeApp.factory('placeService', function($http, $q, Upload) {
      */
     function convertPlace(place) {
         var convertedPlace = {
+            id: place.id,
             title: place.Name,
             latitude: place.Latitude,
             longitude: place.Longitude,
@@ -429,6 +433,7 @@ placeApp.controller('addPlace', function($scope, placeService) {
     var file = null;
 
     $scope.newPlace = {
+        id: null,
         name: null,
         description: null,
         pic: null,
@@ -449,27 +454,30 @@ placeApp.controller('addPlace', function($scope, placeService) {
                 $scope.newPlace.pic = image.uri;
                 addPlace($scope.newPlace);
             });
-        } else {
-            addPlace($scope.newPlace);
         }
-
-    }
-
-    function addPlace(place) {
-        placeService.addPlace(
-            place.name,
-            place.description,
-            place.pic,
-            place.uid,
-            place.longitude,
-            place.latitude,
-            place.cat
-        );
-    }
+        placeService.addPlace($scope.newPlace);
+    };
 
     $scope.uploadFile = function(files) {
         file = files[0];
 
+    };
+});
+
+placeApp.controller('editPlace', function($scope, placeService) {
+    $scope.edit = function() {
+        placeService.addPlace($scope.place);
+    };
+});
+
+placeApp.controller('deletePlace', function($scope, placeService) {
+    $scope.delete = function() {
+        sure = window.confirm('Är du säker?');
+        if (sure) {
+            console.log('nu ska jag ta bort den jäveln');
+            $scope.place.delete = true;
+            placeService.addPlace($scope.place);
+        }
     };
 });
 
