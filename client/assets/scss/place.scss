@@ -97,5 +97,28 @@ div.rn-carousel-indicator span {
 }
 
 .light_grey:nth-child(even) {
-    background: #F8F8F8;
+    background: #F4F4F4;
+}
+
+@include breakpoint(small only) {
+  .star_for_small {
+    position: absolute;
+    top: -0.3em;
+    left: -0.25em;
+    height: 40px;
+    width: 40px;
+  }
+
+  .svg-star-rating {
+    position: absolute;
+    font-weight: 700;
+    font-size: 11px;
+
+    left: 8px;
+    top: 10.5px;
+  }
+
+  .grid-content {
+    overflow-y: visible;
+  }
 }
