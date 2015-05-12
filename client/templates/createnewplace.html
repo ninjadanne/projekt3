@@ -14,7 +14,6 @@
 				<input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
 				<input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="newPlace.longitude">
 				<input type="text" placeholder="Fyll i platsens kategori" id="newPlaceCat" ng-model="newPlace.cat">
-				<input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)">
 
 
 				<label>
@@ -48,7 +47,8 @@
 						</select>-->
 
 			<div class="small-12 medium-12">
-				<button class="button photo_button float-left">Lägg till bild</button>
+                <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
+                <input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: relative; z-index: 500; opacity: 0;">
 				<button class="button float-right" type="submit">Spara</button>
 			</div>
 
