@@ -107,6 +107,10 @@ div.rn-carousel-indicator span {
     background: #F4F4F4;
 }
 
+.grid-content {
+    overflow-y: visible;
+}
+
 @include breakpoint(small only) {
   .star_for_small {
     position: absolute;
@@ -125,7 +129,5 @@ div.rn-carousel-indicator span {
     top: 10.5px;
   }
 
-  .grid-content {
-    overflow-y: visible;
-  }
+  
 }
