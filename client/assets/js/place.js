@@ -438,6 +438,12 @@ placeApp.controller('addPlace', function($scope, placeService) {
         cat: null
     };
 
+    placeService.getCurrentPosition().then(function(up) {
+        $scope.newPlace.latitude = up.latitude;
+        $scope.newPlace.longitude = up.longitude;
+        console.log(up);
+    });
+
     $scope.addPlace = function(){
         if (file) {
             image = placeService.uploadImage(file).then(function(image) {
@@ -447,6 +453,7 @@ placeApp.controller('addPlace', function($scope, placeService) {
         } else {
             addPlace($scope.newPlace);
         }
+
     }
 
     function addPlace(place) {
