@@ -19,14 +19,14 @@ h1,h2,h3,h4,h5,h6 {
     a {
         color: #222;
 
-        &:hover {
+        &:hover, &:focus, &:active {
             color: scale-color(#222, $lightness: 35%);
         }
     }
 }
 
 .main-content > .grid-block > * {
-    background: #fff;
+    background: #ddd;
 }
 
 .title-bar {
@@ -37,7 +37,6 @@ h1,h2,h3,h4,h5,h6 {
     }
 
 }
-
 
 .circle {
     border-radius: 50%;

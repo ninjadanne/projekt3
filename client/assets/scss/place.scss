@@ -103,13 +103,19 @@ div.rn-carousel-indicator span {
     left: -2.85em;
 }
 
-.light_grey:nth-child(even) {
-    background: #F4F4F4;
+.light_grey {
+    padding: $global-padding;
+    border: 1px #ddd solid;
+    margin: 20px 0;
+
+    .grid-block {
+      margin-left: 0;
+    }
 }
 
-.light_grey {
-    margin-top: 20px;
-    margin-bottom: 20px;
+
+.light_grey:nth-child(even) {
+    background: #eeeeee;
 }
 
 .grid-content {
@@ -135,8 +141,4 @@ div.rn-carousel-indicator span {
   }
 
   
-}
-
-.title-bar {
-  border-bottom: 1px solid #07ACC2;
 }
