@@ -11,14 +11,11 @@
 @import "modal";
 @import "menu";
 
-
-
 /* Ugly haxx. The map is never removed. The content gets a background color so that the map is not revealed */
 
 h1,h2,h3,h4,h5,h6 {
     a {
         color: #222;
-
         &:hover, &:focus, &:active {
             color: scale-color(#222, $lightness: 35%);
         }
@@ -26,13 +23,15 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .main-content > .grid-block > * {
-    background: #ddd;
+    background: #fff;
 }
 
 .title-bar {
 
     a {
         color: #fff;
+        font-family: $header-font-family;
+        text-transform: uppercase;
 
     }
 
