@@ -3,10 +3,20 @@ a {
     text-align: center;
 }
 
-.tile-1, .tile-4 {
-    background: $primary-color;
-}
+.front-tiles {
+	.front-tile {
+		a {
+			h4 {
+				color: #222;
+				font-family: $header-font-family;
+				font-size: 1rem;
+				font-weight: 500;
+			}
+		}
+	}
 
-.tile-2, .tile-3 {
-    background: $secondary-color;
+	.tile-1, .tile-4, .tile-2, .tile-3 {
+	    background-color: #fff;
+	    border: 1px #eee solid;
+	}
 }
