@@ -11,15 +11,12 @@
 @import "modal";
 @import "menu";
 
-
-
 /* Ugly haxx. The map is never removed. The content gets a background color so that the map is not revealed */
 
 h1,h2,h3,h4,h5,h6 {
     a {
         color: #222;
-
-        &:hover {
+        &:hover, &:focus, &:active {
             color: scale-color(#222, $lightness: 35%);
         }
     }
@@ -33,11 +30,12 @@ h1,h2,h3,h4,h5,h6 {
 
     a {
         color: #fff;
+        font-family: $header-font-family;
+        text-transform: uppercase;
 
     }
 
 }
-
 
 .circle {
     border-radius: 50%;
@@ -119,7 +117,7 @@ h1,h2,h3,h4,h5,h6 {
 
     padding: 10px;
     background-size: 36px 36px;
-    background-image: url(assets/img/icons/search-black.png);
+    background-image: url(/assets/img/icons/search-black.png);
     background-position: 10px center;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -157,16 +155,19 @@ h1,h2,h3,h4,h5,h6 {
 
 @include breakpoint(small only) {
 
-.sub-menu {
-    display: none !important;
+    .title-bar {
+        padding: 0.5rem 1rem;
+    }
+
+    .sub-menu, .map-menu {
+        display: none;
+    }
+
+    .search-group {
+
+        padding: 0px;
+        margin: 10px;
+
+    }
+
 }
-
-.search-group {
-
-    padding: 0px;
-    margin: 10px;
-
-}
-
-}
-

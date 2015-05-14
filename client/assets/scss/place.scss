@@ -103,17 +103,31 @@ div.rn-carousel-indicator span {
     left: -2.85em;
 }
 
-.light_grey:nth-child(even) {
-    background: #F4F4F4;
-}
-
 .light_grey {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: $global-padding;
+    border: 1px #ccc solid;
+    margin: 15px 0;
+    background: #eee;
+
+    .grid-block {
+      margin-left: 0;
+    }
 }
 
+
+/*.light_grey:nth-child(even) {
+    background: #eeeeee;
+}
+*/
 .grid-content {
     overflow-y: visible;
+}
+
+h3 a {
+  word-wrap: break-word;
+  hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
 }
 
 @include breakpoint(small only) {
@@ -135,8 +149,4 @@ div.rn-carousel-indicator span {
   }
 
   
-}
-
-.title-bar {
-  border-bottom: 1px solid #07ACC2;
 }
