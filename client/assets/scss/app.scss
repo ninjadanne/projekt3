@@ -157,16 +157,19 @@ h1,h2,h3,h4,h5,h6 {
 
 @include breakpoint(small only) {
 
-.sub-menu {
-    display: none !important;
+    .title-bar {
+        padding: 0.5rem 1rem;
+    }
+
+    .sub-menu {
+        display: none !important;
+    }
+
+    .search-group {
+
+        padding: 0px;
+        margin: 10px;
+
+    }
+
 }
-
-.search-group {
-
-    padding: 0px;
-    margin: 10px;
-
-}
-
-}
-
