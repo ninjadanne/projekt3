@@ -51,6 +51,8 @@ img.icon1 {
     padding: 5px;
     z-index: 2;
     border: 1px white solid;
+
+    -webkit-backface-visibility:hidden;
 }
 
 img.icon2 {
@@ -64,6 +66,8 @@ img.icon2 {
     border-radius: 25px;
     z-index: 2;
     border: 1px white solid;
+
+    -webkit-backface-visibility:hidden;
 }
 
 img.icon3 {
@@ -77,6 +81,8 @@ img.icon3 {
     border-radius: 25px;
     z-index: 2;
     border: 1px white solid;
+
+    -webkit-backface-visibility:hidden;
 }
 img.icon4 {
     background-color: black !important;
@@ -89,6 +95,8 @@ img.icon4 {
     border-radius: 25px;
     z-index: 2;
     border: 1px white solid;
+
+    -webkit-backface-visibility:hidden;
 }
 
 
