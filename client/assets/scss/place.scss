@@ -105,8 +105,9 @@ div.rn-carousel-indicator span {
 
 .light_grey {
     padding: $global-padding;
-    border: 1px #ddd solid;
-    margin: 30px 0;
+    border: 1px #ccc solid;
+    margin: 15px 0;
+    background: #eee;
 
     .grid-block {
       margin-left: 0;
@@ -114,12 +115,19 @@ div.rn-carousel-indicator span {
 }
 
 
-.light_grey:nth-child(even) {
+/*.light_grey:nth-child(even) {
     background: #eeeeee;
 }
-
+*/
 .grid-content {
     overflow-y: visible;
+}
+
+h3 a {
+  word-wrap: break-word;
+  hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
 }
 
 @include breakpoint(small only) {
