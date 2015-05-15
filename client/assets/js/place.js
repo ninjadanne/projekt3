@@ -115,7 +115,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
     }
 
     function addPlace(place) {
-        console.log({'uid': place.uid, 'pid': place.id, 'name': place.title, 'latitude': place.latitude, 'longitude': place.longitude, 'description': place.description, 'pic': place.pic, 'cat': place.cat, 'delete': place.delete});
         var endPoint = domain + 'insert_place.php';
 
         var dfr = $q.defer();
