@@ -385,7 +385,7 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
     }
   return {
     restrict : "EA",
-    template : "<ul class='rating' ng-class='{readonly: readonly}'>" +
+    template : "<ul class='userrating' ng-class='{readonly: readonly}'>" +
                "  <li ng-repeat='star in stars' ng-class='star' ng-click='toggle($index)'>" +
                "    <img zf-iconic='' icon='star' size='small' class='iconic-color'>" + //&#9733
                "  </li>" +
