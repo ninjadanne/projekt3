@@ -1,7 +1,7 @@
 ﻿var placeApp = angular.module('skate.Place', []);
 
 /** Service */
-placeApp.factory('placeService', function($http, $q, Upload) {
+placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
 
     var userPosition = getCurrentPosition().then(function(position) {
         return position;
@@ -18,29 +18,40 @@ placeApp.factory('placeService', function($http, $q, Upload) {
      * @return {[type]}        [description]
      */
     function getPlaces(coords) {
-        var coords = coords ? coords : userPosition; // If coords is null get current position
+
         var endPoint = domain + 'place_by_coor.php';
-        // var endPoint = 'http://p3b.dev/place_by_coor.php';
+
+        if (!coords) {
+            return "This function requires coordinates";
+        }
 
        var dfr = $q.defer();
 
        if (places.length > 0) {
            dfr.resolve(places);
        } else {
-            $http.get(endPoint, {'lat': coords.latitude, 'lng': coords.longitude}).success(function(data) {
-                data = data.data;
+            $http.post(endPoint, {'lat': coords.latitude, 'lng': coords.longitude})
+            .success(function(data) {
 
-                for (var i = 0; i < data.length; i++) { // Loopa igenom alla hämtade platser
-                    place = convertPlace(data[i]);
-                    // place.id = place.longitude + ',' + place.latitude;
-                    place.id = data[i].id;
-                    place.keyId = place.id;
+                if (data.success) {
+                    data = data.data;
 
-                    places.push(place);
-                    addFilterTags(place.tags);
+                    for (var i = 0; i < data.length; i++) { // Loopa igenom alla hämtade platser
+                        place = convertPlace(data[i]);
+                        // place.id = place.longitude + ',' + place.latitude;
+                        place.id = data[i].id;
+                        place.keyId = place.id;
+
+                        places.push(place);
+                        addFilterTags(place.tags);
+                    }
+
+                    dfr.resolve(places); // Return places
+                } else {
+                    FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten hittade inga platser.'});
                 }
-
-                dfr.resolve(places); // Return places
+            }).error(function() {
+                FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ladda in platser från platstjänst.'});
             });
        }
 
@@ -50,7 +61,6 @@ placeApp.factory('placeService', function($http, $q, Upload) {
     function getPlace(id) {
         var cached = false;
         var endPoint = domain + 'get_place.php';
-        // var endPoint = 'http://p3b.dev/get_place.php';
 
         var dfr = $q.defer();
 
@@ -63,9 +73,13 @@ placeApp.factory('placeService', function($http, $q, Upload) {
         });
 
         if (! cached) {
-            $http.post(endPoint, {'pid': id}).success(function(data) {
+            $http.post(endPoint, {'pid': id})
+            .success(function(data) {
                 place = convertPlace(data.place[0]);
                 dfr.resolve(place);
+            })
+            .error(function() {
+                FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ladda in plats från platstjänst.' });
             });
         }
 
@@ -294,12 +308,12 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 
     placeService.getCurrentPosition().then(function(position) {
         $scope.userPosition = position;
-    });
 
-    placeService.getPlaces().then(function(places) {
-        allPlaces = places;
-        $scope.places = places;
-        sortPlaces();
+        placeService.getPlaces(position).then(function(places) {
+            allPlaces = places;
+            $scope.places = places;
+            sortPlaces();
+        });
     });
 
     $scope.filterTags = placeService.filterTags;
