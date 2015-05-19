@@ -474,7 +474,7 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
 }]);
 
 /** Add place controller */
-placeApp.controller('addPlace', function($scope, $rootScope, placeService, userService) {
+placeApp.controller('addPlace', function($scope, placeService, userService) {
 
     var file = null;
 
