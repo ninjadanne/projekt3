@@ -142,6 +142,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                 place = convertPlace(place);
                 dfr.resolve(place);
                 FoundationApi.closeActiveElements('ng-scope');
+                location.reload();
             }
             dfr.resolve(data);
         }).error(function(err, data) {
@@ -149,6 +150,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         });
 
         return dfr.promise;
+
     }
 
     function uploadImage(image) {
