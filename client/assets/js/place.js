@@ -128,6 +128,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             'cat': place.cat,
             // 'delete': place.delete
         };
+        console.log(endpoint_data);
 
         var dfr = $q.defer();
 
@@ -164,6 +165,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             if (data[0] == 'File size cannot exceed 2 MB') {
                 FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten säger att bilden är över 2MB, vilket den inte får vara'});
             } else {
+                console.log(data);
                 dfr.resolve(data);
             }
         }).error(function(data) {
@@ -489,15 +491,19 @@ placeApp.controller('addPlace', function($scope, $rootScope, placeService, userS
     });
 
     $scope.addPlace = function() {
+        $scope.newPlace.uid = userService.getUser().id;
         if (file) {
             image = placeService.uploadImage(file).then(function(image) {
                 $scope.newPlace.pic = image.uri;
+                placeService.addPlace($scope.newPlace).then(function(place) {
+                    // Place should be added to the scope directly without the need to refresh the page
+                });
+            });
+        } else {
+            placeService.addPlace($scope.newPlace).then(function(place) {
+                // Place should be added to the scope directly without the need to refresh the page
             });
         }
-        $scope.newPlace.uid = userService.getUser().id;
-        placeService.addPlace($scope.newPlace).then(function(place) {
-            // Place should be added to the scope directly without the need to refresh the page
-        });
     };
 
     $scope.uploadFile = function(files) {
