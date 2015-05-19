@@ -117,10 +117,30 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
     function addPlace(place) {
         var endPoint = domain + 'insert_place.php';
 
+        var endpoint_data = {
+            'uid': place.uid,
+            // 'pid': place.id,
+            'name': place.title,
+            'latitude': place.latitude,
+            'longitude': place.longitude,
+            'description': place.description,
+            'pic': place.pic,
+            'cat': place.cat,
+            // 'delete': place.delete
+        };
+
         var dfr = $q.defer();
 
-        $http.post(endPoint, {'uid': place.uid, 'pid': place.id, 'name': place.title, 'latitude': place.latitude, 'longitude': place.longitude, 'description': place.description, 'pic': place.pic, 'cat': place.cat, 'delete': place.delete})
+        $http.post(endPoint, endpoint_data)
         .success(function(data) {
+            if (!data.success) {
+                FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte lägga till platsen. Meddelande: ' + data.message});
+            } else {
+                var id = data.message.split(" = ")[1];
+                place.id = id;
+                place = convertPlace(place);
+                dfr.resolve(place);
+            }
             dfr.resolve(data);
         }).error(function(err, data) {
             FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte lägga till platsen.'});
@@ -449,7 +469,7 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
 }]);
 
 /** Add place controller */
-placeApp.controller('addPlace', function($scope, placeService, userService) {
+placeApp.controller('addPlace', function($scope, $rootScope, placeService, userService) {
 
     var file = null;
 
@@ -468,19 +488,20 @@ placeApp.controller('addPlace', function($scope, placeService, userService) {
         $scope.newPlace.longitude = up.longitude;
     });
 
-    $scope.addPlace = function(){
+    $scope.addPlace = function() {
         if (file) {
             image = placeService.uploadImage(file).then(function(image) {
                 $scope.newPlace.pic = image.uri;
             });
         }
         $scope.newPlace.uid = userService.getUser().id;
-        placeService.addPlace($scope.newPlace);
+        placeService.addPlace($scope.newPlace).then(function(place) {
+            // Place should be added to the scope directly without the need to refresh the page
+        });
     };
 
     $scope.uploadFile = function(files) {
         file = files[0];
-
     };
 });
 
