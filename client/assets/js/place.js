@@ -87,6 +87,24 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
     }
 
     /**
+     * Delete a place
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
+    function deletePlace(id)
+    {
+        var endPoint = domain + 'delete_place.php';
+        $http.post(endPoint, {'pid': id, 'delete': true})
+        .success(function(data) {
+            // FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ladda in plats från platstjänst.' });
+            return true;
+        })
+        .error(function() {
+            FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ta bort plats från platstjänst.' });
+        });
+    }
+
+    /**
      * Comment a place
      * @param  {[type]} placeId [description]
      * @param  {[type]} comment [description]
@@ -329,6 +347,9 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         addPlace: function(name, description, pic, uid, longitude, latitude, cat) {
             return addPlace(name, description, pic, uid, longitude, latitude, cat);
         },
+        deletePlace: function(id) {
+            return deletePlace(id);
+        },
         uploadImage: function(image) {
             return uploadImage(image);
         }
@@ -520,18 +541,12 @@ placeApp.controller('editPlace', function($scope, placeService) {
     };
 });
 
-placeApp.controller('deletePlace', function($scope, placeService) {
+placeApp.controller('deletePlace', function($scope, $rootScope, placeService) {
     $scope.delete = function() {
         sure = window.confirm('Är du säker?');
         if (sure) {
-            console.log('nu ska jag ta bort den jäveln');
-            $scope.place.delete = true;
-            placeService.addPlace($scope.place);
-
-            var placeIndex = $scope.places.indexOf($scope.place);
-            if (placeIndex > -1) {
-                $scope.places.splice(placeIndex, 1);
-            }
+            var placeId = $rootScope.$stateParams.placeId;
+            placeService.deletePlace(placeId);
         }
     };
 });
