@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" ng-app="application">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,80 +10,61 @@
     <script src="assets/js/foundation.js"></script>
     <script src="assets/js/templates.js"></script>
     <script src="assets/js/routes.js"></script>
-
     <script src="assets/js/app.js"></script>
-
-</div>
+    </div>
 </head>
 
 <body ng-controller="userController">
-
     <!-- Error notifications -->
     <zf-notification-set id="error-notifications" position="top-left"></zf-notification-set>
-
     <div ng-controller="getPlaces">
+        <div zf-offcanvas="" id="menu" class="off-canvas detached" position="right">
+            <a zf-close="" class="close-button">×</a>
+            <div ng-include="'templates/menu.html'"></div>
+        </div>
 
-    <div zf-offcanvas="" id="menu" class="off-canvas detached" position="right">
-        <a zf-close="" class="close-button">×</a>
-        <div ng-include="'templates/menu.html'"></div>
-    </div>
+        <div zf-modal="createnewplace" id="createModal" class="grid-content small-12">
+            <div ng-include="'templates/createnewplace.html'"></div>
+        </div>
 
-<div zf-modal="createnewplace" id="createModal" class="grid-content small-12">
+        <div zf-modal="about" id="aboutModal" class="grid-content small-12">
+            <div ng-include="'templates/about.html'"></div>
+        </div>
 
-    <div ng-include="'templates/createnewplace.html'"></div>
+        <div zf-modal="help" id="helpModal" class="grid-content small-12">
+            <div ng-include="'templates/help.html'"></div>
+        </div>
 
-</div>
-<div zf-modal="about" id="aboutModal" class="grid-content small-12">
+        <div zf-modal="settings" id="settingsModal" class="grid-content small-12">
+            <div ng-include="'templates/settings.html'"></div>
+        </div>
 
-    <div ng-include="'templates/about.html'"></div>
+        <div zf-modal="login" id="loginModal" class="grid-content small-12">
+            <div ng-include="'templates/login.html'"></div>
+        </div>
 
-</div>
-<div zf-modal="help" id="helpModal" class="grid-content small-12">
-
-    <div ng-include="'templates/help.html'"></div>
-
-</div>
-<div zf-modal="settings" id="settingsModal" class="grid-content small-12">
-
-    <div ng-include="'templates/settings.html'"></div>
-
-</div>
-
-<div zf-modal="login" id="loginModal" class="grid-content small-12">
-
-    <div ng-include="'templates/login.html'"></div>
-
-</div>
-
-    <div class="grid-frame vertical">
-        <div class="grid-block shrink wrap">
-            <div class="grid-content collapse small-12 medium-7">
-                <div class="title-bar">
-                    <span class="left title"><a href="#!/home">GrindFind</a></span>
-                    <span class="right hide-for-medium"><a href="#" zf-toggle="menu"><img src="assets/img/icons/menu.png"><!-- <font style="color: #fff; font-weight: bold; font-size: 10px;">MENY</font>--></a></span>
+        <div class="grid-frame vertical">
+            <div class="grid-block shrink wrap">
+                <div class="grid-content collapse small-12 medium-7">
+                    <div class="title-bar">
+                        <span class="left title"><a href="#!/home">GrindFind</a></span>
+                        <span class="right hide-for-medium"><a href="#" zf-toggle="menu"><img src="assets/img/icons/menu.png"><!-- <font style="color: #fff; font-weight: bold; font-size: 10px;">MENY</font>--></a></span>
+                    </div>
                 </div>
-
-
-
+                <div class="grid-content collapse medium-5 hide-for-small-only">
+                    <div class="title-bar">
+                        <span>&nbsp;</span>
+                    </div>
+                </div>
             </div>
-            <div class="grid-content collapse medium-5 hide-for-small-only">
-                <div class="title-bar">
-                 <span>&nbsp;</span>
+            <div class="content-area grid-block">
+                <div ng-include="'templates/map.html'" class="grid-block map-holder show-for-medium medium-7" ng-controller="mapController">
+                </div>
+                <div ng-class="['ui-animation']" ui-view class="grid-block small-12 medium-5 main-content">
                 </div>
             </div>
         </div>
-
-        <div class="content-area grid-block">
-            <div ng-include="'templates/map.html'" class="grid-block map-holder show-for-medium medium-7" ng-controller="mapController">
-
-            </div>
-
-            <div ng-class="['ui-animation']" ui-view class="grid-block small-12 medium-5 main-content">
-            </div>
-        </div>
     </div>
-</div>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.2/slick.min.js"></script>
-
 </body>
+
 </html>

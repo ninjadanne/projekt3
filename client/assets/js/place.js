@@ -87,6 +87,27 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
     }
 
     /**
+     * Delete a place
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
+    function deletePlace(id)
+    {
+        var endPoint = domain + 'delete_place.php';
+        var dfr = $q.defer();
+
+        $http.post(endPoint, {'pid': id, 'delete': true})
+        .success(function(data) {
+            dfr.resolve(data);
+        })
+        .error(function() {
+            FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ta bort plats från platstjänst.' });
+        });
+
+        return dfr.promise;
+    }
+
+    /**
      * Comment a place
      * @param  {[type]} placeId [description]
      * @param  {[type]} comment [description]
@@ -119,16 +140,13 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
 
         var endpoint_data = {
             'uid': place.uid,
-            // 'pid': place.id,
             'name': place.title,
             'latitude': place.latitude,
             'longitude': place.longitude,
             'description': place.description,
             'pic': place.pic,
             'cat': place.cat,
-            // 'delete': place.delete
         };
-        console.log(endpoint_data);
 
         var dfr = $q.defer();
 
@@ -141,8 +159,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                 place.id = id;
                 place = convertPlace(place);
                 dfr.resolve(place);
-                FoundationApi.closeActiveElements('ng-scope');
-                location.reload();
             }
             dfr.resolve(data);
         }).error(function(err, data) {
@@ -329,6 +345,9 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         addPlace: function(name, description, pic, uid, longitude, latitude, cat) {
             return addPlace(name, description, pic, uid, longitude, latitude, cat);
         },
+        deletePlace: function(id) {
+            return deletePlace(id);
+        },
         uploadImage: function(image) {
             return uploadImage(image);
         }
@@ -474,7 +493,7 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
 }]);
 
 /** Add place controller */
-placeApp.controller('addPlace', function($scope, $rootScope, placeService, userService) {
+placeApp.controller('addPlace', function($scope, $location, FoundationApi, placeService, userService) {
 
     var file = null;
 
@@ -505,6 +524,9 @@ placeApp.controller('addPlace', function($scope, $rootScope, placeService, userS
         } else {
             placeService.addPlace($scope.newPlace).then(function(place) {
                 // Place should be added to the scope directly without the need to refresh the page
+                console.log('sparad');
+                FoundationApi.closeActiveElements('ng-scope');
+                location.reload();
             });
         }
     };
@@ -520,18 +542,18 @@ placeApp.controller('editPlace', function($scope, placeService) {
     };
 });
 
-placeApp.controller('deletePlace', function($scope, placeService) {
+placeApp.controller('deletePlace', function($scope, $rootScope, $location, placeService) {
+    console.log($scope.places);
     $scope.delete = function() {
         sure = window.confirm('Är du säker?');
         if (sure) {
-            console.log('nu ska jag ta bort den jäveln');
-            $scope.place.delete = true;
-            placeService.addPlace($scope.place);
+            var placeId = $rootScope.$stateParams.placeId;
+            placeService.deletePlace(placeId).then(function() {
+                // location.reload();
+                // window.location = "#!/placelist";
 
-            var placeIndex = $scope.places.indexOf($scope.place);
-            if (placeIndex > -1) {
-                $scope.places.splice(placeIndex, 1);
-            }
+                $location.path('/placelist');
+            });
         }
     };
 });
