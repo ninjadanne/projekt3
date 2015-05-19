@@ -542,7 +542,7 @@ placeApp.controller('editPlace', function($scope, placeService) {
     };
 });
 
-placeApp.controller('deletePlace', function($scope, $location, placeService) {
+placeApp.controller('deletePlace', function($scope, $rootScope, $location, placeService) {
     console.log($scope.places);
     $scope.delete = function() {
         sure = window.confirm('Är du säker?');
