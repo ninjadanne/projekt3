@@ -146,7 +146,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             'cat': place.cat,
             // 'delete': place.delete
         };
-        console.log(endpoint_data);
 
         var dfr = $q.defer();
 
@@ -159,8 +158,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                 place.id = id;
                 place = convertPlace(place);
                 dfr.resolve(place);
-                FoundationApi.closeActiveElements('ng-scope');
-                location.reload();
             }
             dfr.resolve(data);
         }).error(function(err, data) {
@@ -526,6 +523,8 @@ placeApp.controller('addPlace', function($scope, placeService, userService) {
         } else {
             placeService.addPlace($scope.newPlace).then(function(place) {
                 // Place should be added to the scope directly without the need to refresh the page
+                FoundationApi.closeActiveElements('ng-scope');
+                location.reload();
             });
         }
     };
