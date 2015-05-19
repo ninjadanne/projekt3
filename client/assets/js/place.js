@@ -141,6 +141,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                 place.id = id;
                 place = convertPlace(place);
                 dfr.resolve(place);
+                FoundationApi.closeActiveElements('ng-scope');
             }
             dfr.resolve(data);
         }).error(function(err, data) {
