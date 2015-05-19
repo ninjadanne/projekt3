@@ -1,4 +1,4 @@
-<section  class="grid-block">
+<section  class="grid-block" ng-controller="addComment">
 	<div class="grid-content small-12">
 	<h2>Lägg till kommentar</h2>
 	<a zf-close="" class="close-button">×</a>
@@ -7,15 +7,15 @@
 		            	<p>Här kan du lägga in och skapa en ny kommentar till en skateplats!</p>
 		            </div>
 
-			<form>
+			<form name="newComment" ng-submit="addComment()">
 				<label>
 					Beskrivning:
-					<textarea name="description" cols="30" rows="5"></textarea>
+					<textarea name="description" cols="30" rows="5" id="newComment" ng-model="newComment.comment" required></textarea>
 				</label>
 
 			<div class="small-12 medium-12">
 				<button class="button photo_button float-left">Lägg till bild</button>
-				<button class="button float-right ">Spara</button>
+				<button class="button float-right" type="submit">Spara</button>
 			</div>
 
 			</form>

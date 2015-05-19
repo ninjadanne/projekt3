@@ -65,23 +65,25 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         var dfr = $q.defer();
 
         // Loop through all the cached places to find the one with id
-        $.each(places, function(i, p) {
+        /* $.each(places, function(i, p) {
             if (p.id == id) {
                 dfr.resolve(p);
                 cached = true;
             }
-        });
+        }); */
 
-        if (! cached) {
+        /* if (! cached) { */
             $http.post(endPoint, {'pid': id})
             .success(function(data) {
                 place = convertPlace(data.place[0]);
+                place.comments = data.comments;
+                console.log(place);
                 dfr.resolve(place);
             })
             .error(function() {
                 FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ladda in plats från platstjänst.' });
             });
-        }
+        /* } */
 
         return dfr.promise;
     }
@@ -92,7 +94,22 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
      * @param  {[type]} comment [description]
      * @return {[type]}         [description]
      */
-    function commentPlace(placeId, userId, comment) {
+    function addComment(placeId, userId, comment) {
+        var endPoint = domain + 'comment.php';
+
+        var endpoint_data = {
+            'pid': placeId,
+            'uid': userId,
+            'comment': comment,
+        };
+
+        var dfr = $q.defer();
+
+        $http.post(endPoint, endpoint_data).success(function(data) {
+            dfr.resolve(data);
+        });
+
+        return dfr.promise;
     }
 
     /**
@@ -329,6 +346,9 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         },
         uploadImage: function(image) {
             return uploadImage(image);
+        },
+        addComment: function(placeId, userId, comment, pic) {
+            return addComment(placeId, userId, comment, pic);
         }
     };
 });
@@ -470,6 +490,22 @@ placeApp.controller("RatingCtrl", ['$scope', function($scope) {
     }
   };
 }]);
+
+/** Add commment controller */
+placeApp.controller('addComment', function($scope, $rootScope, placeService, userService ) {
+
+    $scope.addComment = function() {
+
+        pid = $rootScope.$stateParams.placeId;
+        uid = userService.getUser().id;
+        comment = $scope.newComment.comment;
+
+        placeService.addComment(pid, uid, comment);
+
+    }
+
+
+});
 
 /** Add place controller */
 placeApp.controller('addPlace', function($scope, $rootScope, placeService, userService) {
