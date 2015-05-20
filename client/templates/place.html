@@ -21,11 +21,12 @@ animationOut: zoomOut bounceInOut
                     <div ng-repeat="image in place.images"><img src="{{image.uri}}"></div>
                 </div>
             </div>
+
             <div class="grid-content small-12">
                 <div class="small-12 clearfix">
                     <h2 class="float-left">{{place.title}}</h2>
                     <div class="place-rating float-left">
-                        <!-- <img zf-iconic="" icon="star" size="medium" class="iconic-color-warning"> -->
+
                         <?xml version="1.0" ?>
                         <svg baseProfile="tiny" height="60px" id="Layer_1" version="1.2" viewBox="0 0 24 24" width="60px" fill="gold" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <g>
@@ -36,26 +37,33 @@ animationOut: zoomOut bounceInOut
                         </svg>
                         <span class="svg-star-rating">{{place.rating}}</span>
                     </div>
+
                     <div ng-app="app" ng-controller="RatingCtrl" class="container userrating float-right">
                         <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)">
                         </div>
                         <label class="yourratingtag">Ditt betyg</label>
                     </div>
+
                 </div>
+
                 <div class="small-12">
                     <p class="label tag" ng-repeat="tag in place.tags">
                         {{tag}}
                     </p>
                 </div>
+
                 <div>
                     <a href="#!/login" class="button checkin_button float-right"><img zf-iconic="" icon="circle-check" size="small" class="iconic-color-warning">Checka in!</a>
                 </div>
+
                 <div class="small-12">
                     <p>{{place.description}}</p>
                 </div>
+
                 <div class="small-12">
                     <p>{{place.checkinsNow}} incheckningar just nu ({{place.checkinsTotal}} totalt)</p>
                 </div>
+
                 <div class="small-12">
                     <div class="small-12">
                         <h3>Kommentarer</h3>
@@ -69,14 +77,17 @@ animationOut: zoomOut bounceInOut
                         </div>
                     </div>
                 </div>
+
                 <div class="small-12 clearfix">
                     <a zf-open="newcommentModal" class="button float-left">Lägg till kommentar</a>
                     <button class="button photo_button float-left">Lägg till bild</button>
                 </div>
+
                 <div class="small-12 clearfix">
                     <a zf-open="editPlaceModal">Redigera plats</a>
                     <a ng-controller="deletePlace" ng-click="delete()" class="float-right">Ta bort plats</a>
                 </div>
             </div>
         </div>
+    </div>
 </section>

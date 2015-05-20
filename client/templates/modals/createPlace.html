@@ -1,41 +1,46 @@
 <section class="grid-block" ng-controller="addPlace">
-	<div class="grid-content small-12">
-	<h2>Skapa ny plats</h2>
-	<a zf-close="" class="close-button">×</a>
-	<div class="grid-content small-12">
+    <div class="grid-content small-12">
 
-		<form name="newPlace" ng-submit="addPlace()">
+        <h2>Skapa ny plats</h2>
 
-			<label for="newPlaceName">
-				Namn på plats
-				<input type="text" placeholder="Fyll i platsens namn..." id="newPlaceName" ng-model="newPlace.title" required>
-			</label>
-			<label for="newPlaceLat">
-				Fyll i platsens latitude:
-				<input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
-			</label>
-			<label for="newPlaceLong">
-				Fyll i platsens longitude:
-				<input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="newPlace.longitude">
-			</label>
-			<label for="newPlaceDescription">
-				Beskrivning:
-				<textarea class="small-12" cols="30" id="newPlaceDescription" ng-model="newPlace.description" required></textarea>
-			</label>
-			<label for="newPlaceCat">
-				Kategori:
-				<input type="text" placeholder="Fyll i kategori" id="newPlaceCat" ng-model="newPlace.cat" required>
-			</label>
+        <a zf-close="" class="close-button">×</a>
 
-			<div class="small-12 medium-12">
-                <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
-                <input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0;">
-				<button class="button float-right" type="submit">Spara</button>
-			</div>
+        <div class="grid-content small-12">
+            <form name="newPlace" ng-submit="addPlace()">
 
-		</form>
+                <label for="newPlaceName">
+                    Namn på plats
+                    <input type="text" placeholder="Fyll i platsens namn..." id="newPlaceName" ng-model="newPlace.title" required>
+                </label>
 
-</div>
+                <label for="newPlaceLat">
+                    Fyll i platsens latitude:
+                    <input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
+                </label>
 
-</div>
+                <label for="newPlaceLong">
+                    Fyll i platsens longitude:
+                    <input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="newPlace.longitude">
+                </label>
+
+                <label for="newPlaceDescription">
+                    Beskrivning:
+                    <textarea class="small-12" cols="30" id="newPlaceDescription" ng-model="newPlace.description" required></textarea>
+                </label>
+
+                <label for="newPlaceCat">
+                    Kategori:
+                    <input type="text" placeholder="Fyll i kategori" id="newPlaceCat" ng-model="newPlace.cat" required>
+                </label>
+
+                <div class="small-12 medium-12">
+                    <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
+                    <input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0;">
+                    <button class="button float-right" type="submit">Spara</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
 </section>

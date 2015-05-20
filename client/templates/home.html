@@ -4,39 +4,45 @@ url: /
 <!-- animationIn: fadeIn easeInOut
 animationOut: fadeOut easeInOut -->
 ---
+
 <section class="grid-block">
     <div class="grid-block vertical show-for-medium">
         <ng-include src="'templates/placelist.html'">
         </ng-include>
     </div>
+
     <div class="grid-block show-for-small-only" ng-controller="mapController">
-        <div ng-include="'templates/map.html'" class="grid-block">
-        </div>
+        <div ng-include="'templates/map.html'" class="grid-block"></div>
         <a href="#!/placelist"><img class="icon1" src="assets/img/icons/list.png"></a>
         <a><img zf-hard-toggle="top_sheet" class="icon2" src="assets/img/icons/filter.png"> </a>
         <a href="#!/checkin"><img class="icon3" src="assets/img/icons/pin-check.png"></a>
         <a ng-click="centerMapToUserPosition()" ng-if="userPosition.accuracy >= 0"><img class="icon4" src="assets/img/icons/fix-position.png"></a>
+
         <zf-action-sheet id="separate-actionsheet">
             <zf-as-content position="top">
                 <div class="grid-block show-for-small-only small-up-2 front-tiles">
+
                     <div class="front-tile tile tile-1 grid-block">
                         <a href="#!/placelist">
                             <img src="assets/img/icons/star-black.png">
                             <h4>Topp 10</h4>
                         </a>
                     </div>
+
                     <div class="front-tile tile tile-2 grid-block">
                         <a href="#!/place">
                             <img src="assets/img/icons/bubble-black.png">
                             <h4>Mest kommenterat</h4>
                         </a>
                     </div>
+
                     <div class="front-tile tile tile-3 grid-block">
                         <a href="#!/checkin">
                             <img src="assets/img/icons/pin-check-black.png">
                             <h4>Flest incheckningar</h4>
                         </a>
                     </div>
+
                     <div class="front-tile tile tile-4 grid-block">
                         <a href="#!/place">
                             <img src="assets/img/icons/star-black.png">
@@ -44,19 +50,20 @@ animationOut: fadeOut easeInOut -->
                         </a>
                     </div>
                 </div>
+
                 <a class="size1"><img zf-hard-toggle="separate-actionsheet" class="menu1" src="assets/img/icons/tiles.png"> </a>
             </zf-as-content>
         </zf-action-sheet>
 
         <zf-panel position="top" id="top_sheet">
-        <a href="#" zf-close="" class="close-button">×</a>
-        <div class="test">
+            <a href="#" zf-close="" class="close-button">×</a>
+            <div class="test">
                 <ng-include src="'templates/nav/search.html'">
                 </ng-include>
                 <ng-include src="'templates/sortfilter.html'" class="filtersheet">
                 </ng-include>
-        </div>
+            </div>
         </zf-panel>
 
     </div>
-    </div>
+</section>

@@ -6,42 +6,38 @@ animationOut: fadeOut easeInOut
 ---
 
 <section class="grid-block">
-
     <div class="grid-content small-12">
+
         <!-- <h2>Sortera &amp; filtrera</h2> -->
 
-        <!-- INNEHÅLL -->
-    <form>
+        <form>
+            <div class="grid-block">
 
-        <div class="grid-block">
+                <div class="hide_stuff small-12 medium-6 grid-content">
+                    <label>Sortera efter</label>
+                    <select name="sortingType" id="sortingType" ng-model="orderPlaces.property">
+                        <option value="title">Namn</option>
+                        <option value="tags">Kategori</option>
+                        <option value="rating">Betyg</option>
+                    </select>
+                </div>
 
-        <div class="hide_stuff small-12 medium-6 grid-content">
-            <label>Sortera efter</label>
-            <select name="sortingType" id="sortingType" ng-model="orderPlaces.property">
-                <option value="title">Namn</option>
-                <option value="tags">Kategori</option>
-                <option value="rating">Betyg</option>
-            </select>
-        </div>
+                <div class="small-12 medium-6 grid-content">
+                    <label>Filtrera</label>
+                    <select ng-model="filterTag.tag" ng-options="tag.name for tag in filterTags">
+                        <option value="">Alla taggar</option>
+                    </select>
+                </div>
 
-        <div class="small-12 medium-6 grid-content">
-            <label>Filtrera</label>
-            <select ng-model="filterTag.tag" ng-options="tag.name for tag in filterTags">
-                <option value="">Alla taggar</option>
-            </select>
-        </div>
+                <div class="hide_stuff small-12 grid-content">
+                    <input type="radio" ng-model="orderPlaces.invert" value="false" id="sortAscending" name="sortAscending">
+                    <label for="sortAscending">Stigande</label>
+                    <input type="radio" ng-model="orderPlaces.invert" value="true" id="sortDescending" name="sortDescending">
+                    <label for="sortDescending">Fallande</label>
+                </div>
 
-        <div class="hide_stuff small-12 grid-content">
-            <input type="radio" ng-model="orderPlaces.invert" value="false" id="sortAscending" name="sortAscending"><label for="sortAscending">Stigande</label>
-            <input type="radio" ng-model="orderPlaces.invert" value="true" id="sortDescending" name="sortDescending"><label for="sortDescending">Fallande</label>
-        </div>
+            </div>
+        </form>
 
-        <!-- <div class="small-12 medium-6 grid-content">
-            <button class="button float-right">Skicka</button>
-        </div> -->
-
-        </div>
-    </form>
-    <div>
-
+        <div>
 </section>
