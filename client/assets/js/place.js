@@ -65,25 +65,24 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         var dfr = $q.defer();
 
         // Loop through all the cached places to find the one with id
-        /* $.each(places, function(i, p) {
+         $.each(places, function(i, p) {
             if (p.id == id) {
                 dfr.resolve(p);
                 cached = true;
             }
-        }); */
+        });
 
-        /* if (! cached) { */
+         if (! cached) {
             $http.post(endPoint, {'pid': id})
             .success(function(data) {
                 place = convertPlace(data.place[0]);
                 place.comments = data.comments;
-                console.log(place);
                 dfr.resolve(place);
             })
             .error(function() {
                 FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ladda in plats från platstjänst.' });
             });
-        /* } */
+         }
 
         return dfr.promise;
     }
@@ -201,7 +200,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             if (data[0] == 'File size cannot exceed 2 MB') {
                 FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten säger att bilden är över 2MB, vilket den inte får vara'});
             } else {
-                console.log(data);
                 dfr.resolve(data);
             }
         }).error(function(data) {
@@ -460,72 +458,63 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
         $scope.place = place;
         $scope.$emit('centerMapToPlace', place);
     });
-}]);
-
-/** Rating controller */
-placeApp.controller("RatingCtrl", ['$scope', function($scope) {
-    $scope.isReadonly = false;
 }])
 .directive("starRating", ['placeService', 'userService', function(placeService, userService) {
     function ratePlace(placeId, rating) {
         user = userService.getUser();
         placeService.ratePlace(placeId, user.id, rating);
     }
-  return {
-    restrict : "EA",
-    template : "<ul class='userrating' ng-class='{readonly: readonly}'>" +
-               "  <li ng-repeat='star in stars' ng-class='star' ng-click='toggle($index)'>" +
-               "    <img zf-iconic='' icon='star' size='small' class='iconic-color'>" + //&#9733
-               "  </li>" +
-               "</ul>",
-    scope : {
-      ratingValue : "=ngModel",
-      max : "=?", //optional: default is 5
-      onRatingSelected : "&?",
-      readonly: "=?"
-    },
-    link : function(scope, elem, attrs) {
-      if (scope.max == undefined) { scope.max = 5; }
-      function updateStars() {
-        scope.stars = [];
+    return {
+        restrict : "EA",
+        template : "<ul class='userrating' ng-class='{readonly: readonly}'>" +
+                   "  <li ng-repeat='star in stars' ng-class='star' ng-click='toggle($index)'>" +
+                   "    <img zf-iconic='' icon='star' size='small' class='iconic-color'>" + //&#9733
+                   "  </li>" +
+                   "</ul>",
+        scope : {
+            ratingValue : "=ngModel",
+            max : "=?", //optional: default is 5
+            onRatingSelected : "&?",
+            readonly: "=?"
+        },
+        link : function(scope, elem, attrs) {
+            if (scope.max == undefined) { scope.max = 5; }
+            function updateStars() {
+                scope.stars = [];
 
-        for (var i = 0; i < scope.max; i++) {
-          scope.stars.push({
-            filled : i < scope.ratingValue
-          });
+                for (var i = 0; i < scope.max; i++) {
+                    scope.stars.push({
+                        filled : i < scope.ratingValue
+                    });
+                }
+            }
+            scope.toggle = function(index) {
+                if (scope.readonly == undefined || scope.readonly == false){
+                    scope.ratingValue = index + 1;
+                    scope.onRatingSelected({
+                        rating: index + 1
+                    });
+                }
+                var placeId = scope.$parent.place.id;
+                ratePlace(placeId, scope.ratingValue);
+            };
+            scope.$watch("ratingValue", function(oldVal, newVal) {
+                if (newVal) { updateStars(); }
+            });
         }
-      }
-      scope.toggle = function(index) {
-        if (scope.readonly == undefined || scope.readonly == false){
-          scope.ratingValue = index + 1;
-          scope.onRatingSelected({
-            rating: index + 1
-          });
-        }
-        var placeId = scope.$parent.place.id;
-        ratePlace(placeId, scope.ratingValue);
-      };
-      scope.$watch("ratingValue", function(oldVal, newVal) {
-        if (newVal) { updateStars(); }
-      });
-    }
-  };
+    };
 }]);
 
 /** Add commment controller */
 placeApp.controller('addComment', function($scope, $rootScope, placeService, userService ) {
 
     $scope.addComment = function() {
-
         pid = $rootScope.$stateParams.placeId;
         uid = userService.getUser().id;
         comment = $scope.newComment.comment;
 
         placeService.addComment(pid, uid, comment);
-
-    }
-
-
+    };
 });
 
 /** Add place controller */
@@ -560,7 +549,6 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
         } else {
             placeService.addPlace($scope.newPlace).then(function(place) {
                 // Place should be added to the scope directly without the need to refresh the page
-                console.log('sparad');
                 FoundationApi.closeActiveElements('ng-scope');
                 location.reload();
             });
@@ -579,7 +567,6 @@ placeApp.controller('editPlace', function($scope, placeService) {
 });
 
 placeApp.controller('deletePlace', function($scope, $rootScope, $location, placeService) {
-    console.log($scope.places);
     $scope.delete = function() {
         sure = window.confirm('Är du säker?');
         if (sure) {

@@ -38,7 +38,7 @@ animationOut: zoomOut bounceInOut
                         <span class="svg-star-rating">{{place.rating}}</span>
                     </div>
 
-                    <div ng-app="app" ng-controller="RatingCtrl" class="container userrating float-right">
+                    <div ng-app="app" class="container userrating float-right">
                         <div star-rating ng-model="place.rating" max="5" on-rating-selected="rateFunction(place.rating)">
                         </div>
                         <label class="yourratingtag">Ditt betyg</label>
