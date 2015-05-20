@@ -15,8 +15,8 @@ animationOut: zoomOut bounceInOut
 
 <section class="grid-block" ng-controller="getPlace">
     <div class="grid-block">
-        <div>
-            <div>
+        <div class="small-12">
+            <div class="small-12">
                 <div class="slider" slick-slider="{dots:true, arrows:false, draggable:true, slidesToShow:1, infinite:true, autoplay:true, autoplaySpeed:2000}">
                     <div ng-repeat="image in place.images"><img data-lazy="{{image.uri}}"></div>
                 </div>
