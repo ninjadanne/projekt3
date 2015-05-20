@@ -18,7 +18,7 @@ animationOut: zoomOut bounceInOut
         <div>
             <div>
                 <div class="slider" slick-slider="{dots:true, arrows:false, draggable:true, slidesToShow:1, infinite:true, autoplay:true, autoplaySpeed:2000}">
-                    <div ng-repeat="image in place.images"><img src="{{image.uri}}"></div>
+                    <div ng-repeat="image in place.images"><img data-lazy="{{image.uri}}"></div>
                 </div>
             </div>
 
