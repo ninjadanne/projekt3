@@ -15,7 +15,7 @@
 </head>
 
 <body ng-controller="userController" zf-esc-close>
-    
+
     <!-- Error notifications -->
     <zf-notification-set id="error-notifications" position="top-left"></zf-notification-set>
     <div ng-controller="getPlaces">
@@ -24,24 +24,24 @@
             <div ng-include="'templates/menu.html'"></div>
         </div>
 
-        <div zf-modal="createnewplace" id="createModal" class="grid-content small-12">
-            <div ng-include="'templates/createnewplace.html'"></div>
+        <div zf-modal="newplace" id="createModal" class="grid-content small-12">
+            <div ng-include="'templates/modals/createPlace.html'"></div>
         </div>
 
         <div zf-modal="about" id="aboutModal" class="grid-content small-12">
-            <div ng-include="'templates/about.html'"></div>
+            <div ng-include="'templates/modals/about.html'"></div>
         </div>
 
         <div zf-modal="help" id="helpModal" class="grid-content small-12">
-            <div ng-include="'templates/help.html'"></div>
+            <div ng-include="'templates/modals/help.html'"></div>
         </div>
 
         <div zf-modal="settings" id="settingsModal" class="grid-content small-12">
-            <div ng-include="'templates/settings.html'"></div>
+            <div ng-include="'templates/modals/settings.html'"></div>
         </div>
 
         <div zf-modal="login" id="loginModal" class="grid-content small-12">
-            <div ng-include="'templates/login.html'"></div>
+            <div ng-include="'templates/modals/login.html'"></div>
         </div>
 
         <div class="grid-frame vertical">
