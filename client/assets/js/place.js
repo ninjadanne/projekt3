@@ -7,10 +7,39 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         return position;
     });
     var places = [];
+    var currentPlace = null;
     var filterTags = [];
 
     var domain = 'http://manu.fhall.se/p3b/';
     // var domain = 'http://p3b.dev/';
+
+    /** List of observers */
+    var placeListObservers = [];
+    var currentPlaceObservers = [];
+
+    /** Register an observer for place list */
+    var registerPlaceListObserver = function(observer) {
+        placeListObservers.push(observer);
+    };
+
+    /** Notify place list observers */
+    var notifyPlaceListObservers = function() {
+        angular.forEach(placeListObservers, function(observer) {
+            observer(places);
+        });
+    };
+
+    /** Register an observer for current place */
+    var registerCurrentPlaceObserver = function(observer) {
+        currentPlaceObservers.push(observer);
+    };
+
+    /** Notify current place observers */
+    var notifyCurrentPlaceObservers = function() {
+        angular.forEach(currentPlaceObservers, function(observer) {
+            observer(currentPlace);
+        });
+    };
 
     /**
      * Get places from backend
@@ -48,8 +77,9 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                     }
 
                     dfr.resolve(places); // Return places
+                    notifyPlaceListObservers();
                 } else {
-                    FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten hittade inga platser.'});
+                    FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten hittade inga platser vid den här positionen.'});
                 }
             }).error(function() {
                 FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ladda in platser från platstjänst.'});
@@ -59,31 +89,42 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         return dfr.promise; // Return a promise
     }
 
-    function getPlace(id) {
+    function getPlace(id, current) {
         var cached = false;
         var endPoint = domain + 'get_place.php';
+        var place = null;
 
         var dfr = $q.defer();
 
         // Loop through all the cached places to find the one with id
-         $.each(places, function(i, p) {
-            if (p.id == id) {
-                dfr.resolve(p);
+         angular.forEach(places, function(place) {
+            if (place.id == id) {
+                dfr.resolve(place);
                 cached = true;
+
+                if (current) {
+                    currentPlace = place;
+                    notifyCurrentPlaceObservers();
+                }
             }
         });
 
-         if (! cached) {
+        if (! cached) {
             $http.post(endPoint, {'pid': id})
             .success(function(data) {
                 place = convertPlace(data.place[0]);
                 place.comments = data.comments;
                 dfr.resolve(place);
+
+                if (current) {
+                    currentPlace = place;
+                    notifyCurrentPlaceObservers();
+                }
             })
             .error(function() {
                 FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ladda in plats från platstjänst.' });
             });
-         }
+        }
 
         return dfr.promise;
     }
@@ -100,7 +141,16 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
 
         $http.post(endPoint, {'pid': id, 'delete': true})
         .success(function(data) {
+
+            var index = 0;
+            angular.forEach(places, function(place) {
+                if (place.id == id) {
+                    places.splice(index, 1); // Remove the place from the place list
+                }
+                index++;
+            });
             dfr.resolve(data);
+            notifyPlaceListObservers();
         })
         .error(function() {
             FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ta bort plats från platstjänst.' });
@@ -124,8 +174,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             'comment': comment,
             'pic': pic
         };
-
-        console.log(endpoint_data);
 
         var dfr = $q.defer();
 
@@ -179,6 +227,8 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                 place.id = id;
                 place = convertPlace(place);
                 dfr.resolve(place);
+                places.push(place);
+                notifyPlaceListObservers();
             }
             dfr.resolve(data);
         }).error(function(err, data) {
@@ -349,8 +399,8 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         getPlaces: function(coords) {
             return getPlaces(coords);
         },
-        getPlace: function(id) {
-            return getPlace(id);
+        getPlace: function(id, currentPlace) {
+            return getPlace(id, currentPlace);
         },
         ratePlace: function(userId, placeId, rating) {
             return ratePlace(userId, placeId, rating);
@@ -372,6 +422,12 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         },
         addComment: function(placeId, userId, comment, pic) {
             return addComment(placeId, userId, comment, pic);
+        },
+        registerPlaceListObserver: function(observer) {
+            registerPlaceListObserver(observer);
+        },
+        registerCurrentPlaceObserver: function(observer) {
+            registerCurrentPlaceObserver(observer);
         }
     };
 });
@@ -382,15 +438,16 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
 placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
     var allPlaces = [];
 
-    placeService.getCurrentPosition().then(function(position) {
-        $scope.userPosition = position;
+    var updatePlaceList = function(places) {
+        console.log("Updating places");
+        allPlaces = places;
+        $scope.places = places;
+    };
 
-        placeService.getPlaces(position).then(function(places) {
-            allPlaces = places;
-            $scope.places = places;
-            sortPlaces();
-            console.log(allPlaces);
-        });
+    placeService.registerPlaceListObserver(updatePlaceList);
+
+    placeService.getCurrentPosition().then(function(position) {
+        placeService.getPlaces(position);
     });
 
     $scope.filterTags = placeService.filterTags;
@@ -459,9 +516,9 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 
 /** Get place controller */
 placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, placeService) {
-    placeService.getPlace($scope.params.placeId).then(function(place) {
+    placeService.getPlace($scope.params.placeId, true).then(function(place) {
         $scope.place = place;
-        $scope.$emit('centerMapToPlace', place);
+        // $scope.$emit('centerMapToPlace', place);
     });
 }])
 .directive("starRating", ['placeService', 'userService', function(placeService, userService) {
