@@ -70,10 +70,11 @@ animationOut: zoomOut bounceInOut
                     </div>
                     <div class="card small-12" ng-repeat="comment in place.comments">
                         <div class="card-divider">
-                            {{comment.user}} <span class="float-right"><small>{{comment.dateTime}}</small></span>
+                        <small>Användare: {{comment.user}}</small> <span class="float-right"><small>{{comment.date}}</small></span>
                         </div>
                         <div class="card-section">
-                            {{comment.comment}}
+                            <img src="{{comment.image_uri}}" ng-if="comment.image_uri" />
+                            <p>{{comment.comment}}</p>
                         </div>
                     </div>
                 </div>

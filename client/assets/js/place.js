@@ -41,6 +41,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                         // place.id = place.longitude + ',' + place.latitude;
                         place.id = data[i].id;
                         place.keyId = place.id;
+                        place.comments = data[i].Comments;
 
                         places.push(place);
                         addFilterTags(place.tags);
@@ -114,14 +115,17 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
      * @param  {[type]} comment [description]
      * @return {[type]}         [description]
      */
-    function addComment(placeId, userId, comment) {
+    function addComment(placeId, userId, comment, pic) {
         var endPoint = domain + 'comment.php';
 
         var endpoint_data = {
             'pid': placeId,
             'uid': userId,
             'comment': comment,
+            'pic': pic
         };
+
+        console.log(endpoint_data);
 
         var dfr = $q.defer();
 
@@ -385,6 +389,7 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
             allPlaces = places;
             $scope.places = places;
             sortPlaces();
+            console.log(allPlaces);
         });
     });
 
@@ -507,13 +512,30 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
 
 /** Add commment controller */
 placeApp.controller('addComment', function($scope, $rootScope, placeService, userService ) {
+    var file = null;
 
     $scope.addComment = function() {
         pid = $rootScope.$stateParams.placeId;
         uid = userService.getUser().id;
         comment = $scope.newComment.comment;
 
-        placeService.addComment(pid, uid, comment);
+        if (file) {
+            image = placeService.uploadImage(file).then(function(image) {
+                placeService.addComment(pid, uid, comment, image.uri).then(function(place) {
+                    // Comment should be added to the scope directly without the need to refresh the page
+                });
+            });
+        } else {
+            placeService.addComment(pid, uid, comment).then(function(place) {
+                // Place should be added to the scope directly without the need to refresh the page
+                FoundationApi.closeActiveElements('ng-scope');
+                location.reload();
+            });
+        }
+    };
+
+    $scope.uploadFile = function(files) {
+        file = files[0];
     };
 });
 

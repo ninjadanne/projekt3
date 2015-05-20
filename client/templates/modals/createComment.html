@@ -16,7 +16,8 @@
                     <textarea name="description" cols="30" rows="5" id="newComment" ng-model="newComment.comment" required></textarea>
                 </label>
                 <div class="small-12 medium-12">
-                    <button class="button photo_button float-left">Lägg till bild</button>
+                    <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
+                    <input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0;">
                     <button class="button float-right" type="submit">Spara</button>
                 </div>
             </form>
