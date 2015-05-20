@@ -61,7 +61,15 @@ animationOut: zoomOut bounceInOut
                 </div>
 
                 <div class="small-12">
-                    <p>{{place.checkinsNow}} incheckningar just nu ({{place.checkinsTotal}} totalt)</p>
+                <p>
+                    <span nf-if="place.checkinsNow">{{place.checkinsNow}} </span>
+                    <span ng-if="!place.checkinsNow">0 </span>
+                    incheckningar just nu
+                    (
+                    <span ng-if="place.checkinsTotal">{{place.checkinsTotal}} </span>
+                    <span ng-if="!place.checkinsTotal">0 </span>
+                    totalt)
+                </p>
                 </div>
 
                 <div class="small-12">

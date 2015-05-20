@@ -12,8 +12,29 @@ skateMap.config(function(uiGmapGoogleMapApiProvider) {
 /** Skate map controllers */
 skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeService', function($scope, uiGmapGoogleMapApi, placeService) {
 
+    /** Marker for users position */
+    userPositionMarker = null;
+
     /** Init the map */
     $scope.map = { zoom: 12, bounds: {}, pan: true };
+
+    /** Array with all markers */
+    $scope.map.markers = [];
+
+    /** Function for setting the map markers  */
+    var addPlaceMarkers = function(places) {
+        $scope.map.markers = places;
+        getUserPosition();
+    };
+
+    /** Function for setting the current place */
+    var setCurrentPlace = function(place) {
+        centerMapToPosition(place.latitude, place.longitude);
+    };
+
+    /** Register observer for place list and current place in service */
+    placeService.registerPlaceListObserver(addPlaceMarkers);
+    placeService.registerCurrentPlaceObserver(setCurrentPlace);
 
     $scope.map.markersEvents = {
         click: function(marker, eventName, model, arguments) {
@@ -35,32 +56,17 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
         options: {} // define when map is ready
     };
 
-    /** Marker for users position */
-    userPositionMarker = null;
-
-    /** Array with all markers */
-    $scope.map.markers = [];
-
-    /** Watch the places in scope and add them as markers */
-    $scope.$watch('places', function() {
-        $scope.map.markers = $scope.places;
-    });
-
-    /** Listen for the centerMapToPosition event */
-    $scope.$on('centerMapToPlace', function(event, place) {
-        centerMapToPosition(place.latitude, place.longitude);
-    });
-
     // Get the users current position
-    placeService.getCurrentPosition().then(function(userPosition) {
-        // Center the map
-        if (userPosition.latitude == -1) {
-            userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: -1 };
-        }
-
-        setUserPosition(userPosition.latitude, userPosition.longitude, userPosition.accuracy, true);
-
-    });
+    function getUserPosition() {
+        placeService.getCurrentPosition().then(function(userPosition) {
+            if (userPosition.latitude == -1) {
+                userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: -1 };
+            }
+            $scope.userPosition = userPosition;
+            // Center the map
+            setUserPositionMarker(userPosition.latitude, userPosition.longitude, userPosition.accuracy, true);
+        });
+    }
 
     /**
      * Set the user position and create a marker for it
@@ -69,7 +75,7 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
      * @param {[type]} accuracy  [description]
      * @param {[type]} centerTo  [description]
      */
-    var setUserPosition = function(latitude, longitude, accuracy, centerTo) {
+     function setUserPositionMarker(latitude, longitude, accuracy, centerTo) {
         if (!userPositionMarker) {
             /** Skapa en markör för användarens position */
             userPositionMarker = {
@@ -82,19 +88,25 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
                     icon: 'assets/img/icons/user-position.png'
                 }
             };
-
-            /** Add the user marker to the markers */
-            $scope.map.markers.push(userPositionMarker);
         } else {
             userPositionMarker.latitude = latitude;
             userPositionMarker.longitude = longitude;
             userPositionMarker.accuracy = accuracy;
         }
 
+        var index = 0;
+        angular.forEach($scope.map.markers, function(marker) {
+            if (marker.id === userPositionMarker.id) {
+                $scope.map.markers.splice(index, 1); // Remove the current user position marker
+                $scope.map.markers.push(userPositionMarker); // Add the new
+            }
+            index++;
+        });
+
         if (centerTo) {
             $scope.centerMapToUserPosition();
         }
-    };
+    }
 
     /**
      * Center the map to the users position
