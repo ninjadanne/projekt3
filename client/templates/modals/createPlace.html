@@ -6,7 +6,7 @@
         <a zf-close="" class="close-button">×</a>
 
         <div class="grid-content small-12">
-            <form name="newPlace" ng-submit="addPlace()">
+            <form name="newPlace">
 
                 <label for="newPlaceName">
                     Namn på plats
@@ -35,8 +35,8 @@
 
                 <div class="small-12 medium-12">
                     <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
-                    <input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0;">
-                    <button class="button float-right" type="submit">Spara</button>
+                    <input type="file" id="newPlacePic" ng-model="self" onchange="uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0;">
+                    <button class="button float-right" type="submit" ng-click="addPlace()">Spara</button>
                 </div>
 
             </form>

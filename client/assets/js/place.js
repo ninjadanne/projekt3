@@ -391,9 +391,10 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         return false;
     }
 
-    function getPlacesWithTag(tag) {
+    function filterPlacesByTag(tag) {
+        if (tag)
         var placesWithTag = [];
-        var i = places.length;
+        // var i = places.length;
 
         while (i--) {
             place = places[i];
@@ -437,8 +438,8 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         ratePlace: function(userId, placeId, rating) {
             return ratePlace(userId, placeId, rating);
         },
-        getPlacesWithTag: function(tag) {
-            return getPlacesWithTag(tag);
+        filterPlacesByTag: function(tag) {
+            return filterPlacesByTag(tag);
         },
         searchPlaces: function(searchString) {
             return searchPlaces(searchString);
@@ -531,21 +532,6 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 
     var searchPlaces = function() {
         placeService.searchPlaces($scope.searchTag.tag);
-        //  if ($scope.searchTag.tag !== '') {
-        //     var searchTag = angular.lowercase($scope.searchTag.tag);
-        //     var i = allPlaces.length;
-        //     var places = [];
-        //     while (i--) {
-        //       var title = angular.lowercase(allPlaces[i].title) + '';
-        //       if (title.includes(searchTag)){
-        //         places.push(allPlaces[i]);
-        //       }
-        //     }
-
-        //         $scope.places = places;
-        //  } else {
-        //     $scope.places = allPlaces;
-        // }
     };
 
 }]);
@@ -620,7 +606,6 @@ placeApp.controller('addComment', function($scope, $rootScope, placeService, use
             });
         } else {
             placeService.addComment(pid, uid, comment).then(function(place) {
-                // Place should be added to the scope directly without the need to refresh the page
                 FoundationApi.closeActiveElements('ng-scope');
                 location.reload();
             });
@@ -654,20 +639,11 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
 
     $scope.addPlace = function() {
         $scope.newPlace.uid = userService.getUser().id;
-        if (file) {
-            image = placeService.uploadImage(file).then(function(image) {
-                $scope.newPlace.pic = image.uri;
-                placeService.addPlace($scope.newPlace).then(function(place) {
-                    // Place should be added to the scope directly without the need to refresh the page
-                });
-            });
-        } else {
-            placeService.addPlace($scope.newPlace).then(function(place) {
-                // Place should be added to the scope directly without the need to refresh the page
-                FoundationApi.closeActiveElements('ng-scope');
-                // location.reload();
-            });
-        }
+        $scope.newplace = file;
+        placeService.addPlace($scope.newPlace).then(function(place) {
+            FoundationApi.closeActiveElements('ng-scope');
+        });
+        // }
     };
 
     $scope.uploadFile = function(files) {
