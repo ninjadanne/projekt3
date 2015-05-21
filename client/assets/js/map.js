@@ -5,7 +5,7 @@ var skateMap = angular.module('skate.Map', ['uiGmapgoogle-maps']);
 skateMap.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         v: '3.17',
-        libraries: 'weather,geometry,visualization'
+        // libraries: 'weather,geometry,visualization'
     });
 });
 
