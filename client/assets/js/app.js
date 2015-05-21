@@ -15,6 +15,7 @@
         'ngFileUpload',
 
         // GrindFind
+        'mainApp',
         'skate.Map',
         'skate.Place',
         'skate.User'
@@ -39,3 +40,10 @@
         FastClick.attach(document.body);
     }
 })();
+
+var mainApp = angular.module('mainApp', []);
+mainApp.controller('mainController', function($scope, $location) {
+    $scope.isActive = function (viewLocation) {
+        return viewLocation === $location.path();
+    };
+});
