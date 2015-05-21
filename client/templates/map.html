@@ -16,6 +16,7 @@ animationOut: fadeOut easeInOut -->
     <ui-gmap-layer type='TransitLayer' show='true'></ui-gmap-layer>
 </ui-gmap-google-map>
 
+<!-- NAVIGATION -->
 <div class="grid-content collapse small-12 map-menu">
     <ul class="sub-menu dark menu-bar">
         <li><a zf-open="helpModal">Hjälp</a></li>
@@ -26,4 +27,63 @@ animationOut: fadeOut easeInOut -->
         <li><a zf-open="createModal">Lägg till ny plats</a></li>
     </ul>
     <div ng-include="'templates/nav/search.html'" class="hide-for-small-only"></div>
+</div>
+
+<div class="grid-content shrink show-for-small-only">
+
+    <!-- ICONS FOR SMALL -->
+    <a href="#!/placelist"><img class="overlay-icon icon1" src="assets/img/icons/list.png"></a>
+    <a><img zf-hard-toggle="top_sheet" class="overlay-icon icon2" src="assets/img/icons/filter.png"> </a>
+    <a href="#!/checkin"><img class="overlay-icon icon3" src="assets/img/icons/pin-check.png"></a>
+    <a ng-click="centerMapToUserPosition()" ng-if="userPosition.accuracy >= 0"><img class="overlay-icon icon4" src="assets/img/icons/fix-position.png"></a>
+
+    <!-- TILES MENU -->
+    <zf-action-sheet id="separate-actionsheet">
+        <zf-as-content position="top">
+            <div class="grid-block show-for-small-only small-up-2 front-tiles">
+
+                <div class="front-tile tile tile-1 grid-block">
+                    <a href="#!/placelist">
+                        <img src="assets/img/icons/star-black.png">
+                        <h4>Topp 10</h4>
+                    </a>
+                </div>
+
+                <div class="front-tile tile tile-2 grid-block">
+                    <a href="#!/place">
+                        <img src="assets/img/icons/bubble-black.png">
+                        <h4>Mest kommenterat</h4>
+                    </a>
+                </div>
+
+                <div class="front-tile tile tile-3 grid-block">
+                    <a href="#!/checkin">
+                        <img src="assets/img/icons/pin-check-black.png">
+                        <h4>Flest incheckningar</h4>
+                    </a>
+                </div>
+
+                <div class="front-tile tile tile-4 grid-block">
+                    <a href="#!/place">
+                        <img src="assets/img/icons/star-black.png">
+                        <h4>Bäst Grinds</h4>
+                    </a>
+                </div>
+            </div>
+
+            <a class="size1"><img zf-hard-toggle="separate-actionsheet" class="menu1" src="assets/img/icons/tiles.png"> </a>
+        </zf-as-content>
+    </zf-action-sheet>
+
+    <!-- SEARCH AND FILTER -->
+    <zf-panel position="top" id="top_sheet">
+        <a href="#" zf-close="" class="close-button">×</a>
+        <div class="test">
+            <ng-include src="'templates/nav/search.html'">
+            </ng-include>
+            <ng-include src="'templates/sortfilter.html'" class="filtersheet">
+            </ng-include>
+        </div>
+    </zf-panel>
+
 </div>

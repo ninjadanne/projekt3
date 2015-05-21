@@ -352,7 +352,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             tag = tags[i].toLowerCase(); // To lower case
             tag = tag.charAt(0).toUpperCase() + tag.slice(1); // First letter to upper case
 
-            if (!hasFilterTag(tag)) { // If not already in array
+            if (!filterTagExists(tag)) { // If not already in array
                 filterTags.push({
                     name: tag,
                     value: tag.toLowerCase()
@@ -381,7 +381,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         return tags;
 
     }
-    function hasFilterTag(tag) {
+    function filterTagExists(tag) {
         var i = filterTags.length;
         while (i--) {
             if (filterTags[i].name === tag) {
@@ -392,23 +392,24 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
     }
 
     function filterPlacesByTag(tag) {
-        if (tag)
-        var placesWithTag = [];
-        // var i = places.length;
+        console.log("Tag: " + tag);
+        if (!tag) {
+            places = allPlaces;
+        } else {
+            tag = tag.toLowerCase();
+            places = [];
 
-        while (i--) {
-            place = places[i];
-
-            var x = place.tags.length;
-            while (x--) {
-                var placeTag = (place.tags[x] + '').toLowerCase();
-                if (placeTag == tag) {
-                    placesWithTag.push(place);
-                }
-            }
+            angular.forEach(allPlaces, function(place) {
+                angular.forEach(place.tags, function(ptag) {
+                    if (ptag.toLowerCase() == tag) {
+                        places.push(place);
+                    }
+                });
+            });
+            console.log(places);
         }
 
-        return placesWithTag;
+        notifyPlaceListObservers();
     }
 
     function searchPlaces(searchString) {
@@ -472,11 +473,9 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
 
 /** Get places controller */
 placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
-    var allPlaces = [];
 
     var updatePlaceList = function(places) {
         console.log("Updating places");
-        allPlaces = places;
         $scope.places = places;
     };
 
@@ -487,52 +486,41 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
     });
 
     $scope.filterTags = placeService.filterTags;
+    $scope.filterTags.unshift({name: 'Alla platser', value: null});
     $scope.orderPlaces = {
         property: 'rating',
         invert: 'true'
     };
-    $scope.filterTag = {tag: null};
+    $scope.filterTag = {tag: {}};
 
     $scope.searchTag = {tag: null};
 
     // Watch the sortOrder order (radio buttons)
     $scope.$watch('orderPlaces.invert', function() {
-       sortPlaces();
+        var orderBy = $filter('orderBy');
+        $scope.places = orderBy($scope.places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
     });
 
     // Watch the sortOrder property (dropdown)
     $scope.$watch('orderPlaces.property', function() {
-       sortPlaces();
+        var orderBy = $filter('orderBy');
+        $scope.places = orderBy($scope.places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
     });
 
     // Watch the filterTag property (dropdown)
     $scope.$watch('filterTag.tag', function() {
-        filterPlaces();
+        console.log($scope.filterTag);
+        // if ($scope.filterTag.tag !== null) {
+            // if ($scope.filterTag.tag.value) {
+                placeService.filterPlacesByTag($scope.filterTag.tag.value);
+            // }
+        // }
     });
 
     // Watch the searchTag property (dropdown)
     $scope.$watch('searchTag.tag', function() {
-        searchPlaces();
-    });
-
-    var sortPlaces = function() {
-        var orderBy = $filter('orderBy');
-        $scope.places = orderBy($scope.places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
-    };
-
-    var filterPlaces = function() {
-        if ($scope.filterTag.tag !== null) {
-            if ('value' in $scope.filterTag.tag) {
-                $scope.places = placeService.getPlacesWithTag($scope.filterTag.tag.value);
-            }
-        } else {
-            $scope.places = allPlaces;
-        }
-    };
-
-    var searchPlaces = function() {
         placeService.searchPlaces($scope.searchTag.tag);
-    };
+    });
 
 }]);
 
@@ -607,7 +595,7 @@ placeApp.controller('addComment', function($scope, $rootScope, placeService, use
         } else {
             placeService.addComment(pid, uid, comment).then(function(place) {
                 FoundationApi.closeActiveElements('ng-scope');
-                location.reload();
+                // $location.path('/placelist');
             });
         }
     };
@@ -642,6 +630,7 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
         $scope.newplace = file;
         placeService.addPlace($scope.newPlace).then(function(place) {
             FoundationApi.closeActiveElements('ng-scope');
+            // $location.path('/placelist');
         });
         // }
     };
@@ -663,9 +652,6 @@ placeApp.controller('deletePlace', function($scope, $rootScope, $location, place
         if (sure) {
             var placeId = $rootScope.$stateParams.placeId;
             placeService.deletePlace(placeId).then(function() {
-                // location.reload();
-                // window.location = "#!/placelist";
-
                 $location.path('/placelist');
             });
         }
