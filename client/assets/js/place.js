@@ -1,8 +1,9 @@
 ﻿var placeApp = angular.module('skate.Place', []);
 
 /** Service */
-placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
+placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, userService) {
 
+    var user = userService.getUser();
     var userPosition = getCurrentPosition().then(function(position) {
         return position;
     });
@@ -60,7 +61,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
        if (places.length > 0) {
            dfr.resolve(places);
        } else {
-            $http.post(endPoint, {'lat': coords.latitude, 'lng': coords.longitude})
+            $http.post(endPoint, {'lat': coords.latitude, 'lng': coords.longitude, 'uid': user.id})
             .success(function(data) {
 
                 if (data.success) {
@@ -210,8 +211,19 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
 
         var dfr = $q.defer();
 
-        $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating}).success(function(data) {
+        $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating})
+        .success(function(data) {
             dfr.resolve(data);
+            getPlace(placeId).then(function(place) {
+                angular.forEach(places, function(p) {
+                    if (p.id == placeId) {
+                        p.rating = place.rating;
+                        notifyPlaceListObservers();
+                    }
+                });
+            });
+        })
+        .error(function(data) {
         });
 
         return dfr.promise;
@@ -301,6 +313,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             tags: splitToTags(place.Activity), // The tags are space separated
             description: place.Description,
             rating: (Math.round(place.Rating * 10) / 10).toFixed(1), // Round the rating to 1 decimal
+            user_rating: place.user_rating ? place.user_rating : 0,
             images: []
         };
 
