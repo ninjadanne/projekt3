@@ -6,6 +6,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
     var userPosition = getCurrentPosition().then(function(position) {
         return position;
     });
+    var allPlaces = [];
     var places = [];
     var currentPlace = null;
     var filterTags = [];
@@ -88,6 +89,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                         addFilterTags(place.tags);
                     }
 
+                    allPlaces = places;
                     dfr.resolve(places); // Return places
                     notifyPlaceListObservers();
                 } else {
@@ -408,6 +410,22 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         return placesWithTag;
     }
 
+    function searchPlaces(searchString) {
+        if (searchString) {
+            searchString = searchString.toLowerCase();
+            places = [];
+            angular.forEach(allPlaces, function(place) {
+                title = place.title.toLowerCase();
+                if (title.startsWith(searchString)) {
+                    places.push(place);
+                }
+            });
+        } else {
+            places = allPlaces;
+        }
+        notifyPlaceListObservers();
+    }
+
     return {
         filterTags: filterTags,
         getPlaces: function(coords) {
@@ -421,6 +439,9 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
         },
         getPlacesWithTag: function(tag) {
             return getPlacesWithTag(tag);
+        },
+        searchPlaces: function(searchString) {
+            return searchPlaces(searchString);
         },
         getCurrentPosition: function() {
             return userPosition;
@@ -509,21 +530,22 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
     };
 
     var searchPlaces = function() {
-         if ($scope.searchTag.tag !== '') {
-            var searchTag = angular.lowercase($scope.searchTag.tag);
-            var i = allPlaces.length;
-            var places = [];
-            while (i--) {
-              var title = angular.lowercase(allPlaces[i].title) + '';
-              if (title.includes(searchTag)){
-                places.push(allPlaces[i]);
-              }
-            }
+        placeService.searchPlaces($scope.searchTag.tag);
+        //  if ($scope.searchTag.tag !== '') {
+        //     var searchTag = angular.lowercase($scope.searchTag.tag);
+        //     var i = allPlaces.length;
+        //     var places = [];
+        //     while (i--) {
+        //       var title = angular.lowercase(allPlaces[i].title) + '';
+        //       if (title.includes(searchTag)){
+        //         places.push(allPlaces[i]);
+        //       }
+        //     }
 
-                $scope.places = places;
-         } else {
-            $scope.places = allPlaces;
-        }
+        //         $scope.places = places;
+        //  } else {
+        //     $scope.places = allPlaces;
+        // }
     };
 
 }]);
