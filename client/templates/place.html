@@ -64,11 +64,7 @@ animationOut: zoomOut bounceInOut
                 <p>
                     <span nf-if="place.checkinsNow">{{place.checkinsNow}} </span>
                     <span ng-if="!place.checkinsNow">0 </span>
-                    incheckningar just nu
-                    (
-                    <span ng-if="place.checkinsTotal">{{place.checkinsTotal}} </span>
-                    <span ng-if="!place.checkinsTotal">0 </span>
-                    totalt)
+                    incheckningar just nu (<span ng-if="place.checkinsTotal">{{place.checkinsTotal}}</span><span ng-if="!place.checkinsTotal">0</span> totalt)
                 </p>
                 </div>
 
@@ -89,7 +85,6 @@ animationOut: zoomOut bounceInOut
 
                 <div class="small-12 clearfix">
                     <a zf-open="newcommentModal" class="button float-left">Lägg till kommentar</a>
-                    <button class="button photo_button float-left">Lägg till bild</button>
                 </div>
 
                 <div class="small-12 clearfix">
