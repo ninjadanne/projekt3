@@ -24,7 +24,10 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
     /** Function for setting the map markers  */
     var addPlaceMarkers = function(places) {
         $scope.map.markers = places;
-        getUserPosition();
+
+        if (userPositionMarker === null) {
+            getUserPosition();
+        }
     };
 
     /** Function for setting the current place */
