@@ -4,7 +4,7 @@ var userApp = angular.module('skate.User', []);
 userApp.factory('userService', function($http, $q) {
     var user = {
         // id: null
-        id: 1
+        id: Math.floor(Math.random() * 99) + 1
     };
 
     /**
@@ -14,7 +14,7 @@ userApp.factory('userService', function($http, $q) {
      * @return {[type]}          [description]
      */
     function login(username, password) {
-        userId = 1;
+        userId = Math.floor(Math.random() * 99) + 1;
 
         user.id = userId;
         return userId;
@@ -36,8 +36,8 @@ userApp.controller('userController', ['$scope', 'userService', function($scope, 
     user = null;
     user = userService.getUser();
 
-    $scope.login = function() {
-        userService.login();
+    $scope.login = function(username, password) {
+        userService.login(username, password);
         user = userService.getUser();
     };
 
