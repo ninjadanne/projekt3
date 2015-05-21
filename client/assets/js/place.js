@@ -392,7 +392,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
     }
 
     function filterPlacesByTag(tag) {
-        console.log("Tag: " + tag);
         if (!tag) {
             places = allPlaces;
         } else {
@@ -406,7 +405,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                     }
                 });
             });
-            console.log(places);
         }
 
         notifyPlaceListObservers();
@@ -475,7 +473,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
 placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
 
     var updatePlaceList = function(places) {
-        console.log("Updating places");
         $scope.places = places;
     };
 
@@ -509,12 +506,7 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 
     // Watch the filterTag property (dropdown)
     $scope.$watch('filterTag.tag', function() {
-        console.log($scope.filterTag);
-        // if ($scope.filterTag.tag !== null) {
-            // if ($scope.filterTag.tag.value) {
-                placeService.filterPlacesByTag($scope.filterTag.tag.value);
-            // }
-        // }
+        placeService.filterPlacesByTag($scope.filterTag.tag.value);
     });
 
     // Watch the searchTag property (dropdown)
