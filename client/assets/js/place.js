@@ -64,7 +64,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
 
                 if (data.success) {
                     data = data.data;
-                    console.log(data);
 
                     for (var i = 0; i < data.length; i++) { // Loopa igenom alla hämtade platser
                         place = convertPlace(data[i]);
@@ -73,6 +72,17 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
                         place.keyId = place.id;
                         place.comments = data[i].Comments;
                         place.checkinsTotal = data[i].Checkins;
+                        place.images = [];
+
+                        angular.forEach(place.comments, function(comment) {
+                            if (comment.image_uri) {
+                                place.images.push({ 'uri': comment.image_uri });
+                            }
+                        });
+
+                        if (place.images.length == 0) {
+                            place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
+                        }
 
                         places.push(place);
                         addFilterTags(place.tags);
@@ -281,14 +291,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             rating: (Math.round(place.Rating * 10) / 10).toFixed(1), // Round the rating to 1 decimal
             images: []
         };
-
-        if (place.Pic_URI) {
-            convertedPlace.images.push({uri: place.Pic_URI});
-        }
-
-        // PLACEHOLDER PICS, REMOVE WHEN GOING LIVE!
-        convertedPlace.images.push({uri: 'assets/img/spot_placeholder.jpg'});
-        convertedPlace.images.push({uri: 'assets/img/spot_placeholder2.jpg'});
 
         return convertedPlace;
     }
