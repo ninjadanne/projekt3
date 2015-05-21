@@ -14,10 +14,19 @@
                     <input type="text" placeholder="Fyll i platsens namn..." id="newPlaceName" ng-model="place.title">
                 </label>
 
-                <div ng-controller="placeMapController" class="placeMapController">
+                <!--<div ng-controller="placeMapController" class="placeMapController">
                     <ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" class="" pan="true">
                     </ui-gmap-google-map>
-                </div>
+                </div>-->
+                <label for="newPlaceLat">
+                    Fyll i platsens latitude:
+                    <input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
+                </label>
+
+                <label for="newPlaceLong">
+                    Fyll i platsens longitude:
+                    <input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="newPlace.longitude">
+                </label>
 
                 <input type="text" placeholder="Fyll i platsens kategori" id="newPlaceCat" ng-model="place.cat">
                 <label>
@@ -25,7 +34,7 @@
                     <textarea class="small-12" cols="30" id="newPlaceDescription" ng-model="place.description"></textarea>
                 </label>
 
-                <h4>Kategori</h4>
+                <!--<h4>Kategori</h4>
 
                 <div class="small-12 grid-block">
                     <ul class="checkbox-grid small-12">
@@ -62,8 +71,11 @@
                             <label for="checkbox8">other</label>
                         </li>
                     </ul>
-                </div>
-
+                </div>-->
+                <label for="newPlaceCat">
+                    Kategori:
+                    <input type="text" placeholder="Fyll i kategori" id="newPlaceCat" ng-model="newPlace.cat" required>
+                </label>
                 <div class="small-12 medium-12">
                     <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
                     <input type="file" id="placePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: relative; z-index: 500; opacity: 0;">
