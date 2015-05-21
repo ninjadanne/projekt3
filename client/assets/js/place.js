@@ -237,9 +237,19 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi) {
             } else {
                 var id = data.message.split(" = ")[1];
                 place.id = id;
-                place = convertPlace(place);
-                dfr.resolve(place);
+                place.rating = 0.0;
+
+                if (!place.images) {
+                    place.images = [];
+                    place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
+                } else if(place.images.length === 0) {
+                    place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
+                }
+
+                // place = convertPlace(place);
                 places.push(place);
+
+                dfr.resolve(place);
                 notifyPlaceListObservers();
             }
             dfr.resolve(data);
@@ -633,7 +643,7 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
             placeService.addPlace($scope.newPlace).then(function(place) {
                 // Place should be added to the scope directly without the need to refresh the page
                 FoundationApi.closeActiveElements('ng-scope');
-                location.reload();
+                // location.reload();
             });
         }
     };
