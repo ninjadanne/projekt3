@@ -82,7 +82,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
                             }
                         });
 
-                        if (place.images.length == 0) {
+                        if (place.images.length === 0) {
                             place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
                         }
 
@@ -125,7 +125,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
         });
 
         if (! cached) {
-            $http.post(endPoint, {'pid': id})
+            $http.post(endPoint, {'pid': id, 'uid': user.id})
             .success(function(data) {
                 place = convertPlace(data.place[0]);
                 place.comments = data.comments;
@@ -194,6 +194,12 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
         $http.post(endPoint, endpoint_data).success(function(data) {
             dfr.resolve(data);
+            angular.forEach(places, function(place) {
+                if (place.id == placeId) {
+                    place.comments.push(data.data);
+                    notifyPlaceListObservers();
+                }
+            });
         });
 
         return dfr.promise;
@@ -214,13 +220,14 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
         $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating})
         .success(function(data) {
             dfr.resolve(data);
-            getPlace(placeId).then(function(place) {
-                angular.forEach(places, function(p) {
-                    if (p.id == placeId) {
-                        p.rating = place.rating;
-                        notifyPlaceListObservers();
-                    }
-                });
+            angular.forEach(places, function(p) {
+                if (p.id == placeId) {
+                    p.user_rating = rating;
+                    p.rating = data.avg_rating;
+                    notifyPlaceListObservers();
+                    currentPlace = p;
+                    notifyCurrentPlaceObservers();
+                }
             });
         })
         .error(function(data) {
@@ -251,7 +258,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             } else {
                 var id = data.message.split(" = ")[1];
                 place.id = id;
-                place.rating = 0.0;
+                place.rating = '0.0';
 
                 if (!place.images) {
                     place.images = [];
@@ -313,7 +320,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             tags: splitToTags(place.Activity), // The tags are space separated
             description: place.Description,
             rating: (Math.round(place.Rating * 10) / 10).toFixed(1), // Round the rating to 1 decimal
-            user_rating: place.user_rating ? place.user_rating : 0,
+            user_rating: place.user_rating ? place.user_rating : '0.0',
             images: []
         };
 
@@ -583,7 +590,7 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
 }]);
 
 /** Add commment controller */
-placeApp.controller('addComment', function($scope, $rootScope, placeService, userService ) {
+placeApp.controller('addComment', function($scope, $rootScope, placeService, userService, FoundationApi) {
     var file = null;
 
     $scope.addComment = function() {
