@@ -82,7 +82,7 @@ url: /place/:placeId
                             <span>Av: {{comment.user}}</span> <span class="float-right"><small>{{comment.date}}</small></span>
                         </div>
                         <div class="card-section">
-                            <img src="{{comment.image_uri}}" ng-if="comment.image_uri" />
+                            <a href="{{comment.image_uri}}"><img class="th" src="{{comment.image_uri}}" ng-if="comment.image_uri" /></a>
                             <p>{{comment.comment}}</p>
                         </div>
                     </div>
