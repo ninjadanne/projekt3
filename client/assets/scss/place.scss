@@ -118,3 +118,18 @@ h3 a {
 .modal {
     height: inherit !important;
 }
+
+.slider { 
+    width: 600px !important; 
+    height: 340px !important; 
+    overflow: hidden !important; 
+}
+.slider img { 
+    width: 100%;
+    position: relative;
+}
+
+/*.slider img {
+    position: absolute;
+    clip: rect(200px,200px,200px,0px);
+}*/
