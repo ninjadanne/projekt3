@@ -129,6 +129,18 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             .success(function(data) {
                 place = convertPlace(data.place[0]);
                 place.comments = data.comments;
+                place.images = [];
+
+                angular.forEach(data.comments, function(comment) {
+                    if (comment.image_uri) {
+                        place.images.push({'uri': comment.image_uri});
+                    }
+                });
+
+                if (place.images.length === 0) {
+                    place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
+                }
+
                 dfr.resolve(place);
 
                 if (current) {
@@ -282,6 +294,11 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
     }
 
+    /**
+     * Upload an image to backendf
+     * @param  {[type]} image [description]
+     * @return {[type]}       [description]
+     */
     function uploadImage(image) {
         var endPoint = domain + 'upload.php';
 
@@ -448,6 +465,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
     return {
         filterTags: filterTags,
+        currentPlace: currentPlace,
         getPlaces: function(coords) {
             return getPlaces(coords);
         },
@@ -540,7 +558,6 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, placeService) {
     placeService.getPlace($scope.params.placeId, true).then(function(place) {
         $scope.place = place;
-        // $scope.$emit('centerMapToPlace', place);
     });
 }])
 .directive("starRating", ['placeService', 'userService', function(placeService, userService) {
