@@ -16,7 +16,7 @@
                  <label for="newPlaceCat">
                     <span class="inline-label">
                         <span class="form-label">Kategori</span>
-                    <input type="text" placeholder="Fyll i kategori..." id="newPlaceCat" ng-model="newPlace.cat" required>
+                    <input type="text" placeholder="Fyll i kategori..." id="newPlaceCat" ng-model="newPlace.tags" required>
                     </span>
                 </label>
 
@@ -41,7 +41,8 @@
 
                 <div class="small-12 medium-12">
                     <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
-                    <input type="file" id="newPlacePic" ng-model="self" onchange="uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0; height: 40px; width: 100px;">
+                    <input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0; height: 40px; width: 100px;">
+
                     <button class="button float-right" type="submit" ng-click="addPlace()">Spara</button>
                 </div>
 

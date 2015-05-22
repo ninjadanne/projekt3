@@ -261,6 +261,14 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             endPoint = domain + 'update_place.php';
         }
 
+        if (place.tags) {
+            if (typeof place.tags == 'string' || place.tags instanceof String) {
+                place.tags = place.tags.replace(/ +?/g, '').replace(/,/g, " ");
+            } else if (place.tags instanceof Array) {
+                place.tags = place.tags.join(" ");
+            }
+        }
+
         var endpoint_data = {
             'pid': place.id,
             'uid': user.id,
@@ -269,7 +277,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             'longitude': place.longitude,
             'description': place.description,
             'pic': place.pic,
-            'cat': place.tags.join(", ")
+            'cat': place.tags
         };
 
         var dfr = $q.defer();
@@ -283,13 +291,19 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
                     place.images = [];
                     place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
                 } else if(place.images.length === 0) {
-                    place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
+                    if (place.pic) {
+                        place.images.push({'uri': place.pic});
+                    } else {
+                        place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
+                    }
                 }
 
                 if(!place.id) {
                     var id = data.message.split(" = ")[1];
                     place.id = id;
                     place.rating = '0.0';
+                    // place = convertPlace(place);
+                    place.tags = splitToTags(place.tags);
                     places.push(place);
                 }
                 else {
@@ -305,7 +319,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             }
             dfr.resolve(data);
         }).error(function(data) {
-            console.log(data);
             FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte lägga till platsen.'});
         });
 
@@ -674,7 +687,7 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
         pic: null,
         longitude: null,
         latitude: null,
-        cat: null
+        tag: null
     };
 
     placeService.getCurrentPosition().then(function(up) {
@@ -684,10 +697,18 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
 
     $scope.addPlace = function() {
         $scope.newPlace.uid = userService.getUser().id;
-        $scope.newplace = file;
-        placeService.addPlace($scope.newPlace).then(function(place) {
-            FoundationApi.closeActiveElements('ng-scope');
-        });
+        if (file) {
+            placeService.uploadImage(file).then(function(image) {
+                $scope.newPlace.pic = image.uri;
+                placeService.addPlace($scope.newPlace).then(function(place) {
+                    FoundationApi.closeActiveElements('ng-scope');
+                });
+            });
+        } else {
+            placeService.addPlace($scope.newPlace).then(function(place) {
+                FoundationApi.closeActiveElements('ng-scope');
+            });
+        }
     };
 
     $scope.uploadFile = function(files) {
