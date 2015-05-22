@@ -629,6 +629,7 @@ placeApp.controller('addComment', function($scope, $rootScope, placeService, use
         if (file) {
             image = placeService.uploadImage(file).then(function(image) {
                 placeService.addComment(pid, uid, comment, image.uri).then(function(place) {
+                FoundationApi.closeActiveElements('ng-scope');
                     // Comment should be added to the scope directly without the need to refresh the page
                 });
             });
