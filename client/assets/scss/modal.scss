@@ -13,3 +13,18 @@ aside.modal{
     background-color: #E40009;
     top: 2em;
 }
+
+.modal {
+	.button {
+		margin: 0 0rem 1rem 0 !important;
+	}
+}
+
+@include breakpoint(medium) {
+	.flyt-right {
+		float: right;
+	}
+	.flyt-left {
+		float: left;
+	}
+}

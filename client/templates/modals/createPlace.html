@@ -1,36 +1,42 @@
 <section class="grid-block" ng-controller="addPlace">
     <div class="grid-content small-12">
 
-        <h2>Skapa ny plats</h2>
-
         <a zf-close="" class="close-button">×</a>
 
         <div class="grid-content small-12">
+            <h2>Skapa ny plats</h2>
             <form name="newPlace">
-
                 <label for="newPlaceName">
-                    Namn på plats
-                    <input type="text" placeholder="Fyll i platsens namn..." id="newPlaceName" ng-model="newPlace.title" required>
+                    <span class="inline-label">
+                        <span class="form-label">Namn</span>
+                        <input type="text" placeholder="Fyll i platsens namn..." id="newPlaceName" ng-model="newPlace.title" required>
+                    </span>
                 </label>
 
-                <label for="newPlaceLat">
-                    Fyll i platsens latitude:
-                    <input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
+                 <label for="newPlaceCat">
+                    <span class="inline-label">
+                        <span class="form-label">Kategori</span>
+                    <input type="text" placeholder="Fyll i kategori..." id="newPlaceCat" ng-model="newPlace.cat" required>
+                    </span>
                 </label>
 
-                <label for="newPlaceLong">
-                    Fyll i platsens longitude:
+                <label class="small-12 medium-6 flyt-left" for="newPlaceLong">
+                    <span class="inline-label">
+                        <span class="form-label">Long</span>
                     <input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="newPlace.longitude">
+                    </span>
+                </label>
+
+                <label class="small-12 medium-6 flyt-right" for="newPlaceLat">
+                    <span class="inline-label">
+                        <span class="form-label">Lat</span>
+                    <input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
+                    </span>
                 </label>
 
                 <label for="newPlaceDescription">
-                    Beskrivning:
+                    <span class="form-label">Beskrivning</span>
                     <textarea class="small-12" cols="30" id="newPlaceDescription" ng-model="newPlace.description" required></textarea>
-                </label>
-
-                <label for="newPlaceCat">
-                    Kategori:
-                    <input type="text" placeholder="Fyll i kategori" id="newPlaceCat" ng-model="newPlace.cat" required>
                 </label>
 
                 <div class="small-12 medium-12">
