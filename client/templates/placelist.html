@@ -6,7 +6,7 @@ url: /placelist
 <section class="vertical grid-block">
     <div class="grid-content">
         <h2>Skateplatser</h2>
-        <ng-include class="show-for-medium sort-block" src="'templates/sortfilter.html'"></ng-include>
+        <ng-include class="show-for-medium sort-block" src="'templates/includes/sortfilter.html'"></ng-include>
 
         <a class="show-for-small-only" href="#!/"><img class="icon1" src="assets/img/icons/map.png"></a>
         <a class="show-for-small-only" zf-open="createModal"><img class="icon3" src="assets/img/icons/pin-plus.png"></a>
@@ -14,7 +14,7 @@ url: /placelist
 
         <zf-panel position="top" id="top_sheet">
             <a href="#" zf-close="" class="close-button">×</a>
-            <ng-include class="show-for-small-only marg-bot" src="'templates/sortfilter.html'" class="filtersheet"></ng-include>
+            <ng-include class="show-for-small-only marg-bot" src="'templates/includes/sortfilter.html'" class="filtersheet"></ng-include>
         </zf-panel>
 
         <div class="grid-content light_grey small-12" ng-repeat="place in places">

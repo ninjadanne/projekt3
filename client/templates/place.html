@@ -72,21 +72,7 @@ url: /place/:placeId
                 </p>
                 </div> -->
 
-                <div class="small-12">
-                    <div class="small-12">
-                        <h3>Kommentarer</h3>
-                        <a zf-open="newcommentModal" class="button">Lägg till kommentar</a>
-                    </div>
-                    <div class="card small-12" ng-repeat="comment in place.comments" ng-if="comment.image_uri || comment.comment">
-                        <div class="card-divider">
-                            <span>Av: {{comment.user}}</span> <span class="float-right"><small>{{comment.date}}</small></span>
-                        </div>
-                        <div class="card-section">
-                            <a href="{{comment.image_uri}}"><img class="th" src="{{comment.image_uri}}" ng-if="comment.image_uri" /></a>
-                            <p>{{comment.comment}}</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="small-12" ng-include="'templates/includes/comments.html'"></div>
             </div>
         </div>
     </div>
