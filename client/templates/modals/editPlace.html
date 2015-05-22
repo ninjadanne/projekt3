@@ -11,7 +11,7 @@
                 <input type="hidden" name="id" id="id" ng-model="place.id">
                 <label>
                     Namn på plats
-                    <input type="text" placeholder="Fyll i platsens namn..." id="newPlaceName" ng-model="place.title">
+                    <input type="text" placeholder="Fyll i platsens namn..." ng-model="place.title">
                 </label>
 
                 <!--<div ng-controller="placeMapController" class="placeMapController">
@@ -20,62 +20,24 @@
                 </div>-->
                 <label for="newPlaceLat">
                     Fyll i platsens latitude:
-                    <input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
+                    <input type="text" placeholder="Fyll i platsens latitude" ng-model="place.latitude">
                 </label>
 
                 <label for="newPlaceLong">
                     Fyll i platsens longitude:
-                    <input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="newPlace.longitude">
+                    <input type="text" placeholder="Fyll i platsens longitude" ng-model="place.longitude">
                 </label>
 
-                <input type="text" placeholder="Fyll i platsens kategori" id="newPlaceCat" ng-model="place.cat">
                 <label>
                     Beskrivning:
-                    <textarea class="small-12" cols="30" id="newPlaceDescription" ng-model="place.description"></textarea>
+                    <textarea class="small-12" cols="30" ng-model="place.description"></textarea>
                 </label>
 
-                <!--<h4>Kategori</h4>
-
-                <div class="small-12 grid-block">
-                    <ul class="checkbox-grid small-12">
-                        <li>
-                            <input id="checkbox1" type="checkbox">
-                            <label for="checkbox1">Free</label>
-                        </li>
-                        <li>
-                            <input id="checkbox2" type="checkbox">
-                            <label for="checkbox2">Grind</label>
-                        </li>
-                        <li>
-                            <input id="checkbox3" type="checkbox">
-                            <label for="checkbox3">Half-pipe</label>
-                        </li>
-                        <li>
-                            <input id="checkbox4" type="checkbox">
-                            <label for="checkbox4">Pipes</label>
-                        </li>
-                        <li>
-                            <input id="checkbox5" type="checkbox">
-                            <label for="checkbox5">Ramps</label>
-                        </li>
-                        <li>
-                            <input id="checkbox6" type="checkbox">
-                            <label for="checkbox6">Skatepark</label>
-                        </li>
-                        <li>
-                            <input id="checkbox7" type="checkbox">
-                            <label for="checkbox7">Stairs</label>
-                        </li>
-                        <li>
-                            <input id="checkbox8" type="checkbox">
-                            <label for="checkbox8">other</label>
-                        </li>
-                    </ul>
-                </div>-->
                 <label for="newPlaceCat">
                     Kategori:
-                    <input type="text" placeholder="Fyll i kategori" id="newPlaceCat" ng-model="newPlace.cat" required>
+                    <input type="text" placeholder="Fyll i kategori" ng-model="place.tagString" required>
                 </label>
+
                 <div class="small-12 medium-12">
                     <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
                     <input type="file" id="placePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: relative; z-index: 500; opacity: 0;">
