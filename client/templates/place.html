@@ -1,8 +1,6 @@
 ---
 name: place
 url: /place/:placeId
-animationIn: hingeInFromMiddleY bounceInOut
-animationOut: zoomOut bounceInOut
 ---
 
 <div zf-modal="about" id="newcommentModal" class="grid-content small-12">
@@ -13,8 +11,8 @@ animationOut: zoomOut bounceInOut
     <div ng-include="'templates/modals/editPlace.html'"></div>
 </div>
 
-<section class="grid-block" ng-controller="getPlace">
-    <div class="grid-block">
+<section class="grid-block vertical" ng-controller="getPlace">
+    <div class="grid-content">
         <div class="small-12">
             <div class="small-12">
                 <div class="slider" slick-slider="{dots:true, arrows:false, draggable:true, slidesToShow:1, infinite:true, autoplay:true, autoplaySpeed:2000}">
