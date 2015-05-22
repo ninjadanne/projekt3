@@ -129,10 +129,13 @@ h3 a {
 }
 
 .th {
-    max-width: 350px;
     max-height: 350px;
+    width: inherit !important;
 }
 
+.hide_stuff {
+    font-family: Arial;
+}
 /*.slider img {
     position: absolute;
     clip: rect(200px,200px,200px,0px);
