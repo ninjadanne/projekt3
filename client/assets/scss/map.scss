@@ -1,9 +1,3 @@
-.map-holder {
-    // z-index: 1000;
-    // overflow: hidden;
-    // height: calc(100% - 128px);
-}
-
 .angular-google-map {
     height: calc(100% - 64px);
     width: 100%;
@@ -21,7 +15,6 @@
 
 ui-gmap-google-map {
     margin-top: 128px;
-    // height: calc(100% - 400px);
 }
 
 @include breakpoint(small only) {
@@ -30,24 +23,6 @@ ui-gmap-google-map {
     }
     .angular-google-map {
         height: 100%;
-    }
-    .angular-google-map-container {
-        // height: 100%;
-        // width: 100%;
-        // display: block;
-        clear: both;
-    }
-    .map-holder {
-        // height: 100%;
-        // width: 100%;
-        // display: block;
-        // position: absolute;
-    }
-    .front-tiles {
-        position: absolute;
-        height: 50%;
-        bottom: 0;
-        display: block;
     }
 }
 

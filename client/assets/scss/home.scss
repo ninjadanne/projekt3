@@ -24,10 +24,6 @@ a {
     }
 }
 
-.main-content {
-    z-index: 999;
-}
-
 img.icon1,
 img.icon2,
 img.icon3,
@@ -156,5 +152,11 @@ div.front-tiles2 {
         .hide_stuff {
             display: none !important;
         }
+    }
+    .front-tiles {
+        position: absolute;
+        height: 50%;
+        bottom: 0;
+        display: block;
     }
 }
