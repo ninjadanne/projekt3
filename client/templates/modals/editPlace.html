@@ -1,47 +1,48 @@
 <section class="grid-block" ng-controller="getPlace">
     <div class="grid-content small-12">
 
-        <h2>Redigera plats</h2>
-
         <a zf-close="" class="close-button">×</a>
 
-        <div class="grid-content small-12" ng-controller="editPlace">
-            <form name="editPlace" ng-submit="edit()">
-
-                <input type="hidden" name="id" id="id" ng-model="place.id">
-                <label>
-                    Namn på plats
-                    <input type="text" placeholder="Fyll i platsens namn..." ng-model="place.title">
+        <div class="grid-content small-12 " ng-controller="editPlace">
+            <h2>Skapa ny plats</h2>
+            <form name="newPlace">
+                <label for="newPlaceName">
+                    <span class="inline-label">
+                        <span class="form-label">Namn</span>
+                        <input type="text" placeholder="Fyll i platsens namn..." id="newPlaceName" ng-model="place.title" required>
+                    </span>
                 </label>
 
-                <!--<div ng-controller="placeMapController" class="placeMapController">
-                    <ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" class="" pan="true">
-                    </ui-gmap-google-map>
-                </div>-->
-                <label for="newPlaceLat">
-                    Fyll i platsens latitude:
-                    <input type="text" placeholder="Fyll i platsens latitude" ng-model="place.latitude">
+                 <label for="newPlaceCat">
+                    <span class="inline-label">
+                        <span class="form-label">Kategori</span>
+                    <input type="text" placeholder="Fyll i kategori..." id="newPlaceCat" ng-model="place.tagString" required>
+                    </span>
                 </label>
 
-                <label for="newPlaceLong">
-                    Fyll i platsens longitude:
-                    <input type="text" placeholder="Fyll i platsens longitude" ng-model="place.longitude">
+                <label class="small-12 medium-6 flyt-left" for="newPlaceLong">
+                    <span class="inline-label">
+                        <span class="form-label">Long</span>
+                    <input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="place.longitude">
+                    </span>
                 </label>
 
-                <label>
-                    Beskrivning:
-                    <textarea class="small-12" cols="30" ng-model="place.description"></textarea>
+                <label class="small-12 medium-6 flyt-right" for="newPlaceLat">
+                    <span class="inline-label">
+                        <span class="form-label">Lat</span>
+                    <input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="place.latitude">
+                    </span>
                 </label>
 
-                <label for="newPlaceCat">
-                    Kategori:
-                    <input type="text" placeholder="Fyll i kategori" ng-model="place.tagString" required>
+                <label for="newPlaceDescription">
+                    <span class="form-label">Beskrivning</span>
+                    <textarea class="small-12" cols="30" id="newPlaceDescription" ng-model="place.description" required></textarea>
                 </label>
 
                 <div class="small-12 medium-12">
                     <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
-                    <input type="file" id="placePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: relative; z-index: 500; opacity: 0;">
-                    <button class="button float-right" type="submit">Spara</button>
+                    <input type="file" id="newPlacePic" ng-model="self" onchange="uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0; height: 40px; width: 100px;">
+                    <button class="button float-right" type="submit" ng-click="addPlace()">Spara</button>
                 </div>
 
             </form>

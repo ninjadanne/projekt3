@@ -4,7 +4,7 @@ aside.modal{
 	z-index:1001;
 }
 
-.fixedclosedx{
+.fixedclosed{
 	position: fixed;
 	right: 2rem;
 }
@@ -12,4 +12,19 @@ aside.modal{
 .notification {
     background-color: #E40009;
     top: 2em;
+}
+
+.modal {
+	.button {
+		margin: 0 0rem 1rem 0 !important;
+	}
+}
+
+@include breakpoint(medium) {
+	.flyt-right {
+		float: right !important;
+	}
+	.flyt-left {
+		float: left !important;
+	}
 }

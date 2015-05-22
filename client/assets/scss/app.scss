@@ -113,7 +113,7 @@ h1,h2,h3,h4,h5,h6 {
 
     padding: 10px;
     background-size: 36px 36px;
-    background-image: url(assets/img/icons/search-black.png);
+    background-image: url(http://grindfind.danielswenson.se/assets/img/icons/search-black.png);
     background-position: 10px center;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -171,5 +171,11 @@ h1,h2,h3,h4,h5,h6 {
 .sub-menu {
     li {
         width: 33%;
+    }
+}
+
+.gm-style-iw {
+    div {
+        min-height: 15px;
     }
 }

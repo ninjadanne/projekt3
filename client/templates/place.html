@@ -23,7 +23,12 @@ url: /place/:placeId
 
             <div class="grid-content small-12">
                 <div class="small-12 clearfix">
+                    <div class="small-12 clearfix marg-bot">
+                        <a zf-open="editPlaceModal">Redigera plats</a>
+                        <a ng-controller="deletePlace" ng-click="delete()" class="float-right">Ta bort plats</a>
+                     </div>
                     <h2 class="float-left">{{place.title}}</h2>
+
                     <div class="place-rating float-left">
 
                         <?xml version="1.0" ?>
@@ -70,25 +75,17 @@ url: /place/:placeId
                 <div class="small-12">
                     <div class="small-12">
                         <h3>Kommentarer</h3>
+                        <a zf-open="newcommentModal" class="button">Lägg till kommentar</a>
                     </div>
                     <div class="card small-12" ng-repeat="comment in place.comments" ng-if="comment.image_uri || comment.comment">
                         <div class="card-divider">
-                            <small>Användare: {{comment.user}}</small> <span class="float-right"><small>{{comment.date}}</small></span>
+                            <span>Av: {{comment.user}}</span> <span class="float-right"><small>{{comment.date}}</small></span>
                         </div>
                         <div class="card-section">
                             <img src="{{comment.image_uri}}" ng-if="comment.image_uri" />
                             <p>{{comment.comment}}</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="small-12 clearfix">
-                    <a zf-open="newcommentModal" class="button float-left">Lägg till kommentar</a>
-                </div>
-
-                <div class="small-12 clearfix">
-                    <a zf-open="editPlaceModal">Redigera plats</a>
-                    <a ng-controller="deletePlace" ng-click="delete()" class="float-right">Ta bort plats</a>
                 </div>
             </div>
         </div>
