@@ -267,7 +267,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
         $http.post(endPoint, endpoint_data)
         .success(function(data) {
-            console.log(data);
             if (!data.success) {
                 FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte lägga till platsen. Meddelande: ' + data.message});
             } else {
@@ -343,6 +342,8 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             user_rating: place.user_rating ? place.user_rating : '0.0',
             images: []
         };
+
+        convertedPlace.tagString = convertedPlace.tags.join(", ");
 
         return convertedPlace;
     }
@@ -629,13 +630,11 @@ placeApp.controller('addComment', function($scope, $rootScope, placeService, use
         if (file) {
             image = placeService.uploadImage(file).then(function(image) {
                 placeService.addComment(pid, uid, comment, image.uri).then(function(place) {
-                    // Comment should be added to the scope directly without the need to refresh the page
                 });
             });
         } else {
             placeService.addComment(pid, uid, comment).then(function(place) {
                 FoundationApi.closeActiveElements('ng-scope');
-                // $location.path('/placelist');
             });
         }
     };
