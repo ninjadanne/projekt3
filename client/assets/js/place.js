@@ -209,7 +209,9 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             angular.forEach(places, function(place) {
                 if (place.id == placeId) {
                     place.comments.push(data.data);
+                    currentPlace = place;
                     notifyPlaceListObservers();
+                    notifyCurrentPlaceObservers();
                 }
             });
         });
@@ -252,7 +254,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
         var endPoint = domain + 'insert_place.php';
 
         var endpoint_data = {
-            'uid': place.uid,
+            'uid': user.id,
             'name': place.title,
             'latitude': place.latitude,
             'longitude': place.longitude,
@@ -265,6 +267,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
         $http.post(endPoint, endpoint_data)
         .success(function(data) {
+            console.log(data);
             if (!data.success) {
                 FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte lägga till platsen. Meddelande: ' + data.message});
             } else {
@@ -558,6 +561,12 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 
 /** Get place controller */
 placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, placeService) {
+    var placeObserver = function(place) {
+        $scope.place = place;
+    };
+
+    placeService.registerCurrentPlaceObserver(placeObserver);
+
     placeService.getPlace($scope.params.placeId, true).then(function(place) {
         $scope.place = place;
     });
@@ -661,9 +670,7 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
         $scope.newplace = file;
         placeService.addPlace($scope.newPlace).then(function(place) {
             FoundationApi.closeActiveElements('ng-scope');
-            // $location.path('/placelist');
         });
-        // }
     };
 
     $scope.uploadFile = function(files) {
