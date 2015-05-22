@@ -22,9 +22,9 @@ aside.modal{
 
 @include breakpoint(medium) {
 	.flyt-right {
-		float: right;
+		float: right !important;
 	}
 	.flyt-left {
-		float: left;
+		float: left !important;
 	}
 }
