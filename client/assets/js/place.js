@@ -250,17 +250,26 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
         return dfr.promise;
     }
 
+    /**
+     * Add a place to backend
+     * @param {[type]} place [description]
+     */
     function addPlace(place) {
         var endPoint = domain + 'insert_place.php';
 
+        if (place.id) {
+            endPoint = domain + 'update_place.php';
+        }
+
         var endpoint_data = {
+            'pid': place.id,
             'uid': user.id,
             'name': place.title,
             'latitude': place.latitude,
             'longitude': place.longitude,
             'description': place.description,
             'pic': place.pic,
-            'cat': place.cat,
+            'cat': place.tags.join(", ")
         };
 
         var dfr = $q.defer();
@@ -270,10 +279,6 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             if (!data.success) {
                 FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte lägga till platsen. Meddelande: ' + data.message});
             } else {
-                var id = data.message.split(" = ")[1];
-                place.id = id;
-                place.rating = '0.0';
-
                 if (!place.images) {
                     place.images = [];
                     place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
@@ -281,14 +286,26 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
                     place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
                 }
 
-                // place = convertPlace(place);
-                places.push(place);
+                if(!place.id) {
+                    var id = data.message.split(" = ")[1];
+                    place.id = id;
+                    place.rating = '0.0';
+                    places.push(place);
+                }
+                else {
+                    angular.forEach(places, function(p) {
+                        if (p.id === place.id) {
+                            p = place;
+                        }
+                    });
+                }
 
                 dfr.resolve(place);
                 notifyPlaceListObservers();
             }
             dfr.resolve(data);
-        }).error(function(err, data) {
+        }).error(function(data) {
+            console.log(data);
             FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte lägga till platsen.'});
         });
 
@@ -628,8 +645,9 @@ placeApp.controller('addComment', function($scope, $rootScope, placeService, use
         comment = $scope.newComment.comment;
 
         if (file) {
-            image = placeService.uploadImage(file).then(function(image) {
+            placeService.uploadImage(file).then(function(image) {
                 placeService.addComment(pid, uid, comment, image.uri).then(function(place) {
+                    FoundationApi.closeActiveElements('ng-scope');
                 });
             });
         } else {
