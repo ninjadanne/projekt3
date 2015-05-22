@@ -62,11 +62,7 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
     // Get the users current position
     function getUserPosition() {
         placeService.getCurrentPosition().then(function(userPosition) {
-            if (userPosition.latitude == -1) {
-                userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: -1 };
-            }
             $scope.userPosition = userPosition;
-            // Center the map
             setUserPositionMarker(userPosition.latitude, userPosition.longitude, userPosition.accuracy, true);
         });
     }
@@ -148,11 +144,6 @@ skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'plac
 
             // Get the users current position
             placeService.getCurrentPosition().then(function(userPosition) {
-                // Center the map
-                if (userPosition.latitude == -1) {
-                    userPosition = { latitude: 55.613565, longitude: 12.983973, accuarcy: -1 };
-                }
-
                 $scope.map.center = {
                     latitude: userPosition.latitude,
                     longitude: userPosition.longitude
