@@ -2,10 +2,26 @@ var userApp = angular.module('skate.User', []);
 
 /** Service */
 userApp.factory('userService', function($http, $q) {
+    var domain = 'http://manu.fhall.se/p3b/';
+
     var user = {
         // id: null
-        id: Math.floor(Math.random() * 99) + 1
+        id: Math.floor(Math.random() * 99) + 1,
     };
+
+    getUsername(user.id);
+
+    function getUsername(userId) {
+        var endPoint = domain + 'get_user.php';
+
+        $http.post(endPoint, {'uid': userId})
+        .success(function(data) {
+            user.username = data.data.name;
+            user.email = data.data.creator_id;
+        })
+        .error(function(data) {
+        });
+    }
 
     /**
      * Login function
@@ -42,4 +58,5 @@ userApp.controller('userController', ['$scope', 'userService', function($scope, 
     };
 
     $scope.userId = user.id;
+    $scope.user = user;
 }]);
