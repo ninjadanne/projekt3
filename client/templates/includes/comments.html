@@ -1,6 +1,6 @@
 <div class="small-12">
     <h3>Kommentarer</h3>
-    <a zf-open="newcommentModal" class="button">Lägg till kommentar</a>
+    <a ng-if="user" zf-open="newcommentModal" class="button">Lägg till kommentar</a>
 </div>
 <div class="card small-12" ng-repeat="comment in place.comments" ng-if="comment.image_uri || comment.comment">
     <div class="card-divider">

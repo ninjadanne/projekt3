@@ -25,7 +25,7 @@ url: /place/:placeId
                 <div class="small-12 clearfix">
                     <div class="small-12 clearfix marg-bot font09">
                         <a zf-open="editPlaceModal">Redigera plats</a>
-                        <a ng-controller="deletePlace" ng-click="delete()" class="float-right">Ta bort plats</a>
+                        <a ng-if="user" ng-controller="deletePlace" ng-click="delete()" class="float-right">Ta bort plats</a>
                      </div>
                     <h2 class="float-left">{{place.title}}</h2>
 
@@ -42,7 +42,7 @@ url: /place/:placeId
                         <span class="svg-star-rating">{{place.rating | number:1}}</span>
                     </div>
 
-                    <div class="container userrating float-right">
+                    <div ng-if="user" class="container userrating float-right">
                         <div star-rating ng-model="place.user_rating" max="5">
                         </div>
                         <label class="yourratingtag">Ditt betyg</label>
