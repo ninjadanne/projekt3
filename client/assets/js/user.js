@@ -1,26 +1,40 @@
 var userApp = angular.module('skate.User', []);
 
 /** Service */
-userApp.factory('userService', function($http, $q) {
+userApp.factory('userService', function($http, $q, FoundationApi) {
     var domain = 'http://manu.fhall.se/p3b/';
 
     var user = {
-        // id: null
-        id: Math.floor(Math.random() * 99) + 1,
+        id: null,
+        // id: Math.floor(Math.random() * 99) + 1,
+        username: null,
+        email: null
     };
 
-    getUsername(user.id);
-
-    function getUsername(userId) {
+    /**
+     * Get the user from backend
+     * @param  {[type]} userId [description]
+     * @return {[type]}        [description]
+     */
+    function getUser(userId) {
         var endPoint = domain + 'get_user.php';
+
+        var dfr = $q.defer();
 
         $http.post(endPoint, {'uid': userId})
         .success(function(data) {
-            user.username = data.data.name;
-            user.email = data.data.creator_id;
+            dfr.resolve(
+                {
+                    username: data.data.name,
+                    email: data.data.creator_id
+                }
+            );
         })
         .error(function(data) {
+            FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Kunde inte logga in'});
         });
+
+        return dfr.promise;
     }
 
     /**
@@ -30,10 +44,22 @@ userApp.factory('userService', function($http, $q) {
      * @return {[type]}          [description]
      */
     function login(username, password) {
-        userId = Math.floor(Math.random() * 99) + 1;
+        id = Math.floor(Math.random() * 99) + 1;
 
-        user.id = userId;
-        return userId;
+        var dfr = $q.defer();
+
+        getUser(id).then(function(BEuser) {
+            user = {
+                id: id,
+                username: BEuser.username,
+                email: BEuser.email
+            };
+
+            dfr.resolve(user);
+            // return user;
+        });
+
+        return dfr.promise;
     }
 
     return {
@@ -48,15 +74,24 @@ userApp.factory('userService', function($http, $q) {
 
 /** Controllers */
 
-userApp.controller('userController', ['$scope', 'userService', function($scope, userService) {
-    user = null;
-    user = userService.getUser();
+userApp.controller('userController', ['$scope', 'FoundationApi', 'userService', function($scope, FoundationApi, userService) {
+    $scope.user = null;
+
+    // Uncomment below to automatically login
+    // login();
 
     $scope.login = function(username, password) {
-        userService.login(username, password);
-        user = userService.getUser();
+        login(username, password);
     };
 
-    $scope.userId = user.id;
-    $scope.user = user;
+    $scope.logout = function() {
+        $scope.user = null;
+    };
+
+    function login(username, password) {
+        userService.login(username, password).then(function() {
+            $scope.user = userService.getUser();
+            FoundationApi.closeActiveElements('ng-scope');
+        });
+    }
 }]);

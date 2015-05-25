@@ -54,7 +54,10 @@
                 </div>
                 <div class="grid-content collapse medium-5 hide-for-small-only">
                     <div class="title-bar">
-                        <span class="right title"><a>{{ user.username }} ({{ user.id }})</a></span>
+                        <span class="right title">
+                            <a ng-if="user">{{ user.username }} ({{ user.id }})</a>
+                            <a ng-if="!user">&nbsp;</a>
+                        </span>
                     </div>
                 </div>
             </div>
