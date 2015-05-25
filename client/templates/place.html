@@ -17,7 +17,7 @@ url: /place/:placeId
         <div class="small-12">
             <div class="small-12">
                 <div class="slider" slick-slider="{dots:true, arrows:false, draggable:true, slidesToShow:1, infinite:true, autoplay:true, autoplaySpeed:2000}">
-                    <div ng-repeat="image in place.images"><img data-lazy="{{image.uri}}"></div>
+                    <div ng-repeat="image in place.images"><img src="{{image.uri}}"></div>
                 </div>
             </div>
 
@@ -42,8 +42,8 @@ url: /place/:placeId
                         <span class="svg-star-rating">{{place.rating | number:1}}</span>
                     </div>
 
-                    <div ng-app="app" class="container userrating float-right">
-                        <div star-rating ng-model="place.user_rating" max="5" on-rating-selected="rateFunction(place.rating)">
+                    <div class="container userrating float-right">
+                        <div star-rating ng-model="place.user_rating" max="5">
                         </div>
                         <label class="yourratingtag">Ditt betyg</label>
                     </div>
