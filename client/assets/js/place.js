@@ -192,8 +192,10 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
      * @param  {[type]} comment [description]
      * @return {[type]}         [description]
      */
-    function addComment(placeId, userId, comment, pic) {
+    function addComment(placeId, comment, pic) {
         var endPoint = domain + 'comment.php';
+
+        var userId = userService.getUser().id;
 
         var endpoint_data = {
             'pid': placeId,
@@ -204,16 +206,24 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
         var dfr = $q.defer();
 
-        $http.post(endPoint, endpoint_data).success(function(data) {
-            dfr.resolve(data);
-            angular.forEach(places, function(place) {
-                if (place.id == placeId) {
-                    place.comments.push(data.data);
-                    currentPlace = place;
-                    notifyPlaceListObservers();
-                    notifyCurrentPlaceObservers();
-                }
-            });
+        $http.post(endPoint, endpoint_data)
+        .success(function(data) {
+            if (data.success) {
+                dfr.resolve(data);
+                angular.forEach(places, function(place) {
+                    if (place.id == placeId) {
+                        place.comments.push(data.data);
+                        currentPlace = place;
+                        notifyPlaceListObservers();
+                        notifyCurrentPlaceObservers();
+                    }
+                });
+            } else {
+                FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kommentaren sparades inte. Meddelande: ' + data.message});
+            }
+        })
+        .error(function(data) {
+            FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte lägga till kommentaren.'});
         });
 
         return dfr.promise;
@@ -226,10 +236,12 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
      * @param  {[type]} rating  [description]
      * @return {[type]}         [description]
      */
-    function ratePlace(placeId, userId, rating) {
+    function ratePlace(placeId, rating) {
         var endPoint = domain + 'rate.php';
 
         var dfr = $q.defer();
+
+        var userId = userService.getUser().id;
 
         $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating})
         .success(function(data) {
@@ -269,9 +281,11 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
             }
         }
 
+        var userId = userService.getUser().id;
+
         var endpoint_data = {
             'pid': place.id,
-            'uid': user.id,
+            'uid': userId,
             'name': place.title,
             'latitude': place.latitude,
             'longitude': place.longitude,
@@ -302,11 +316,11 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
                     var id = data.message.split(" = ")[1];
                     place.id = id;
                     place.rating = '0.0';
-                    // place = convertPlace(place);
+                    place.user_rating = '0.0';
+                    place.comments = [];
                     place.tags = splitToTags(place.tags);
                     places.push(place);
-                }
-                else {
+                } else {
                     angular.forEach(places, function(p) {
                         if (p.id === place.id) {
                             p = place;
@@ -529,8 +543,8 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
         uploadImage: function(image) {
             return uploadImage(image);
         },
-        addComment: function(placeId, userId, comment, pic) {
-            return addComment(placeId, userId, comment, pic);
+        addComment: function(placeId, comment, pic) {
+            return addComment(placeId, comment, pic);
         },
         registerPlaceListObserver: function(observer) {
             registerPlaceListObserver(observer);
@@ -649,23 +663,22 @@ placeApp.controller('getPlace', ['$scope', 'placeService', function($scope, plac
 }]);
 
 /** Add commment controller */
-placeApp.controller('addComment', function($scope, $rootScope, placeService, userService, FoundationApi) {
+placeApp.controller('addComment', function($scope, $rootScope, placeService, FoundationApi) {
     var file = null;
 
     $scope.addComment = function() {
         pid = $rootScope.$stateParams.placeId;
-        uid = userService.getUser().id;
         comment = $scope.newComment.comment;
 
         if (file) {
             FoundationApi.closeActiveElements('ng-scope');
             placeService.uploadImage(file).then(function(image) {
-                placeService.addComment(pid, uid, comment, image.uri).then(function(place) {
+                placeService.addComment(pid, comment, image.uri).then(function(comment) {
                 });
             });
         } else {
-            FoundationApi.closeActiveElements('ng-scope');
-            placeService.addComment(pid, uid, comment).then(function(place) {
+            FoundationApi.closeActiveElements('ng-scope');            
+            placeService.addComment(pid, comment).then(function(comment) {
             });
         }
     };
@@ -684,7 +697,6 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
         id: null,
         title: null,
         description: null,
-        pic: null,
         longitude: null,
         latitude: null,
         tag: null
@@ -698,15 +710,16 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
     $scope.addPlace = function() {
         $scope.newPlace.uid = userService.getUser().id;
         if (file) {
+            FoundationApi.closeActiveElements('ng-scope');            
             placeService.uploadImage(file).then(function(image) {
                 $scope.newPlace.pic = image.uri;
-                FoundationApi.closeActiveElements('ng-scope');
                 placeService.addPlace($scope.newPlace).then(function(place) {
                 });
             });
         } else {
+            FoundationApi.closeActiveElements('ng-scope');
+            $scope.newPlace.pic = null;
             placeService.addPlace($scope.newPlace).then(function(place) {
-                FoundationApi.closeActiveElements('ng-scope');
             });
         }
     };
@@ -745,4 +758,3 @@ placeApp.directive('slickSlider', function($interval){
     }
   };
 });
-
