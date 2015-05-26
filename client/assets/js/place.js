@@ -235,7 +235,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
      * @param  {[type]} rating  [description]
      * @return {[type]}         [description]
      */
-    function ratePlace(placeId, userId, rating) {
+    function ratePlace(placeId, rating) {
         var endPoint = domain + 'rate.php';
 
         var dfr = $q.defer();
@@ -535,8 +535,8 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
         getPlace: function(id, currentPlace) {
             return getPlace(id, currentPlace);
         },
-        ratePlace: function(userId, placeId, rating) {
-            return ratePlace(userId, placeId, rating);
+        ratePlace: function(placeId, rating) {
+            return ratePlace(placeId, rating);
         },
         filterPlacesByTag: function(tag) {
             return filterPlacesByTag(tag);
@@ -646,7 +646,7 @@ placeApp.controller('getPlace', ['$scope', '$location', 'placeService', function
 .directive("starRating", ['placeService', 'userService', function(placeService, userService) {
     function ratePlace(placeId, rating) {
         user = userService.getUser();
-        placeService.ratePlace(placeId, user.id, rating);
+        placeService.ratePlace(placeId, rating);
     }
     return {
         restrict : "EA",
