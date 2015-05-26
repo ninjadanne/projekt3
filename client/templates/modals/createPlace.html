@@ -6,42 +6,42 @@
         <div class="grid-content small-12">
             <h2>Skapa ny plats</h2>
             <form name="newPlace">
-                <label for="newPlaceName">
+                <label for="PlaceName">
                     <span class="inline-label">
                         <span class="form-label">Namn</span>
-                        <input type="text" placeholder="Fyll i platsens namn..." id="newPlaceName" ng-model="newPlace.title" required>
+                        <input type="text" placeholder="Fyll i platsens namn..." id="PlaceTtil" ng-model="newPlace.title" required>
                     </span>
                 </label>
 
-                 <label for="newPlaceCat">
+                 <label for="PlaceCat">
                     <span class="inline-label">
                         <span class="form-label">Kategori</span>
-                    <input type="text" placeholder="Fyll i kategori..." id="newPlaceCat" ng-model="newPlace.tags" required>
+                    <input type="text" placeholder="Fyll i kategori..." id="PlaceTag" ng-model="newPlace.tagString" required>
                     </span>
                 </label>
 
-                <label class="small-12 medium-6 flyt-left" for="newPlaceLong">
+                <label class="small-12 medium-6 flyt-left" for="PlaceLng">
                     <span class="inline-label">
                         <span class="form-label">Long</span>
-                    <input type="text" placeholder="Fyll i platsens longitude" id="newPlaceLong" ng-model="newPlace.longitude">
+                    <input type="text" placeholder="Fyll i platsens longitude" id="PlaceLng" ng-model="newPlace.longitude">
                     </span>
                 </label>
 
-                <label class="small-12 medium-6 flyt-right" for="newPlaceLat">
+                <label class="small-12 medium-6 flyt-right" for="PlaceLat">
                     <span class="inline-label">
                         <span class="form-label">Lat</span>
-                    <input type="text" placeholder="Fyll i platsens latitude" id="newPlaceLat" ng-model="newPlace.latitude">
+                    <input type="text" placeholder="Fyll i platsens latitude" id="PlaceLat" ng-model="newPlace.latitude">
                     </span>
                 </label>
 
-                <label for="newPlaceDescription">
+                <label for="PlaceDescription">
                     <span class="form-label">Beskrivning</span>
-                    <textarea class="small-12" cols="30" id="newPlaceDescription" ng-model="newPlace.description" required></textarea>
+                    <textarea class="small-12" cols="30" id="laceDescription" ng-model="newPlace.description" required></textarea>
                 </label>
 
                 <div class="small-12 medium-12">
                     <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
-                    <input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0; height: 40px; width: 100px;">
+                    <input type="file" id="PlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0; height: 40px; width: 100px;">
 
                     <button class="button float-right" type="submit" ng-click="addPlace()">Spara</button>
                 </div>
