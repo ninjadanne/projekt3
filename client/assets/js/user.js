@@ -89,9 +89,9 @@ userApp.controller('userController', ['$scope', 'FoundationApi', 'userService', 
     };
 
     function login(username, password) {
+        FoundationApi.closeActiveElements('ng-scope');            
         userService.login(username, password).then(function() {
             $scope.user = userService.getUser();
-            FoundationApi.closeActiveElements('ng-scope');
         });
     }
 }]);

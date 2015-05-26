@@ -658,14 +658,14 @@ placeApp.controller('addComment', function($scope, $rootScope, placeService, use
         comment = $scope.newComment.comment;
 
         if (file) {
+            FoundationApi.closeActiveElements('ng-scope');
             placeService.uploadImage(file).then(function(image) {
                 placeService.addComment(pid, uid, comment, image.uri).then(function(place) {
-                    FoundationApi.closeActiveElements('ng-scope');
                 });
             });
         } else {
+            FoundationApi.closeActiveElements('ng-scope');
             placeService.addComment(pid, uid, comment).then(function(place) {
-                FoundationApi.closeActiveElements('ng-scope');
             });
         }
     };
@@ -700,8 +700,8 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
         if (file) {
             placeService.uploadImage(file).then(function(image) {
                 $scope.newPlace.pic = image.uri;
+                FoundationApi.closeActiveElements('ng-scope');
                 placeService.addPlace($scope.newPlace).then(function(place) {
-                    FoundationApi.closeActiveElements('ng-scope');
                 });
             });
         } else {
