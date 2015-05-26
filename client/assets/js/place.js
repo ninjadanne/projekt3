@@ -698,14 +698,14 @@ placeApp.controller('addComment', function($scope, $rootScope, placeService, Fou
         comment = $scope.newComment.comment;
 
         if (file) {
+            FoundationApi.closeActiveElements('ng-scope');
             placeService.uploadImage(file).then(function(image) {
                 placeService.addComment(pid, comment, image.uri).then(function(comment) {
-                    FoundationApi.closeActiveElements('ng-scope');
                 });
             });
         } else {
+            FoundationApi.closeActiveElements('ng-scope');            
             placeService.addComment(pid, comment).then(function(comment) {
-                FoundationApi.closeActiveElements('ng-scope');
             });
         }
     };
