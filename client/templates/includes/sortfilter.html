@@ -6,6 +6,12 @@
         <form>
             <div class="grid-block">
 
+                <div class="small-12 hide-for-medium grid-content">
+                    <label>Sök</label>
+                    <input type="text" ng-model="searchTag.tag" placeholder="Sök efter plats...">
+                    </input>
+                </div>
+
                 <div class="hide_stuff small-12 medium-6 grid-content">
                     <label>Sortera efter</label>
                     <select name="sortingType" id="sortingType" ng-model="orderPlaces.property">
@@ -13,13 +19,7 @@
                         <option value="tags">Kategori</option>
                         <option value="rating">Betyg</option>
                     </select>
-                </div>
-
-                <div class="small-12 hide-for-medium grid-content">
-                    <label>Sök</label>
-                    <input type="text" ng-model="searchTag.tag" placeholder="Sök efter plats...">
-                    </input>
-                </div>
+                </div> 
 
                 <div class="small-12 medium-6 grid-content">
                     <label>Filtrera</label>
