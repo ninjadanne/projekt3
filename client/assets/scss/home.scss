@@ -5,7 +5,6 @@ a {
 
 .front-tiles {
     .front-tile {
-        padding: inherit !important;
         a {
             h4 {
                 color: #222;
@@ -164,6 +163,7 @@ div.front-tiles2 {
     .front-tiles {
         position: absolute;
         height: 50%;
+        width: 100%;
         bottom: 0;
         display: block;
     }
