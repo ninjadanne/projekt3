@@ -20,6 +20,10 @@ aside.modal{
 	}
 }
 
+.button.fb {
+	background-color: #3b5999;
+}
+
 @include breakpoint(medium) {
 	.flyt-right {
 		float: right !important;
@@ -27,4 +31,8 @@ aside.modal{
 	.flyt-left {
 		float: left !important;
 	}
+}
+
+.close-button {
+	top: 0.1rem !important;
 }
