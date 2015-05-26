@@ -50,6 +50,7 @@ var paths = {
     'bower_components/lodash/dist/lodash.min.js',
     'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
     'bower_components/ng-file-upload/ng-file-upload-all.js',
+    'client/assets/js/services.js',
     'client/assets/js/user.js',
     'client/assets/js/place.js',
     'client/assets/js/map.js',
