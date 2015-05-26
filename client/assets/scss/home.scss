@@ -5,7 +5,6 @@ a {
 
 .front-tiles {
     .front-tile {
-        padding: inherit !important;
         a {
             h4 {
                 color: #222;
@@ -32,7 +31,6 @@ img.icon2,
 img.icon3,
 img.icon4 {
     background-color: black !important;
-    border: 1px white solid;
     border-radius: 25px;
     position: fixed;
     padding: 5px;
@@ -74,7 +72,6 @@ img.menu1 {
     margin-right: auto;
     padding: 5px;
     display: block;
-    border: 1px white solid;
 }
 
 a.size1 {
@@ -124,7 +121,7 @@ div.front-tiles2 {
 }
 
 .panel-top {
-    height: 200px !important;
+    height: 250px !important;
 }
 
 .panel-top.is-active {
@@ -148,13 +145,6 @@ div.front-tiles2 {
     }
 }
 
-#top_sheet {
-    .close-button {
-        top: 0.5rem !important;
-        right: 0.5rem !important;
-    }
-}
-
 @include breakpoint(small only) {
     .test {
         .hide_stuff {
@@ -164,6 +154,7 @@ div.front-tiles2 {
     .front-tiles {
         position: absolute;
         height: 50%;
+        width: 100%;
         bottom: 0;
         display: block;
     }

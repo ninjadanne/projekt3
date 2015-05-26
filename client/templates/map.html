@@ -36,7 +36,7 @@ animationOut: fadeOut easeInOut -->
 
     <!-- ICONS FOR SMALL -->
     <a href="#!/placelist"><img class="overlay-icon icon1" src="assets/img/icons/list.png"></a>
-    <a><img zf-hard-toggle="top_sheet" class="overlay-icon icon2" src="assets/img/icons/filter.png"> </a>
+    <a><img zf-hard-toggle="top_sheet" class="overlay-icon icon2" src="assets/img/icons/search.png"> </a>
     <a zf-open="createModal"><img class="overlay-icon icon3" src="assets/img/icons/pin-plus.png"></a>
     <a ng-click="centerMapToUserPosition()" ng-if="userPosition.accuracy >= 0"><img class="overlay-icon icon4" src="assets/img/icons/fix-position.png"></a>
 
@@ -60,9 +60,9 @@ animationOut: fadeOut easeInOut -->
                 </div>
 
                 <div class="front-tile tile tile-3 grid-block">
-                    <a href="#!/checkin">
-                        <img src="assets/img/icons/pin-check-black.png">
-                        <h4>Flest incheckningar</h4>
+                    <a href="#!/place/139">
+                        <img src="assets/img/icons/flame.png">
+                        <h4>Hetaste platsen </br>just nu!</h4>
                     </a>
                 </div>
 
@@ -86,6 +86,7 @@ animationOut: fadeOut easeInOut -->
             </ng-include>
             <ng-include src="'templates/includes/sortfilter.html'" class="filtersheet">
             </ng-include>
+            <a href="#" zf-close="" class="button float-right">Filtrera</a>
         </div>
     </zf-panel>
 

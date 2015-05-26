@@ -78,6 +78,7 @@ h3 a {
     -moz-hyphens: auto;
 }
 
+
 @include breakpoint(small only) {
     .star_for_small {
         position: absolute;
@@ -93,6 +94,28 @@ h3 a {
         left: 8px;
         top: 10.5px;
     }
+    .svg-star-rating {
+    top: 1.5em;
+    position: relative;
+    font-weight: 700;
+    left: 2.6em;
+    float: left;
+}
+.userrating {
+    float: left;
+    clear: both;
+    ul{
+        margin: 0;
+    }
+}
+.yourratingtag {
+    margin-top: -0.2em;
+    margin-left: 0;
+}
+.list.place-rating{
+        position: relative;
+        float: right !important;
+}
 }
 /* New place */
 

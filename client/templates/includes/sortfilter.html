@@ -15,10 +15,16 @@
                     </select>
                 </div>
 
+                <div class="small-12 hide-for-medium grid-content">
+                    <label>Sök</label>
+                    <input type="text" ng-model="searchTag.tag" placeholder="Sök efter plats...">
+                    </input>
+                </div>
+
                 <div class="small-12 medium-6 grid-content">
                     <label>Filtrera</label>
                     <select ng-model="filterTag.tag" ng-options="tag.name for tag in filterTags">
-                        <!-- <option value="" ng-model="filterTag.tag.value">Alla platser</option> -->
+                        <option value="" ng-if="false"></option>
                     </select>
                 </div>
 
