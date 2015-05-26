@@ -103,6 +103,7 @@ h3 a {
 }
 .userrating {
     float: left;
+    clear: both;
     ul{
         margin: 0;
     }
@@ -111,7 +112,7 @@ h3 a {
     margin-top: -0.2em;
     margin-left: 0;
 }
-.place-rating{
+.list.place-rating{
         position: relative;
         float: right !important;
 }
