@@ -748,8 +748,9 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
     }
 });
 
-placeApp.controller('editPlace', function($scope, placeService) {
+placeApp.controller('editPlace', function($scope, FoundationApi, placeService) {
     $scope.editPlace = function() {
+        FoundationApi.closeActiveElements('ng-scope');
         placeService.updatePlace($scope.place);
     };
 });
