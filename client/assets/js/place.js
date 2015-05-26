@@ -236,7 +236,7 @@ placeApp.factory('placeService', function($http, $q, Upload, FoundationApi, user
      * @param  {[type]} rating  [description]
      * @return {[type]}         [description]
      */
-    function ratePlace(placeId, rating) {
+    function ratePlace(placeId, userId, rating) {
         var endPoint = domain + 'rate.php';
 
         var dfr = $q.defer();
