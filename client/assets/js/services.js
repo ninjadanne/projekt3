@@ -2,13 +2,39 @@ var services = angular.module('skate.Services', []);
 
 /** User service */
 services.factory('userService', function($http, $q, FoundationApi) {
+    var service = {};
+
     var domain = 'http://manu.fhall.se/p3b/';
 
-    var user = {
+    service.user = {
         id: null,
         // id: Math.floor(Math.random() * 99) + 1,
         username: null,
         email: null
+    };
+
+    /**
+     * Login function
+     * @param  {[type]} username [description]
+     * @param  {[type]} password [description]
+     * @return {[type]}          [description]
+     */
+    service.login = function(username, password) {
+        id = Math.floor(Math.random() * 99) + 1;
+
+        var dfr = $q.defer();
+
+        getUser(id).then(function(BEuser) {
+            service.user = {
+                id: id,
+                username: BEuser.username,
+                email: BEuser.email
+            };
+
+            dfr.resolve(service.user);
+        });
+
+        return dfr.promise;
     };
 
     /**
@@ -37,62 +63,34 @@ services.factory('userService', function($http, $q, FoundationApi) {
         return dfr.promise;
     }
 
-    /**
-     * Login function
-     * @param  {[type]} username [description]
-     * @param  {[type]} password [description]
-     * @return {[type]}          [description]
-     */
-    function login(username, password) {
-        id = Math.floor(Math.random() * 99) + 1;
-
-        var dfr = $q.defer();
-
-        getUser(id).then(function(BEuser) {
-            user = {
-                id: id,
-                username: BEuser.username,
-                email: BEuser.email
-            };
-
-            dfr.resolve(user);
-            // return user;
-        });
-
-        return dfr.promise;
-    }
-
-    return {
-        getUser: function() {
-            return user;
-        },
-        login: function(username, password) {
-            return login(username, password);
-        }
-    };
+    return service;
 });
 
 /** Place service */
 services.factory('placeService', function($http, $q, Upload, FoundationApi, userService) {
 
-    var user = userService.getUser();
+    var domain = 'http://manu.fhall.se/p3b/';
+    // var domain = 'http://p3b.dev/';
+
+    var service = {};
+
+    var user = userService.user;
     var userPosition = getCurrentPosition().then(function(position) {
         return position;
     });
     var allPlaces = [];
     var places = [];
-    var currentPlace = null;
-    var filterTags = [];
 
-    var domain = 'http://manu.fhall.se/p3b/';
-    // var domain = 'http://p3b.dev/';
+    service.filterTags = [];
+    service.currentPlace = null;
+    service.places = places;
 
     /** List of observers */
     var placeListObservers = [];
     var currentPlaceObservers = [];
 
     /** Register an observer for place list */
-    var registerPlaceListObserver = function(observer) {
+    service.registerPlaceListObserver = function(observer) {
         placeListObservers.push(observer);
     };
 
@@ -104,7 +102,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
     };
 
     /** Register an observer for current place */
-    var registerCurrentPlaceObserver = function(observer) {
+    service.registerCurrentPlaceObserver = function(observer) {
         currentPlaceObservers.push(observer);
     };
 
@@ -120,7 +118,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
      * @param  {[type]} coords [description]
      * @return {[type]}        [description]
      */
-    function getPlaces(coords) {
+    service.getPlaces = function(coords) {
 
         var endPoint = domain + 'place_by_coor.php';
 
@@ -173,13 +171,13 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
        }
 
         return dfr.promise; // Return a promise
-    }
+    };
 
-    function getPlace(id, current, hard) {
+    service.getPlace = function(id, current, hard) {
         var cached = false;
         var endPoint = domain + 'get_place.php';
         var place = null;
-        var userId = userService.getUser().id;
+        var userId = userService.user.id;
 
         var dfr = $q.defer();
 
@@ -229,14 +227,14 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         }
 
         return dfr.promise;
-    }
+    };
 
     /**
      * Delete a place
      * @param  {[type]} id [description]
      * @return {[type]}    [description]
      */
-    function deletePlace(id)
+    service.deletePlace = function(id)
     {
         var endPoint = domain + 'delete_place.php';
         var dfr = $q.defer();
@@ -259,7 +257,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         });
 
         return dfr.promise;
-    }
+    };
 
     /**
      * Comment a place
@@ -267,10 +265,10 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
      * @param  {[type]} comment [description]
      * @return {[type]}         [description]
      */
-    function addComment(placeId, comment, pic) {
+    service.addComment = function(placeId, comment, pic) {
         var endPoint = domain + 'comment.php';
 
-        var userId = userService.getUser().id;
+        var userId = userService.user.id;
 
         var endpoint_data = {
             'pid': placeId,
@@ -302,7 +300,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         });
 
         return dfr.promise;
-    }
+    };
 
     /**
      * Rate a place
@@ -311,10 +309,10 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
      * @param  {[type]} rating  [description]
      * @return {[type]}         [description]
      */
-    function ratePlace(placeId, rating) {
+    service.ratePlace = function(placeId, rating) {
         var endPoint = domain + 'rate.php';
 
-        var userId = userService.getUser().id;
+        var userId = userService.user.id;
 
         $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating})
         .success(function(data) {
@@ -322,19 +320,19 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         })
         .error(function(data) {
         });
-    }
+    };
 
     /**
      * Add a place to backend
      * @param {[type]} place [description]
      */
-    function addPlace(place) {
+    service.addPlace = function(place) {
 
         var endPoint = domain + 'insert_place.php';
 
         var tagString = place.tagString.replace(/ +?/g, '').replace(/,/g, " ");
 
-        var userId = userService.getUser().id;
+        var userId = userService.user.id;
 
         var endpoint_data = {
             'uid': userId,
@@ -367,19 +365,18 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         });
 
         return dfr.promise;
-
-    }
+    };
 
     /**
      * Update a place in the backend
      * @param  {[type]} place [description]
      * @return {[type]}       [description]
      */
-    function updatePlace(place)
+    service.updatePlace = function(place)
     {
         var endPoint = domain + 'update_place.php';
 
-        var userId = userService.getUser().id;
+        var userId = userService.user.id;
 
         var dfr = $q.defer();
 
@@ -418,14 +415,14 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         });
 
         return dfr.promise;
-    }
+    };
 
     /**
-     * Upload an image to backendf
+     * Upload an image to backend
      * @param  {[type]} image [description]
      * @return {[type]}       [description]
      */
-    function uploadImage(image) {
+    service.uploadImage = function(image) {
         var endPoint = domain + 'upload.php';
 
         var dfr = $q.defer();
@@ -447,7 +444,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         });
 
         return dfr.promise;
-    }
+    };
 
     /**
      * Convert a place response from backend
@@ -505,6 +502,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
         return dfr.promise; // Return a promise
     }
+    service.getCurrentPosition = getCurrentPosition;
 
     /**
      * Add filter tags
@@ -520,7 +518,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
             tag = tag.charAt(0).toUpperCase() + tag.slice(1); // First letter to upper case
 
             if (!filterTagExists(tag)) { // If not already in array
-                filterTags.push({
+                service.filterTags.push({
                     name: tag,
                     value: tag.toLowerCase()
                 });
@@ -549,16 +547,16 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
     }
     function filterTagExists(tag) {
-        var i = filterTags.length;
+        var i = service.filterTags.length;
         while (i--) {
-            if (filterTags[i].name === tag) {
+            if (service.filterTags[i].name === tag) {
                 return true;
             }
         }
         return false;
     }
 
-    function filterPlacesByTag(tag) {
+    service.filterPlacesByTag = function(tag) {
         if (!tag) {
             places = allPlaces;
         } else {
@@ -575,9 +573,9 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         }
 
         notifyPlaceListObservers();
-    }
+    };
 
-    function searchPlaces(searchString) {
+    service.searchPlaces = function(searchString) {
         if (searchString) {
             searchString = searchString.toLowerCase();
             places = [];
@@ -591,9 +589,9 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
             places = allPlaces;
         }
         notifyPlaceListObservers();
-    }
+    };
 
-    function validateInput(place) {
+    service.validateInput = function(place) {
         var errors = {};
 
         if (!place.title) {
@@ -609,52 +607,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         }
 
         return errors;
-    }
-
-    return {
-        filterTags: filterTags,
-        currentPlace: currentPlace,
-        getPlaces: function(coords) {
-            return getPlaces(coords);
-        },
-        getPlace: function(id, currentPlace) {
-            return getPlace(id, currentPlace);
-        },
-        ratePlace: function(placeId, rating) {
-            return ratePlace(placeId, rating);
-        },
-        filterPlacesByTag: function(tag) {
-            return filterPlacesByTag(tag);
-        },
-        searchPlaces: function(searchString) {
-            return searchPlaces(searchString);
-        },
-        getCurrentPosition: function() {
-            return userPosition;
-        },
-        addPlace: function(name, description, pic, uid, longitude, latitude, cat) {
-            return addPlace(name, description, pic, uid, longitude, latitude, cat);
-        },
-        updatePlace: function(place) {
-            return updatePlace(place);
-        },
-        deletePlace: function(id) {
-            return deletePlace(id);
-        },
-        uploadImage: function(image) {
-            return uploadImage(image);
-        },
-        addComment: function(placeId, comment, pic) {
-            return addComment(placeId, comment, pic);
-        },
-        validateInput: function(place) {
-            return validateInput(place);
-        },
-        registerPlaceListObserver: function(observer) {
-            registerPlaceListObserver(observer);
-        },
-        registerCurrentPlaceObserver: function(observer) {
-            registerCurrentPlaceObserver(observer);
-        }
     };
+
+    return service;
 });
