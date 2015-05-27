@@ -133,8 +133,6 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
 
 skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'placeService', function($scope, uiGmapGoogleMapApi, placeService){
 
-    $scope.render = false;
-
     var userPosition = null;
 
     var positionMarker = {
@@ -179,23 +177,17 @@ skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'plac
                 longitude: userPosition.longitude
             };
         }
-        $scope.render = !$scope.render;
+        /** Init the map */
+        $scope.map = {
+            zoom: 17,
+            bounds: {},
+            pan: true,
+            marker: positionMarker
+        };
+
+        $scope.map.center = {
+            latitude: positionMarker.coords.latitude,
+            longitude: positionMarker.coords.longitude
+        };
     };
-
-    $scope.$watch('render', function() {
-        if($scope.render === true) {
-            /** Init the map */
-            $scope.map = {
-                zoom: 17,
-                bounds: {},
-                pan: true,
-                marker: positionMarker
-            };
-
-            $scope.map.center = {
-                latitude: positionMarker.coords.latitude,
-                longitude: positionMarker.coords.longitude
-            };
-        }
-    });
 }]);

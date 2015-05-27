@@ -179,7 +179,7 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
                 $scope.newPlace = null;
             });
         } else {
-            var errors = "Följande behöver du justera. "
+            var errors = "Följande behöver du justera.";
             for (var error in valid) {
                 errors = errors + " " + valid[error];
             }
