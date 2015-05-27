@@ -1,5 +1,42 @@
 var services = angular.module('skate.Services', []);
 
+services.factory('geoService', function($document, $q) {
+    var service = {};
+    var geoCoder = null;
+
+    $document.ready(function() {
+        geoCoder = new google.maps.Geocoder();
+    });
+
+    service.geoCode = function(latitude, longitude) {
+        var dfr = $q.defer();
+        var latlng;
+
+        if (!latitude || !longitude) {
+            dfr.reject('You need to provide a latitude and longitude');
+        } else {
+            latlng = new google.maps.LatLng(latitude, longitude);
+        }
+
+        if (geoCoder) {
+            geoCoder.geocode({
+                latLng: latlng
+            }, function(results, status) {
+                if (status !== google.maps.GeocoderStatus.OK) {
+                    dfr.reject('No locations found');
+                } else {
+                    dfr.resolve(results);
+                }
+            });
+        } else {
+            dfr.reject({retry: true, message: "The geoCoder isn't ready"});
+        }
+        return dfr.promise;
+    };
+
+    return service;
+});
+
 /** User service */
 services.factory('userService', function($http, $q, FoundationApi) {
     var service = {};

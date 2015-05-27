@@ -52,7 +52,7 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 }]);
 
 /** Get place controller */
-placeApp.controller('getPlace', ['$scope', '$location', 'placeService', function($scope, $location, placeService) {
+placeApp.controller('getPlace', ['$scope', '$location', 'placeService', 'geoService', function($scope, $location, placeService, geoService) {
 
     /** Get the current place */
     placeService.getPlace($scope.params.placeId, true).then(function(place) {
@@ -68,9 +68,24 @@ placeApp.controller('getPlace', ['$scope', '$location', 'placeService', function
             }
         } else {
             $scope.place = place;
+            getPlaceAddress();
         }
     };
     placeService.registerCurrentPlaceObserver('getPlace', placeObserver);
+
+    function getPlaceAddress() {
+        if (!$scope.address && geoService.geoCode) {
+            geoService.geoCode($scope.place.latitude, $scope.place.longitude).then(
+                function(address) {
+                    if (address[0]) {
+                        if (address[0].formatted_address) {
+                            $scope.place.address = address[0].formatted_address;
+                        }
+                    }
+                }
+            );
+        }
+    }
 
     /** Scope function for deleting a palce */
     $scope.deletePlace = function() {
