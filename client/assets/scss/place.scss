@@ -3,6 +3,7 @@ input[type=range] {
 }
 
 .userrating {
+    clear:both;
     li {
         padding: 1px;
         color: #ddd;
@@ -52,7 +53,11 @@ input[type=range] {
     font-weight: 700;
     left: -2.85em;
 }
-
+     .place-rating{
+        margin-left:20px;
+        float: right !important;
+        top: -1em;
+    }
 .light_grey {
     padding: $global-padding;
     border: 1px #ccc solid;
@@ -62,10 +67,7 @@ input[type=range] {
         margin-left: 0;
     }
 }
-/*.light_grey:nth-child(even) {
-    background: #eeeeee;
-}
-*/
+
 
 .grid-content {
     overflow-y: visible;
@@ -102,25 +104,21 @@ h3 a {
     float: left;
     }
     .userrating {
-        float: left;
+        float: right;
         clear: both;
         ul{
             margin: 0;
         }
     }
     .yourratingtag {
-        margin-top: -0.2em;
-        margin-left: 0;
+        margin-top: -1.5em;
+        margin-left: 3em;
+        display: inline;
     }
-     .place-rating{
+   .place-rating{
         margin-left:20px;
-        position: relative;
         float: right !important;
         top: -1em;
-    }
-    .list.place-rating{
-        position: relative;
-        float: right !important;
     }
 }
 /* New place */
