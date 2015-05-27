@@ -1,0 +1,55 @@
+<!-- ICONS FOR SMALL -->
+<a href="#!/placelist"><img class="overlay-icon icon1" src="assets/img/icons/list.png"></a>
+<a><img zf-hard-toggle="top_sheet" class="overlay-icon icon2" src="assets/img/icons/search.png"> </a>
+<a zf-open="createModal"><img class="overlay-icon icon3" src="assets/img/icons/pin-plus.png"></a>
+<a ng-click="centerMapToUserPosition()" ng-if="userPosition.accuracy >= 0"><img class="overlay-icon icon4" src="assets/img/icons/fix-position.png"></a>
+
+<!-- TILES MENU -->
+<zf-action-sheet id="separate-actionsheet">
+    <zf-as-content position="top">
+        <div class="grid-block show-for-small-only small-up-2 front-tiles">
+
+            <div class="front-tile tile tile-1 grid-block">
+                <a href="#!/placelist">
+                    <img src="assets/img/icons/star-black.png">
+                    <h4>Topp 10</h4>
+                </a>
+            </div>
+
+            <div class="front-tile tile tile-2 grid-block">
+                <a href="#!/place">
+                    <img src="assets/img/icons/bubble-black.png">
+                    <h4>Mest kommenterat</h4>
+                </a>
+            </div>
+
+            <div class="front-tile tile tile-3 grid-block">
+                <a href="#!/place/139">
+                    <img src="assets/img/icons/flame.png">
+                    <h4>Hetaste platsen </br>just nu!</h4>
+                </a>
+            </div>
+
+            <div class="front-tile tile tile-4 grid-block">
+                <a href="#!/place">
+                    <img src="assets/img/icons/star-black.png">
+                    <h4>Bäst Grinds</h4>
+                </a>
+            </div>
+        </div>
+
+        <a class="size1"><img zf-hard-toggle="separate-actionsheet" class="menu1" src="assets/img/icons/tiles.png"> </a>
+    </zf-as-content>
+</zf-action-sheet>
+
+<!-- SEARCH AND FILTER -->
+<zf-panel position="top" id="top_sheet">
+    <a href="#" zf-close="" class="close-button">×</a>
+    <div class="test">
+        <ng-include src="'templates/nav/search.html'">
+        </ng-include>
+        <ng-include src="'templates/includes/sortfilter.html'" class="filtersheet">
+        </ng-include>
+        <a href="#" zf-close="" class="button float-right">Filtrera</a>
+    </div>
+</zf-panel>
