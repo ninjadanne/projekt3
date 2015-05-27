@@ -100,22 +100,28 @@ h3 a {
     font-weight: 700;
     left: 2.6em;
     float: left;
-}
-.userrating {
-    float: left;
-    clear: both;
-    ul{
-        margin: 0;
     }
-}
-.yourratingtag {
-    margin-top: -0.2em;
-    margin-left: 0;
-}
-.list.place-rating{
+    .userrating {
+        float: left;
+        clear: both;
+        ul{
+            margin: 0;
+        }
+    }
+    .yourratingtag {
+        margin-top: -0.2em;
+        margin-left: 0;
+    }
+     .place-rating{
+        margin-left:20px;
         position: relative;
         float: right !important;
-}
+        top: -1em;
+    }
+    .list.place-rating{
+            position: relative;
+            float: right !important;
+    }
 }
 /* New place */
 
