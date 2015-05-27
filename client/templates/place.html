@@ -23,9 +23,9 @@ url: /place/:placeId
 
             <div class="grid-content small-12">
                 <div class="small-12 clearfix">
-                    <div class="small-12 clearfix marg-bot font09">
+                    <div ng-if="user" class="small-12 clearfix marg-bot font09">
                         <a zf-open="editPlaceModal">Redigera plats</a>
-                        <a ng-if="user" ng-click="deletePlace()" class="float-right">Ta bort plats</a>
+                        <a ng-click="deletePlace()" class="float-right">Ta bort plats</a>
                      </div>
                     <h2 class="float-left">{{place.title}}</h2>
 

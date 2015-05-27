@@ -399,15 +399,19 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
         $http.post(endPoint, endpoint_data)
         .success(function(data) {
-            angular.forEach(places, function(p) {
-                if (p.id === place.id) {
-                    p = place;
-                    currentPlace = place;
-                    dfr.resolve(place);
-                    notifyCurrentPlaceObservers();
-                    notifyPlaceListObservers();
-                }
-            });
+            if (!data.success) {
+                FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte ändra platsen. Meddelande: ' + data.message});
+            } else {
+                angular.forEach(places, function(p) {
+                    if (p.id === place.id) {
+                        p = place;
+                        currentPlace = place;
+                        dfr.resolve(place);
+                        notifyCurrentPlaceObservers();
+                        notifyPlaceListObservers();
+                    }
+                });
+            }
         })
         .error(function(data) {
             FoundationApi.publish('error-notifications', {title: 'Oj!', content: 'Platstjänsten vill inte ändra platsen.'});
