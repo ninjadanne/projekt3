@@ -18,6 +18,7 @@
         // GrindFind
         'mainApp',
         'skate.Services',
+        'skate.Directives',
         'skate.Map',
         'skate.Place',
         'skate.User'

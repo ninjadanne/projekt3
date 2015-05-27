@@ -44,7 +44,6 @@ var paths = {
   ],
   // These files are for your app's JavaScript
   appJS: [
-
     'bower_components/jquery/dist/jquery.js',
     'bower_components/slick.js/slick/slick.js',
     'bower_components/lodash/dist/lodash.min.js',
@@ -52,6 +51,7 @@ var paths = {
     'bower_components/ng-file-upload/ng-file-upload-all.js',
     'bower_components/angular-inview/angular-inview.js',
     'client/assets/js/services.js',
+    'client/assets/js/directives.js',
     'client/assets/js/user.js',
     'client/assets/js/place.js',
     'client/assets/js/map.js',

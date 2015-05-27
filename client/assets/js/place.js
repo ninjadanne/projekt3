@@ -73,50 +73,6 @@ placeApp.controller('getPlace', ['$scope', '$location', 'placeService', function
             placeService.deletePlace($scope.place.id).then(function() {});
         }
     };
-}])
-.directive("starRating", ['placeService', function(placeService) {
-    function ratePlace(placeId, rating) {
-        placeService.ratePlace(placeId, rating);
-    }
-    return {
-        restrict : "EA",
-        template : "<ul class='userrating' ng-class='{readonly: readonly}'>" +
-                   "  <li ng-repeat='star in stars' ng-class='star' ng-click='toggle($index)'>" +
-                   "    <img zf-iconic='' icon='star' size='small' class='iconic-color'>" + //&#9733
-                   "  </li>" +
-                   "</ul>",
-        scope : {
-            ratingValue : "=ngModel",
-            max : "=?", //optional: default is 5
-            onRatingSelected : "&?",
-            readonly: "=?"
-        },
-        link : function(scope, elem, attrs) {
-            if (scope.max == undefined) { scope.max = 5; }
-            function updateStars() {
-                scope.stars = [];
-
-                for (var i = 0; i < scope.max; i++) {
-                    scope.stars.push({
-                        filled : i < scope.ratingValue
-                    });
-                }
-            }
-            scope.toggle = function(index) {
-                if (scope.readonly == undefined || scope.readonly == false){
-                    scope.ratingValue = index + 1;
-                    scope.onRatingSelected({
-                        rating: index + 1
-                    });
-                }
-                var placeId = scope.$parent.place.id;
-                ratePlace(placeId, scope.ratingValue);
-            };
-            scope.$watch("ratingValue", function(oldVal, newVal) {
-                if (newVal) { updateStars(); }
-            });
-        }
-    };
 }]);
 
 /** Add commment controller */
