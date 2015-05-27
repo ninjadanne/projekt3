@@ -6,20 +6,20 @@
         <form>
             <div class="grid-block">
 
-                <div class="small-12 hide-for-medium grid-content">
+                <!-- <div class="small-12 hide-for-medium grid-content">
                     <label>Sök</label>
                     <input type="text" ng-model="searchTag.tag" placeholder="Sök efter plats...">
                     </input>
-                </div>
+                </div> -->
 
-                <div class="hide_stuff small-12 medium-6 grid-content">
+                <div class="top_sheet_hide small-12 medium-6 grid-content">
                     <label>Sortera efter</label>
                     <select name="sortingType" id="sortingType" ng-model="orderPlaces.property">
                         <option value="title">Namn</option>
                         <option value="tags">Kategori</option>
                         <option value="rating">Betyg</option>
                     </select>
-                </div> 
+                </div>
 
                 <div class="small-12 medium-6 grid-content">
                     <label>Filtrera</label>
@@ -28,7 +28,7 @@
                     </select>
                 </div>
 
-                <div class="hide_stuff small-12 grid-content">
+                <div class="top_sheet_hide small-12 grid-content">
                     <input type="radio" ng-model="orderPlaces.invert" value="false" id="sortAscending" name="sortAscending">
                     <label for="sortAscending">Stigande</label>
                     <input type="radio" ng-model="orderPlaces.invert" value="true" id="sortDescending" name="sortDescending">

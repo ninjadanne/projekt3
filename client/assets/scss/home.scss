@@ -113,7 +113,8 @@ div.front-tiles2 {
 }
 
 .panel-top {
-    height: 270px !important;
+    // height: 270px !important;
+    height: inherit;
 }
 
 .panel-top.is-active {
@@ -137,9 +138,13 @@ div.front-tiles2 {
     }
 }
 
+.top_sheet_hide {
+    font-family: Arial;
+}
+
 @include breakpoint(small only) {
-    .test {
-        .hide_stuff {
+    .top_sheet_content {
+        .top_sheet_hide {
             display: none !important;
         }
     }
