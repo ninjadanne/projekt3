@@ -1,8 +1,8 @@
 <!-- ICONS FOR SMALL -->
-<a href="#!/placelist"><img class="overlay-icon icon1" src="assets/img/icons/list.png"></a>
-<a><img zf-hard-toggle="top_sheet" class="overlay-icon icon2" src="assets/img/icons/search.png"> </a>
-<a zf-open="createModal"><img class="overlay-icon icon3" src="assets/img/icons/pin-plus.png"></a>
-<a ng-click="centerMapToUserPosition()" ng-if="userPosition.accuracy >= 0"><img class="overlay-icon icon4" src="assets/img/icons/fix-position.png"></a>
+<a href="#!/placelist"><img class="overlay-icon fixed-top-right" src="assets/img/icons/list.png"></a>
+<a><img zf-hard-toggle="top_sheet" class="overlay-icon fixed-top-right-2" src="assets/img/icons/search.png"> </a>
+<a zf-open="createModal"><img class="overlay-icon fixed-bottom-right" src="assets/img/icons/pin-plus.png"></a>
+<a ng-click="centerMapToUserPosition()" ng-if="userPosition.accuracy >= 0"><img class="overlay-icon fixed-bottom-left" src="assets/img/icons/fix-position.png"></a>
 
 <!-- TILES MENU -->
 <zf-action-sheet id="separate-actionsheet">
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <a class="size1"><img zf-hard-toggle="separate-actionsheet" class="menu1" src="assets/img/icons/tiles.png"> </a>
+        <a class="size1"><img zf-hard-toggle="separate-actionsheet" class="fixed-bottom-center" src="assets/img/icons/tiles.png"></a>
     </zf-as-content>
 </zf-action-sheet>
 

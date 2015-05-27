@@ -1,12 +1,12 @@
-aside.modal{
-	padding: 1rem 0 0 0;
-	overflow: auto;
-	z-index:1001;
+aside.modal {
+    padding: 1rem 0 0 0;
+    overflow: auto;
+    z-index: 1001;
 }
 
-.fixedclosed{
-	position: absolute;
-	right: 2rem;
+.fixedclosed {
+    position: absolute;
+    right: 2rem;
 }
 
 .notification {
@@ -15,24 +15,24 @@ aside.modal{
 }
 
 .modal {
-	.button {
-		margin: 0 0rem 1rem 0 !important;
-	}
+    .button {
+        margin: 0 0rem 1rem 0 !important;
+    }
 }
 
 .button.fb {
-	background-color: #3b5999;
+    background-color: #3b5999;
 }
 
 @include breakpoint(medium) {
-	.flyt-right {
-		float: right !important;
-	}
-	.flyt-left {
-		float: left !important;
-	}
+    .flyt-right {
+        float: right !important;
+    }
+    .flyt-left {
+        float: left !important;
+    }
 }
 
 .modal-close.close-button {
-	top: 0rem !important;
+    top: 0rem !important;
 }
