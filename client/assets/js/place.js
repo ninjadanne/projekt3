@@ -5,16 +5,7 @@
 /** Get places controller */
 placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
 
-    var updatePlaceList = function(places) {
-        $scope.places = places;
-    };
-
-    placeService.registerPlaceListObserver(updatePlaceList);
-
-    placeService.getCurrentPosition().then(function(position) {
-        placeService.getPlaces(position);
-    });
-
+    /** Scope models */
     $scope.filterTags = placeService.filterTags;
     $scope.filterTags.unshift({name: 'Alla platser', value: null});
     $scope.orderPlaces = {
@@ -22,27 +13,38 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
         invert: 'true'
     };
     $scope.filterTag = {tag: {}};
-
     $scope.searchTag = {tag: null};
 
-    // Watch the sortOrder order (radio buttons)
+    /** Create and register the place list observer callback */
+    var updatePlaceList = function(places) {
+        var orderBy = $filter('orderBy');
+        $scope.places = orderBy(places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
+    };
+    placeService.registerPlaceListObserver(updatePlaceList);
+
+    /** Get the users position and find places around it */
+    placeService.getCurrentPosition().then(function(position) {
+        placeService.getPlaces(position);
+    });
+
+    /** Watch the sortOrder order (radio buttons) */
     $scope.$watch('orderPlaces.invert', function() {
         var orderBy = $filter('orderBy');
         $scope.places = orderBy($scope.places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
     });
 
-    // Watch the sortOrder property (dropdown)
+    /** Watch the sortOrder property (dropdown) */
     $scope.$watch('orderPlaces.property', function() {
         var orderBy = $filter('orderBy');
         $scope.places = orderBy($scope.places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
     });
 
-    // Watch the filterTag property (dropdown)
+    /** Watch the filterTag property (dropdown) */
     $scope.$watch('filterTag.tag', function() {
         placeService.filterPlacesByTag($scope.filterTag.tag.value);
     });
 
-    // Watch the searchTag property (dropdown)
+    /** Watch the searchTag property (dropdown) */
     $scope.$watch('searchTag.tag', function() {
         placeService.searchPlaces($scope.searchTag.tag);
     });
