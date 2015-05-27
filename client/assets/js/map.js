@@ -16,18 +16,20 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
     userPositionMarker = null;
 
     /** Init the map */
-    $scope.map = { zoom: 12, bounds: {}, pan: true };
-
-    /** Array with all markers */
-    $scope.map.markers = [];
+    $scope.map = {
+        zoom: 12,
+        bounds: {},
+        pan: true,
+        markers: []
+    };
 
     /** Function for setting the map markers  */
     var addPlaceMarkers = function(places) {
         $scope.map.markers = places;
 
-        if (userPositionMarker === null) {
+        // if (userPositionMarker === null) {
             getUserPosition();
-        }
+        // }
     };
 
     /** Function for setting the current place */
@@ -133,22 +135,67 @@ skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'plac
 
     $scope.render = false;
 
-    $scope.renderMap = function() {
-        $scope.render = true;
+    var userPosition = null;
+
+    var positionMarker = {
+        id: 'userPosition',
+        idKey: 'userPosition',
+        options: {
+            // icon: 'assets/img/icons/user-position.png',
+            draggable: true
+        },
+        events: {
+            dragend: function (marker, eventName, args) {
+                var lat = marker.getPosition().lat();
+                var lon = marker.getPosition().lng();
+                positionMarker.place.latitude = lat;
+                positionMarker.place.longitude = lon;
+            }
+        },
+        coords: {},
+        place: {}
+    };
+
+    var setCurrentPlacePosition = function(position) {
+        placePosition = position;
+    };
+    placeService.registerCurrentPlaceObserver(setCurrentPlacePosition);
+
+    placeService.getCurrentPosition().then(function(position) {
+        userPosition = position;
+    });
+
+    $scope.renderMap = function(place) {
+        if (place) {
+            positionMarker.place = place;
+            positionMarker.coords = {
+                latitude: place.latitude,
+                longitude: place.longitude
+            };
+        } else {
+            positionMarker.place = $scope.$parent.newPlace;
+            positionMarker.coords = {
+                latitude: userPosition.latitude,
+                longitude: userPosition.longitude
+            };
+        }
+        $scope.render = !$scope.render;
     };
 
     $scope.$watch('render', function() {
         if($scope.render === true) {
             /** Init the map */
-            $scope.map = { zoom: 17, bounds: {}, pan: true };
+            $scope.map = {
+                zoom: 17,
+                bounds: {},
+                pan: true,
+                marker: positionMarker
+            };
 
-            // Get the users current position
-            placeService.getCurrentPosition().then(function(userPosition) {
-                $scope.map.center = {
-                    latitude: userPosition.latitude,
-                    longitude: userPosition.longitude
-                };
-            });
+            $scope.map.center = {
+                latitude: positionMarker.coords.latitude,
+                longitude: positionMarker.coords.longitude
+            };
         }
     });
 }]);

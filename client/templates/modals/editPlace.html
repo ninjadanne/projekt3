@@ -3,8 +3,8 @@
 
         <a zf-close="" class="modal-close close-button">×</a>
 
-        <div class="grid-content small-12 " ng-controller="editPlace">
-            <h2>Skapa ny plats</h2>
+        <div class="grid-content small-12" ng-controller="editPlace">
+            <h2>Redigera plats</h2>
             <form name="Place">
                 <label for="PlaceTitle">
                     <span class="inline-label">
@@ -20,7 +20,14 @@
                     </span>
                 </label>
 
-                <label class="small-12 medium-6 flyt-left" for="PlaceLong">
+                <div ng-controller="placeMapController">
+                    <a ng-click="renderMap(place)">Visa karta</a>
+                    <div class="placeMap">
+                        <div ng-include="'templates/placeMap.html'"></div>
+                    </div>
+                </div>
+
+                <label class="small-12 medium-6 flyt-left" for="PlaceLng">
                     <span class="inline-label">
                         <span class="form-label">Long</span>
                     <input type="text" placeholder="Fyll i platsens longitude" id="PlaceLng" ng-model="place.longitude">

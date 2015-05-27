@@ -72,9 +72,8 @@ placeApp.controller('getPlace', ['$scope', '$location', 'placeService', function
         }
     };
 }])
-.directive("starRating", ['placeService', 'userService', function(placeService, userService) {
+.directive("starRating", ['placeService', function(userService) {
     function ratePlace(placeId, rating) {
-        user = userService.getUser();
         placeService.ratePlace(placeId, rating);
     }
     return {

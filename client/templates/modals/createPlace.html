@@ -13,12 +13,19 @@
                     </span>
                 </label>
 
-                 <label for="PlaceCat">
+                 <label for="PlaceTags">
                     <span class="inline-label">
                         <span class="form-label">Kategori</span>
-                    <input type="text" placeholder="Fyll i kategori..." id="PlaceTag" ng-model="newPlace.tagString" required>
+                    <input type="text" placeholder="Fyll i kategori..." id="PlaceTags" ng-model="newPlace.tagString" required>
                     </span>
                 </label>
+
+                <div ng-controller="placeMapController">
+                    <a ng-click="renderMap()">Visa karta</a>
+                    <div class="placeMap">
+                        <div ng-include="'templates/placeMap.html'"></div>
+                    </div>
+                </div>
 
                 <label class="small-12 medium-6 flyt-left" for="PlaceLng">
                     <span class="inline-label">

@@ -29,13 +29,17 @@ ui-gmap-google-map {
     }
 }
 
-.placeMapController {
+.placeMap {
     position: relative;
     height: 200px;
     margin-bottom: 1em;
 }
 
-.placeMapController ui-gmap-google-map {
+.placeMap .angular-google-map {
+    height: 100%;
+}
+
+.placeMap ui-gmap-google-map {
     height: 100%;
     width: 100%;
     position: absolute;
