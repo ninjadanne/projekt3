@@ -1,4 +1,4 @@
-<section class="grid-block" ng-controller="getPlace">
+<section id="editPlace" class="grid-block" ng-controller="getPlace">
     <div class="grid-content small-12">
 
         <a zf-close="" class="modal-close close-button">×</a>
@@ -20,24 +20,24 @@
                     </span>
                 </label>
 
-                <div ng-controller="placeMapController">
-                    <a ng-click="renderMap(place)">Visa karta</a>
+                <div ng-controller="placeMapController" in-view="renderMap(place)" in-view-options="{debounce: 200}">
+                    <!-- <a ng-click="renderMap(place)">Visa karta</a> -->
                     <div class="placeMap">
                         <div ng-include="'templates/placeMap.html'"></div>
                     </div>
                 </div>
 
-                <label class="small-12 medium-6 flyt-left" for="PlaceLng">
+                <label class="small-12 medium-6 flyt-left hide-for-small" for="PlaceLng">
                     <span class="inline-label">
                         <span class="form-label">Long</span>
-                    <input type="text" placeholder="Fyll i platsens longitude" id="PlaceLng" ng-model="place.longitude">
+                    <input type="text" placeholder="Fyll i platsens longitude" id="PlaceLng" ng-model="place.longitude" disabled="disabled">
                     </span>
                 </label>
 
-                <label class="small-12 medium-6 flyt-right" for="PlaceLat">
+                <label class="small-12 medium-6 flyt-right hide-for-small" for="PlaceLat">
                     <span class="inline-label">
                         <span class="form-label">Lat</span>
-                    <input type="text" placeholder="Fyll i platsens latitude" id="PlaceLat" ng-model="place.latitude">
+                    <input type="text" placeholder="Fyll i platsens latitude" id="PlaceLat" ng-model="place.latitude" disabled="disabled">
                     </span>
                 </label>
 

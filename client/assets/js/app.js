@@ -13,6 +13,7 @@
 
         // Other modules
         'ngFileUpload',
+        'angular-inview',
 
         // GrindFind
         'mainApp',
