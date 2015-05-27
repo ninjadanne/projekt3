@@ -20,7 +20,7 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
         var orderBy = $filter('orderBy');
         $scope.places = orderBy(places, $scope.orderPlaces.property, ($scope.orderPlaces.invert === "true"));
     };
-    placeService.registerPlaceListObserver(updatePlaceList);
+    placeService.registerPlaceListObserver('getPlaces', updatePlaceList);
 
     /** Get the users position and find places around it */
     placeService.getCurrentPosition().then(function(position) {
@@ -56,14 +56,21 @@ placeApp.controller('getPlace', ['$scope', '$location', 'placeService', function
 
     /** Get the current place */
     placeService.getPlace($scope.params.placeId, true).then(function(place) {
-        $scope.place = place;
+        placeObserver(place);
     });
 
     /** Create and register the current place observer */
     var placeObserver = function(place) {
-        $scope.place = place;
+        if ($scope.place) {
+            if (place.id !== $scope.place.id) {
+                $scope.place = place;
+                getPlaceAddress();
+            }
+        } else {
+            $scope.place = place;
+        }
     };
-    placeService.registerCurrentPlaceObserver(placeObserver);
+    placeService.registerCurrentPlaceObserver('getPlace', placeObserver);
 
     /** Scope function for deleting a palce */
     $scope.deletePlace = function() {
@@ -155,7 +162,7 @@ placeApp.controller('editPlace', function($scope, FoundationApi, placeService) {
     var placeObserver = function(place) {
         $scope.place = place;
     };
-    placeService.registerCurrentPlaceObserver(placeObserver);
+    placeService.registerCurrentPlaceObserver('editPlace', placeObserver);
 
     $scope.editPlace = function() {
         var valid = placeService.validateInput($scope.place);

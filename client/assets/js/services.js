@@ -67,7 +67,7 @@ services.factory('userService', function($http, $q, FoundationApi) {
 });
 
 /** Place service */
-services.factory('placeService', function($http, $q, Upload, FoundationApi, userService) {
+services.factory('placeService', function($http, $q, Upload, FoundationApi, userService, geoService) {
 
     var domain = 'http://manu.fhall.se/p3b/';
     // var domain = 'http://p3b.dev/';
@@ -90,26 +90,53 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
     var currentPlaceObservers = [];
 
     /** Register an observer for place list */
-    service.registerPlaceListObserver = function(observer) {
-        placeListObservers.push(observer);
+    service.registerPlaceListObserver = function(id, callback) {
+        if (!callback) {
+            return;
+        }
+        var found = false;
+        angular.forEach(placeListObservers, function(observer) {
+            if (observer.id == id) {
+                found = true;
+                observer.callback = callback;
+            }
+        });
+
+        if (!found) {
+            placeListObservers.push({id: id, callback: callback});
+        }
+
     };
 
     /** Notify place list observers */
     var notifyPlaceListObservers = function() {
         angular.forEach(placeListObservers, function(observer) {
-            observer(places);
+            observer.callback(places);
         });
     };
 
     /** Register an observer for current place */
-    service.registerCurrentPlaceObserver = function(observer) {
-        currentPlaceObservers.push(observer);
+    service.registerCurrentPlaceObserver = function(id, callback) {
+        if (!callback) {
+            return;
+        }
+        var found = false;
+        angular.forEach(currentPlaceObservers, function(observer) {
+            if (observer.id == id) {
+                found = true;
+                observer.callback = callback;
+            }
+        });
+
+        if (!found) {
+            currentPlaceObservers.push({id: id, callback: callback});
+        }
     };
 
     /** Notify current place observers */
     var notifyCurrentPlaceObservers = function() {
         angular.forEach(currentPlaceObservers, function(observer) {
-            observer(currentPlace);
+            observer.callback(currentPlace);
         });
     };
 
@@ -466,6 +493,15 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
 
         convertedPlace.tagString = convertedPlace.tags.join(", ");
 
+        // geoService.geoCode(place.latitude, place.longitude).then(
+        //     function(address) {
+        //         convertedPlace.address = address[0].formatted_address;
+        //         return convertedPlace;
+        //     },
+        //     function() {
+        //         return convertedPlace;
+        //     }
+        // );
         return convertedPlace;
     }
 

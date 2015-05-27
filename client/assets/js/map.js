@@ -37,8 +37,8 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
     };
 
     /** Register observer for place list and current place in service */
-    placeService.registerPlaceListObserver(addPlaceMarkers);
-    placeService.registerCurrentPlaceObserver(setCurrentPlace);
+    placeService.registerPlaceListObserver('map', addPlaceMarkers);
+    placeService.registerCurrentPlaceObserver('map', setCurrentPlace);
 
     $scope.map.markersEvents = {
         click: function(marker, eventName, model, arguments) {
@@ -162,7 +162,7 @@ skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'plac
     var setCurrentPlacePosition = function(position) {
         placePosition = position;
     };
-    placeService.registerCurrentPlaceObserver(setCurrentPlacePosition);
+    placeService.registerCurrentPlaceObserver('placeMap', setCurrentPlacePosition);
 
     placeService.getCurrentPosition().then(function(position) {
         userPosition = position;
