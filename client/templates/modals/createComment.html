@@ -4,16 +4,10 @@
         <a zf-close="" class="modal-close close-button">×</a>
 
         <div class="grid-content small-12">
-            <h2>Lägg till kommentar</h2>
-            <div class="grid-block small-12">
-                <p>Här kan du lägga in och skapa en ny kommentar till en skateplats!</p>
-            </div>
+            <h2>Skriv kommentar</h2>
 
             <form name="newComment">
-                <label>
-                    Beskrivning:
                     <textarea name="description" cols="30" rows="5" id="newComment" ng-model="newComment.comment" required></textarea>
-                </label>
                 <div class="small-12 medium-12">
                     <input type="button" class="button photo_button float-left" style="position: absolute;" value="Välj en bild">
                     <input type="file" id="newPlacePic" ng-model="self" onchange="angular.element(this).scope().uploadFile(this.files)" class="float-left" style="position: absolute; z-index: 500; opacity: 0; height: 40px; width: 100px;">
