@@ -598,6 +598,24 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         notifyPlaceListObservers();
     }
 
+    function validateInput(place) {
+        var errors = {};
+
+        if (!place.title) {
+            errors.title = "Titel måste anges.";
+        }
+        if (!place.description) {
+            errors.description = "En beskrivning behöver anges.";
+        }
+        place.latitude = parseFloat(place.latitude);
+        place.longitude = parseFloat(place.longitude);
+        if (typeof place.latitude !== "number" || typeof place.longitude !== "number" || !place.longitude || !place.longitude) {
+            errors.position = "Position måste bestå av latitud och longitud.";
+        }
+
+        return errors;
+    }
+
     return {
         filterTags: filterTags,
         currentPlace: currentPlace,
@@ -633,6 +651,9 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         },
         addComment: function(placeId, comment, pic) {
             return addComment(placeId, comment, pic);
+        },
+        validateInput: function(place) {
+            return validateInput(place);
         },
         registerPlaceListObserver: function(observer) {
             registerPlaceListObserver(observer);

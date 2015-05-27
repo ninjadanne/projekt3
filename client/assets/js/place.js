@@ -171,15 +171,38 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
     };
 
     function addPlace() {
-        FoundationApi.closeActiveElements('ng-scope');
-        placeService.addPlace($scope.newPlace).then(function(place) {});
+        var valid = placeService.validateInput($scope.newPlace);
+
+        if (Object.keys(valid).length === 0) {
+            FoundationApi.closeActiveElements('ng-scope');
+            placeService.addPlace($scope.newPlace).then(function(place) {
+                $scope.newPlace = null;
+            });
+        } else {
+            var errors = "Följande behöver du justera. "
+            for (var error in valid) {
+                errors = errors + " " + valid[error];
+            }
+            FoundationApi.publish('error-notifications', {title: 'Oj!', content: errors});
+        }
     }
 });
 
 placeApp.controller('editPlace', function($scope, FoundationApi, placeService) {
     $scope.editPlace = function() {
-        FoundationApi.closeActiveElements('ng-scope');
-        placeService.updatePlace($scope.place);
+        var valid = placeService.validateInput($scope.place);
+
+        if (Object.keys(valid).length === 0) {
+            FoundationApi.closeActiveElements('ng-scope');
+            placeService.updatePlace($scope.place);
+        } else {
+            var errors = "Följande behöver du justera. ";
+            for (var error in valid) {
+                errors = errors + " " + valid[error];
+            }
+            FoundationApi.publish('error-notifications', {title: 'Oj!', content: errors});
+            console.log(errors);
+        }
     };
 });
 
@@ -194,4 +217,3 @@ placeApp.directive('slickSlider', function($interval){
     }
   };
 });
-
