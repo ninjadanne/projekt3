@@ -44,6 +44,7 @@ var paths = {
   ],
   // These files are for your app's JavaScript
   appJS: [
+    // 'https://maps.googleapis.com/maps/api/js?v=3.exp',
     'bower_components/jquery/dist/jquery.js',
     'bower_components/slick.js/slick/slick.js',
     'bower_components/lodash/dist/lodash.min.js',

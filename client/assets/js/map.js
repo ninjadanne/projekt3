@@ -20,7 +20,8 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
         zoom: 12,
         bounds: {},
         pan: true,
-        markers: []
+        markers: [],
+        center: null
     };
 
     /** Function for setting the map markers  */
@@ -108,7 +109,7 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
             $scope.map.markers.push(userPositionMarker);
         }
 
-        if (centerTo) {
+        if (centerTo && !$scope.map.center) {
             $scope.centerMapToUserPosition();
         }
     }
