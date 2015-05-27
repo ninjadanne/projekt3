@@ -175,28 +175,32 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         return dfr.promise; // Return a promise
     }
 
-    function getPlace(id, current) {
+    function getPlace(id, current, hard) {
         var cached = false;
         var endPoint = domain + 'get_place.php';
         var place = null;
+        var userId = userService.getUser().id;
 
         var dfr = $q.defer();
 
-        // Loop through all the cached places to find the one with id
-         angular.forEach(places, function(place) {
-            if (place.id == id) {
-                dfr.resolve(place);
-                cached = true;
+        if (!hard) {
+            // Loop through all the cached places to find the one with id
+             angular.forEach(places, function(place) {
+                if (place.id == id) {
+                    cached = true;
 
-                if (current) {
-                    currentPlace = place;
-                    notifyCurrentPlaceObservers();
+                    if (current) {
+                        currentPlace = place;
+                        notifyCurrentPlaceObservers();
+                    }
+
+                    dfr.resolve(place);
                 }
-            }
-        });
+            });
+         }
 
-        if (! cached) {
-            $http.post(endPoint, {'pid': id, 'uid': user.id})
+        if (!cached || hard) {
+            $http.post(endPoint, {'pid': id, 'uid': userId})
             .success(function(data) {
                 place = convertPlace(data.place[0]);
                 place.comments = data.comments;
@@ -212,12 +216,12 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
                     place.images.push({'uri': 'assets/img/spot_placeholder.jpg'});
                 }
 
-                dfr.resolve(place);
-
                 if (current) {
                     currentPlace = place;
                     notifyCurrentPlaceObservers();
                 }
+
+                dfr.resolve(place);
             })
             .error(function() {
                 FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kunde inte ladda in plats från platstjänst.' });
@@ -310,27 +314,14 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
     function ratePlace(placeId, rating) {
         var endPoint = domain + 'rate.php';
 
-        var dfr = $q.defer();
-
         var userId = userService.getUser().id;
 
         $http.post(endPoint, {'pid': placeId, 'uid': userId, 'rating': rating})
         .success(function(data) {
-            dfr.resolve(data);
-            angular.forEach(places, function(p) {
-                if (p.id == placeId) {
-                    p.user_rating = rating;
-                    p.rating = data.avg_rating;
-                    notifyPlaceListObservers();
-                    currentPlace = p;
-                    notifyCurrentPlaceObservers();
-                }
-            });
+            return getPlace(placeId, true, true);
         })
         .error(function(data) {
         });
-
-        return dfr.promise;
     }
 
     /**
