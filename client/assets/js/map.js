@@ -25,11 +25,9 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
 
     /** Function for setting the map markers  */
     var addPlaceMarkers = function(places) {
-        $scope.map.markers = places;
-
-        // if (userPositionMarker === null) {
-            getUserPosition();
-        // }
+        // Copy the places and set them as map markers
+        $scope.map.markers = places.slice();
+        getUserPosition();
     };
 
     /** Function for setting the current place */
@@ -96,13 +94,19 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
         }
 
         var index = 0;
+        var replaced = false;
         angular.forEach($scope.map.markers, function(marker) {
             if (marker.id === userPositionMarker.id) {
+                replaced = true;
                 $scope.map.markers.splice(index, 1); // Remove the current user position marker
                 $scope.map.markers.push(userPositionMarker); // Add the new
             }
             index++;
         });
+
+        if (!replaced) {
+            $scope.map.markers.push(userPositionMarker);
+        }
 
         if (centerTo) {
             $scope.centerMapToUserPosition();
