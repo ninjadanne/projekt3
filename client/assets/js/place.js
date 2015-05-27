@@ -52,16 +52,16 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
 /** Get place controller */
 placeApp.controller('getPlace', ['$scope', '$location', 'placeService', function($scope, $location, placeService) {
 
+    /** Get the current place */
+    placeService.getPlace($scope.params.placeId, true).then(function(place) {
+        $scope.place = place;
+    });
+
     /** Create and register the current place observer */
     var placeObserver = function(place) {
         $scope.place = place;
     };
     placeService.registerCurrentPlaceObserver(placeObserver);
-
-    /** Get the current place */
-    placeService.getPlace($scope.params.placeId, true).then(function(place) {
-        $scope.place = place;
-    });
 
     /** Scope function for deleting a palce */
     $scope.deletePlace = function() {
@@ -189,6 +189,16 @@ placeApp.controller('addPlace', function($scope, $location, FoundationApi, place
 });
 
 placeApp.controller('editPlace', function($scope, FoundationApi, placeService) {
+
+    /** Get the current place */
+    $scope.place = placeService.currentPlace;
+
+    /** Create and register the current place observer */
+    var placeObserver = function(place) {
+        $scope.place = place;
+    };
+    placeService.registerCurrentPlaceObserver(placeObserver);
+
     $scope.editPlace = function() {
         var valid = placeService.validateInput($scope.place);
 
@@ -201,7 +211,6 @@ placeApp.controller('editPlace', function($scope, FoundationApi, placeService) {
                 errors = errors + " " + valid[error];
             }
             FoundationApi.publish('error-notifications', {title: 'Oj!', content: errors});
-            console.log(errors);
         }
     };
 });
