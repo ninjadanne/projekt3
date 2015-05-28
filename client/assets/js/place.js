@@ -61,20 +61,13 @@ placeApp.controller('getPlace', ['$scope', '$location', 'placeService', 'geoServ
 
     /** Create and register the current place observer */
     var placeObserver = function(place) {
-        if ($scope.place) {
-            if (place.id !== $scope.place.id) {
-                $scope.place = place;
-                getPlaceAddress();
-            }
-        } else {
-            $scope.place = place;
-            getPlaceAddress();
-        }
+        $scope.place = place;
+        getPlaceAddress();
     };
     placeService.registerCurrentPlaceObserver('getPlace', placeObserver);
 
     function getPlaceAddress() {
-        if (!$scope.address && geoService.geoCode) {
+        if (!$scope.place.address && geoService.geoCode) {
             geoService.geoCode($scope.place.latitude, $scope.place.longitude).then(
                 function(address) {
                     if (address[0]) {

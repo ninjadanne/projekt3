@@ -371,11 +371,11 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
     service.addComment = function(placeId, comment, pic) {
         var endPoint = domain + 'comment.php';
 
-        var userId = userService.user.id;
+        var user = userService.user;
 
         var endpoint_data = {
             'pid': placeId,
-            'uid': userId,
+            'uid': user.id,
             'comment': comment,
             'pic': pic
         };
@@ -385,15 +385,16 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         $http.post(endPoint, endpoint_data)
         .success(function(data) {
             if (data.success) {
-                dfr.resolve(data);
                 angular.forEach(places, function(place) {
                     if (place.id == placeId) {
-                        place.comments.push(data.data);
+                        comment = {image_uri: pic, comment: comment, user: user.username};
+                        place.comments.push(comment);
                         currentPlace = place;
                         notifyPlaceListObservers();
                         notifyCurrentPlaceObservers();
                     }
                 });
+                dfr.resolve(data);
             } else {
                 FoundationApi.publish('error-notifications', { title: 'Oj!', content: 'Kommentaren sparades inte. Meddelande: ' + data.message});
             }
