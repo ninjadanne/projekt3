@@ -8,6 +8,12 @@ services.factory('geoService', function($document, $q) {
         geoCoder = new google.maps.Geocoder();
     });
 
+    /**
+     * Get the address from a longitude and latitude
+     * @param  {[type]} latitude  [description]
+     * @param  {[type]} longitude [description]
+     * @return {[type]}           [description]
+     */
     service.geoCode = function(latitude, longitude) {
         var dfr = $q.defer();
         var latlng;
@@ -32,6 +38,40 @@ services.factory('geoService', function($document, $q) {
             dfr.reject({retry: true, message: "The geoCoder isn't ready"});
         }
         return dfr.promise;
+    };
+
+    /**
+     * Get the users current position
+     * @return {[type]} [description]
+     */
+    service.getUserPosition = function() {
+        var dfr = $q.defer();
+        // Standard startposition (Stapelbäddsparken, Malmö)
+        var userPosition = {
+            latitude: 55.613565,
+            longitude: 12.983973,
+            accuracy: -1
+        };
+
+        // Om enheten och klienten stöder geolocation
+        if (navigator.geolocation) {
+            // Hämta användarens position
+            navigator.geolocation.getCurrentPosition(function(location) {
+                userPosition = {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    accuracy: location.coords.accuracy
+                };
+                dfr.resolve(userPosition);
+            },
+            function() {
+                dfr.resolve(userPosition);
+            });
+        } else {
+            dfr.resolve(userPosition);
+        }
+
+        return dfr.promise; // Return a promise
     };
 
     return service;
@@ -112,9 +152,6 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
     var service = {};
 
     var user = userService.user;
-    var userPosition = getCurrentPosition().then(function(position) {
-        return position;
-    });
     var allPlaces = [];
     var places = [];
 
@@ -237,7 +274,9 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         return dfr.promise; // Return a promise
     };
 
-    service.getPlace = function(id, current, hard) {
+    /** Get a place from the backend */
+    service.getPlace = getPlace;
+    function getPlace(id, current, hard) {
         var cached = false;
         var endPoint = domain + 'get_place.php';
         var place = null;
@@ -417,7 +456,7 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
             } else {
                 var id = data.message.split(" = ")[1];
 
-                getPlace(id).then(function(place) {
+                service.getPlace(id).then(function(place) {
                     places.push(place);
                     notifyPlaceListObservers();
                     dfr.resolve(place);
@@ -541,41 +580,6 @@ services.factory('placeService', function($http, $q, Upload, FoundationApi, user
         // );
         return convertedPlace;
     }
-
-    /**
-     * Get the users current position
-     * @return {[type]} [description]
-     */
-    function getCurrentPosition() {
-        var dfr = $q.defer();
-        // Standard startposition (Stapelbäddsparken, Malmö)
-        var userPosition = {
-            latitude: 55.613565,
-            longitude: 12.983973,
-            accuracy: -1
-        };
-
-        // Om enheten och klienten stöder geolocation
-        if (navigator.geolocation) {
-            // Hämta användarens position
-            navigator.geolocation.getCurrentPosition(function(location) {
-                userPosition = {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                    accuracy: location.coords.accuracy
-                };
-                dfr.resolve(userPosition);
-            },
-            function() {
-                dfr.resolve(userPosition);
-            });
-        } else {
-            dfr.resolve(userPosition);
-        }
-
-        return dfr.promise; // Return a promise
-    }
-    service.getCurrentPosition = getCurrentPosition;
 
     /**
      * Add filter tags

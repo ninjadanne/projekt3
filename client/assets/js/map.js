@@ -10,7 +10,7 @@ skateMap.config(function(uiGmapGoogleMapApiProvider) {
 });
 
 /** Skate map controllers */
-skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeService', function($scope, uiGmapGoogleMapApi, placeService) {
+skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeService', 'geoService', function($scope, uiGmapGoogleMapApi, placeService, geoService) {
 
     /** Marker for users position */
     userPositionMarker = null;
@@ -62,7 +62,7 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
 
     // Get the users current position
     function getUserPosition() {
-        placeService.getCurrentPosition().then(function(userPosition) {
+        geoService.getUserPosition().then(function(userPosition) {
             $scope.userPosition = userPosition;
             setUserPositionMarker(userPosition.latitude, userPosition.longitude, userPosition.accuracy, true);
         });
@@ -136,7 +136,7 @@ skateMap.controller("mapController", ['$scope', 'uiGmapGoogleMapApi', 'placeServ
     }
 }]);
 
-skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'placeService', function($scope, uiGmapGoogleMapApi, placeService){
+skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'placeService', 'geoService', function($scope, uiGmapGoogleMapApi, placeService, geoService){
 
     var userPosition = null;
 
@@ -164,7 +164,7 @@ skateMap.controller('placeMapController', ['$scope', 'uiGmapGoogleMapApi', 'plac
     };
     placeService.registerCurrentPlaceObserver('placeMap', setCurrentPlacePosition);
 
-    placeService.getCurrentPosition().then(function(position) {
+    geoService.getUserPosition().then(function(position) {
         userPosition = position;
     });
 

@@ -3,7 +3,7 @@
 /** Controllers */
 
 /** Get places controller */
-placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function($scope, $filter, placeService) {
+placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', 'geoService', function($scope, $filter, placeService, geoService) {
 
     /** Scope models */
     $scope.filterTags = placeService.filterTags;
@@ -23,7 +23,7 @@ placeApp.controller('getPlaces', ['$scope', '$filter', 'placeService', function(
     placeService.registerPlaceListObserver('getPlaces', updatePlaceList);
 
     /** Get the users position and find places around it */
-    placeService.getCurrentPosition().then(function(position) {
+    geoService.getUserPosition().then(function(position) {
         placeService.getPlaces(position);
     });
 
@@ -125,11 +125,11 @@ placeApp.controller('addComment', function($scope, $rootScope, placeService, Fou
 });
 
 /** Add place controller */
-placeApp.controller('addPlace', function($scope, $location, FoundationApi, placeService, userService) {
+placeApp.controller('addPlace', function($scope, $location, FoundationApi, placeService, userService, geoService) {
 
     var file = null;
 
-    placeService.getCurrentPosition().then(function(userPosition) {
+    geoService.getUserPosition().then(function(userPosition) {
         $scope.newPlace.latitude = userPosition.latitude;
         $scope.newPlace.longitude = userPosition.longitude;
     });
