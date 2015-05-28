@@ -2,6 +2,12 @@ input[type=range] {
     width: 300px;
 }
 
+img.see-place-on-map {
+    position: absolute;
+    top: 0.5em;
+    right: 1em;
+}
+
 .userrating {
     clear: both;
     li {
