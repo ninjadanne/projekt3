@@ -7,6 +7,7 @@ url: /place/:placeId
     <div class="grid-block">
         <div class="small-12">
             <div class="small-12">
+                <a ui-sref="start" class="overlay-icon see-place-on-map show-for-small-only"><img class="fixed-top-right" src="assets/img/icons/pin.png" /></a>
                 <div class="slider" slick-slider="{dots:true, arrows:false, draggable:true, slidesToShow:1, infinite:true, autoplay:true, autoplaySpeed:2000}">
                     <div ng-repeat="image in place.images"><img src="{{image.uri}}"></div>
                 </div>
